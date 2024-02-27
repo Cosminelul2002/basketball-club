@@ -16,4 +16,13 @@ class AdminJoinController extends Controller
             'joins' => $joins,
         ]);
     }
+
+    public function approve(Request $request, Join $join)
+    {
+        $join->update([
+            'approved' => true,
+        ]);
+
+        return redirect()->back()->with('message', 'Cererea a fost aprobata');
+    }
 }

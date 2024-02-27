@@ -3,14 +3,8 @@
         <div class="px-4 sm:px-6 lg:px-8">
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">
-                    <h1 class="text-base font-semibold leading-6 text-gray-900">Users</h1>
-                    <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name,
-                        title, email and role.</p>
-                </div>
-                <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <button type="button"
-                        class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add
-                        user</button>
+                    <h1 class="text-base font-semibold leading-6 text-gray-900">Înscrieri</h1>
+                    <p class="mt-2 text-md text-gray-700">Lista cu înscrieri noi.</p>
                 </div>
             </div>
             <div class="mt-8 flow-root">
@@ -20,21 +14,24 @@
                             <thead>
                                 <tr>
                                     <th scope="col"
-                                        class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">Data
+                                        class="py-3.5 pl-4 pr-3 text-left text-md font-semibold text-gray-900 sm:pl-3">Data
                                         Înscrieri
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Nume
+                                    <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">Nume
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                    <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
                                         Prenume
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                    <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
                                         Vârstă
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Număr
+                                    <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">Număr
                                         de telefon
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email
+                                    <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">Email
+                                    </th>
+                                    <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
+                                        Aprobat
                                     </th>
                                     <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-3">
                                         <span class="sr-only">Edit</span>
@@ -42,18 +39,20 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
-                                <tr v-for="join in joins" :key="joins.id" class="even:bg-gray-50">
-                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
+                                <tr v-for="join in  joins " :key="joins.id" class="even:bg-gray-50">
+                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-3">
                                         {{ formatDate(join.created_at) }}</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ join.first_name }}</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ join.last_name }}</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ join.age }} ani</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ join.phone }}</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ join.email }}</td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.first_name }}</td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.last_name }}</td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.age }} ani</td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.phone }}</td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.email }}</td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{
+                                        formatBoolean(join.approved) }}</td>
                                     <td
-                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span
-                                                class="sr-only">, {{ join.email }}</span></a>
+                                        class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-md font-medium sm:pr-3">
+                                        <inertia-link :href="route('admin.dashboard.joins.approve', join)"
+                                            class="text-indigo-600 hover:text-indigo-900">Aprobă</inertia-link>
                                     </td>
                                 </tr>
                             </tbody>
@@ -90,6 +89,14 @@ export default {
             const formattedDate = date.toLocaleString('ro-RO', options);
 
             return formattedDate;
+        },
+
+        formatBoolean(boolean) {
+            if (boolean) {
+                return 'Da';
+            } else {
+                return 'Nu';
+            }
         }
     }
 }

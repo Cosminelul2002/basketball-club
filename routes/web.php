@@ -66,7 +66,8 @@ Route::name("admin.")->prefix('/admin')->group(function () use ($allMethods) {
         });
         Route::name("joins.")->prefix('/joins')->group(function () use ($allMethods) {
             Route::get('/', [AdminJoinController::class, 'index'])->name('index');
-            Route::delete('/{player}', [JoinController::class, 'destroy'])->name('destroy');
+            Route::post('approve/{join}', [AdminJoinController::class, 'approve'])->name('approve');
+            Route::delete('/{join}', [JoinController::class, 'destroy'])->name('destroy');
         });
     });
 });
