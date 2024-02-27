@@ -51,8 +51,8 @@
                                         formatBoolean(join.approved) }}</td>
                                     <td
                                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-md font-medium sm:pr-3">
-                                        <inertia-link :href="route('admin.dashboard.joins.approve', join)"
-                                            class="text-indigo-600 hover:text-indigo-900">Aprobă</inertia-link>
+                                        <button @click="approveJoin(join)"
+                                            class="text-indigo-600 hover:text-indigo-900">Aprobă</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -97,7 +97,11 @@ export default {
             } else {
                 return 'Nu';
             }
-        }
+        },
+
+        approveJoin(join) {
+            this.$inertia.post(route('admin.dashboard.joins.approve', join));
+        },
     }
 }
 

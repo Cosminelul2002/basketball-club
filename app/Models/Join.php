@@ -16,6 +16,7 @@ class Join extends Model
         'age',
         'phone',
         'message',
+        'approved',
     ];
 
     protected $casts = [

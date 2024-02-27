@@ -5,6 +5,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminJoinController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CoachController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
@@ -54,6 +55,15 @@ Route::name("admin.")->prefix('/admin')->group(function () use ($allMethods) {
             Route::get('/{player}/edit', [PlayerController::class, 'edit'])->name('edit');
             Route::put('/{player}', [PlayerController::class, 'update'])->name('update');
             Route::delete('/{player}', [PlayerController::class, 'destroy'])->name('destroy');
+        });
+        Route::name('coaches.')->prefix('/coaches')->group(function () use ($allMethods) {
+            Route::get('/', [CoachController::class, 'index'])->name('index');
+            Route::get('/create', [CoachController::class, 'create'])->name('create');
+            Route::post('/create', [CoachController::class, 'store'])->name('store');
+            Route::get('/{coach}', [CoachController::class, 'show'])->name('show');
+            Route::get('/{coach}/edit', [CoachController::class, 'edit'])->name('edit');
+            Route::put('/{coach}', [CoachController::class, 'update'])->name('update');
+            Route::delete('/{coach}', [CoachController::class, 'destroy'])->name('destroy');
         });
         Route::name("groups.")->prefix('/groups')->group(function () use ($allMethods) {
             Route::get('/', [PlayerGroupController::class, 'index'])->name('index');
