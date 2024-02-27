@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminJoinController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventController;
@@ -35,7 +36,8 @@ $allMethods = ['index', 'show', 'store', 'update', 'destroy', 'create', 'edit'];
 Route::get('/', [LandingController::class, 'index'])->name('landing');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/media', [MediaController::class, 'index'])->name('media');
-Route::get('join', [JoinController::class, 'index'])->name('join');
+Route::get('/join', [JoinController::class, 'index'])->name('join.index');
+Route::post('/join', [JoinController::class, 'store'])->name('join.store');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::apiResource('categories', CategoryController::class);
@@ -61,6 +63,10 @@ Route::name("admin.")->prefix('/admin')->group(function () use ($allMethods) {
             Route::get('/{player}/edit', [PlayerGroupController::class, 'edit'])->name('edit');
             Route::put('/{player}', [PlayerGroupController::class, 'update'])->name('update');
             Route::delete('/{player}', [PlayerGroupController::class, 'destroy'])->name('destroy');
+        });
+        Route::name("joins.")->prefix('/joins')->group(function () use ($allMethods) {
+            Route::get('/', [AdminJoinController::class, 'index'])->name('index');
+            Route::delete('/{player}', [JoinController::class, 'destroy'])->name('destroy');
         });
     });
 });

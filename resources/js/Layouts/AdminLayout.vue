@@ -257,10 +257,10 @@ import {
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
 const navigation = [
-    { name: 'Pagină pricipală', href: '#', icon: HomeIcon, current: true },
+    { name: 'Pagină pricipală', href: route('admin.dashboard'), icon: HomeIcon, current: true },
     { name: 'Jucători', href: route('admin.dashboard.players.index'), icon: UsersIcon, current: false },
     { name: 'Grupe de vârstă', href: route('admin.dashboard.groups.index'), icon: CalendarIcon, current: false },
-    { name: 'Înscrieri', href: '#', icon: FolderIcon, current: false },
+    { name: 'Înscrieri', href: route('admin.dashboard.joins.index'), icon: FolderIcon, current: false },
     { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
     { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
 ]
