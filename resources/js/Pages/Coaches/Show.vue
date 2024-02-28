@@ -1,7 +1,7 @@
 <template>
     <AdminLayout>
         <div class="px-4 sm:px-0">
-            <h3 class="text-base font-semibold leading-7 text-gray-900">Informații jucător</h3>
+            <h3 class="text-base font-semibold leading-7 text-gray-900">Informații antrenor</h3>
             <p class="mt-1 max-w-2xl text-md leading-6 text-gray-500">Detalii personale</p>
             <!-- <span class="flex justify-end ml-4 flex-shrink-0">
                 <button type="button"
@@ -27,71 +27,36 @@
                     <dt class="text-md font-medium leading-6 text-gray-900">Nume</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                         <!-- <input v-if="!editing" v-model="player.first_name" class="flex-grow border-none" readonly> -->
-                        <span v-if="!editing" class="flex-grow">{{ player.first_name }}</span>
+                        <span v-if="!editing" class="flex-grow">{{ coach.first_name }}</span>
                         <input v-else v-model="form.editedFirstName" class="flex-grow">
                     </dd>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Prenume</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ player.last_name }}</span>
+                        <span v-if="!editing" class="flex-grow">{{ coach.last_name }}</span>
                         <input v-else v-model="form.editedLastName" class="flex-grow">
                     </dd>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Vârstă</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ player.date_of_birth }}</span>
+                        <span v-if="!editing" class="flex-grow">{{ coach.date_of_birth }}</span>
                         <input v-else v-model="form.editedDateOfBirth" class="flex-grow">
                     </dd>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-md font-medium leading-6 text-gray-900">Grupă de vârstă</dt>
+                    <dt class="text-md font-medium leading-6 text-gray-900">Email</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ player.player_group.name }}</span>
-                        <select v-else v-model="form.editedPlayerGroup" class="flex-grow">
-                            <option v-for="group in groups" :key="group.id" :value="group.name">{{ group.name }}</option>
-                        </select>
+                        <span v-if="!editing" class="flex-grow">{{ coach.email }}</span>
+                        <input v-else v-model="form.editedEmail" class="flex-grow">
                     </dd>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-md font-medium leading-6 text-gray-900">Nivel</dt>
+                    <dt class="text-md font-medium leading-6 text-gray-900">Telefon</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ player.skill_level }}</span>
-                        <select v-else v-model="form.editedSkillLevel" class="flex-grow">
-                            <option v-for="skill_level in skill_levels" :key="skill_level" :value="skill_level">{{
-                                skill_level
-                            }}</option>
-                        </select>
-                        <!-- <input v-else v-model="form.editedSkillLevel" class="flex-grow"> -->
-                    </dd>
-                </div>
-                <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-md font-medium leading-6 text-gray-900">Înălțime</dt>
-                    <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ player.height }} cm</span>
-                        <input v-else v-model="form.editedHeight" class="flex-grow">
-                    </dd>
-                </div>
-                <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-md font-medium leading-6 text-gray-900">Greutate</dt>
-                    <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ player.weight }} kg</span>
-                        <input v-else v-model="form.editedWeight" class="flex-grow">
-                    </dd>
-                </div>
-                <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-md font-medium leading-6 text-gray-900">Nume părinte</dt>
-                    <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ player.parent_name }} </span>
-                        <input v-else v-model="form.editedParentName" class="flex-grow">
-                    </dd>
-                </div>
-                <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-md font-medium leading-6 text-gray-900">Număr de telefon părinte</dt>
-                    <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ player.parent_phone }} </span>
-                        <input v-else v-model="form.editedParentPhoneNumber" class="flex-grow">
+                        <span v-if="!editing" class="flex-grow">{{ coach.phone }}</span>
+                        <input v-else v-model="form.editedPhone" class="flex-grow">
                     </dd>
                 </div>
             </dl>
@@ -102,6 +67,7 @@
                     leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
                     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                 </TransitionChild>
+
                 <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
                     <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <TransitionChild as="template" enter="ease-out duration-300"
@@ -124,7 +90,7 @@
                                 <div class="flex flex-row gap-5 mt-5 sm:mt-6">
                                     <button
                                         class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                        @click="updatePlayer">Da</button>
+                                        @click="updateCoach">Da</button>
                                     <button
                                         class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                         @click="cancelUpdate">Nu</button>
@@ -147,37 +113,31 @@ export default {
     components: { AdminLayout },
 
     props: {
-        player: Object,
-        groups: Array,
+        coach: Object,
+        // groups: Array,
     },
 
     data() {
         return {
             editing: false,
             open: false,
-            skill_levels: ['Începător', 'Intermediar', 'Avansat'],
             form: {
-                editedFirstName: this.player.first_name,
-                editedLastName: this.player.last_name,
-                editedDateOfBirth: this.player.date_of_birth,
-                editedPlayerGroup: this.player.player_group.name,
-                editedSkillLevel: this.player.skill_level,
-                editedHeight: this.player.height,
-                editedWeight: this.player.weight,
-                editedParentName: this.player.parent_name,
-                editedParentPhoneNumber: this.player.parent_phone,
+                editedFirstName: this.coach.first_name,
+                editedLastName: this.coach.last_name,
+                editedDateOfBirth: this.coach.date_of_birth,
+                editedDescription: this.coach.description,
+                editedEmail: this.coach.email,
+                editedPhone: this.coach.phone,
             },
-            updatedPlayerData: {
+
+            updatedCoachData: {
                 first_name: '',
                 last_name: '',
                 date_of_birth: '',
-                player_group: '',
-                skill_level: '',
-                height: '',
-                weight: '',
-                parent_name: '',
-                parent_phone: '',
-            }
+                description: '',
+                email: '',
+                phone: '',
+            },
         };
     },
 
@@ -187,50 +147,45 @@ export default {
             if (!this.editing) {
                 // Check if any changes were made
                 const changesDetected =
-                    this.form.editedFirstName !== this.player.first_name ||
-                    this.form.editedLastName !== this.player.last_name ||
-                    this.form.editedDateOfBirth !== this.player.date_of_birth ||
-                    this.form.editedPlayerGroup !== this.player.player_group.name ||
-                    this.form.editedSkillLevel !== this.player.skill_level ||
-                    this.form.editedHeight !== this.player.height ||
-                    this.form.editedWeight !== this.player.weight ||
-                    this.form.editedParentName !== this.player.parent_name ||
-                    this.form.editedParentPhoneNumber !== this.player.parent_phone;
+                    this.form.editedFirstName !== this.coach.first_name ||
+                    this.form.editedLastName !== this.coach.last_name ||
+                    this.form.editedDateOfBirth !== this.coach.date_of_birth ||
+                    this.form.editedDescription !== this.coach.description ||
+                    this.form.editedEmail !== this.coach.email ||
+                    this.form.editedPhone !== this.coach.phone;
 
                 if (changesDetected) {
                     // Make a request to update the player
-                    this.updatedPlayerData.first_name = this.form.editedFirstName;
-                    this.updatedPlayerData.last_name = this.form.editedLastName;
-                    this.updatedPlayerData.date_of_birth = this.form.editedDateOfBirth;
-                    this.updatedPlayerData.player_group = this.form.editedPlayerGroup;
-                    this.updatedPlayerData.skill_level = this.form.editedSkillLevel;
-                    this.updatedPlayerData.height = this.form.editedHeight;
-                    this.updatedPlayerData.weight = this.form.editedWeight;
-                    this.updatedPlayerData.parent_name = this.form.editedParentName;
-                    this.updatedPlayerData.parent_phone = this.form.editedParentPhoneNumber;
+                    this.updatedCoachData.first_name = this.form.editedFirstName;
+                    this.updatedCoachData.last_name = this.form.editedLastName;
+                    this.updatedCoachData.date_of_birth = this.form.editedDateOfBirth;
+                    this.updatedCoachData.description = this.form.editedDescription;
+                    this.updatedCoachData.email = this.form.editedEmail;
+                    this.updatedCoachData.phone = this.form.editedPhone;
 
                     this.open = true;
                 }
             }
         },
 
-        updatePlayer() {
-            this.$inertia.put(route('admin.dashboard.players.update', this.player), this.updatedPlayerData);
+        updateCoach() {
+            this.$inertia.put(route('admin.dashboard.coaches.update', this.coach), this.updatedCoachData);
+
             this.open = false;
         },
 
         cancelUpdate() {
             this.open = false;
 
-            this.form.editedFirstName = this.player.first_name;
-            this.form.editedLastName = this.player.last_name;
-            this.form.editedDateOfBirth = this.player.date_of_birth;
-            this.form.editedPlayerGroup = this.player.player_group.name;
-            this.form.editedSkillLevel = this.player.skill_level;
-            this.form.editedHeight = this.player.height;
-            this.form.editedWeight = this.player.weight;
-            this.form.editedParentName = this.player.parent_name;
-            this.form.editedParentPhoneNumber = this.player.parent_phone;
+            // reset the form
+            this.form = {
+                editedFirstName: this.coach.first_name,
+                editedLastName: this.coach.last_name,
+                editedDateOfBirth: this.coach.date_of_birth,
+                editedDescription: this.coach.description,
+                editedEmail: this.coach.email,
+                editedPhone: this.coach.phone,
+            };
         }
     },
 }

@@ -1,6 +1,6 @@
 <template>
     <AdminLayout>
-        <form class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+        <div class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
             <div class="px-4 py-6 sm:p-8">
                 <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div class="sm:col-span-3">
@@ -50,7 +50,8 @@
                         <label for="date-of-birth" class="block text-sm font-medium leading-6 text-gray-900">Data de
                             naștere</label>
                         <div class="mt-2">
-                            <input type="text" name="date-of-birth" id="date-of-birth" autocomplete="date-of-birth"
+                            <input type="date" name="date-of-birth" id="date-of-birth" autocomplete="date-of-birth"
+                                v-model="form.date_of_birth"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             <span v-if="errors.date_of_birth" class="text-red-500 text-sm">{{ errors.date_of_birth
                             }}</span>
@@ -61,6 +62,7 @@
                         <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Descriere</label>
                         <div class="mt-2">
                             <textarea rows="3" name="description" id="description" autocomplete="description"
+                                v-model="form.description"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             <span v-if="errors.description" class="text-red-500 text-sm">{{ errors.description
                             }}</span>
@@ -76,7 +78,7 @@
                     Salvează
                 </button>
             </div>
-        </form>
+        </div>
     </AdminLayout>
 </template>
 
@@ -128,8 +130,7 @@ export default {
             }
 
             if (Object.keys(this.errors).length === 0) {
-                console.log('aaaa');
-                // this.$inertia.post(route('admin.dashboard.coaches.create'), this.form);
+                this.$inertia.post(route('admin.dashboard.coaches.create'), this.form);
                 this.form = {
                     first_name: null,
                     last_name: null,

@@ -7,8 +7,9 @@
                     <p class="mt-2 text-md text-gray-700">Liste grupe și antrenori.</p>
                 </div>
                 <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <button type="button"
-                        class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Adaugă grupă nouă</button>
+                    <inertia-link :href="route('admin.dashboard.groups.create')"
+                        class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Adaugă
+                        grupă nouă</inertia-link>
                 </div>
             </div>
             <div class="mt-8 flow-root">
@@ -30,6 +31,9 @@
                                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                                             <span class="sr-only">Edit</span>
                                         </th>
+                                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                            <span class="sr-only">Delete</span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
@@ -45,6 +49,18 @@
                                                     {{ coach.first_name }} {{ coach.last_name }}
                                                 </li>
                                             </ul>
+                                        </td>
+                                        <td
+                                            class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-md font-medium sm:pr-6">
+                                            <inertia-link :href="route('admin.dashboard.coaches.show', playerGroup)"
+                                                class="text-indigo-600 hover:text-indigo-900">Editează<span
+                                                    class="sr-only"></span></inertia-link>
+                                        </td>
+                                        <td
+                                            class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-md font-medium sm:pr-6">
+                                            <button @click="deleteGroup(playerGroup)"
+                                                class="text-red-600 hover:text-red-400">Șterge<span
+                                                    class="sr-only"></span></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -75,6 +91,11 @@ export default {
         playerGroups: Array,
     },
 
+    methods: {
+        deleteGroup(group) {
+            this.$inertia.delete(route('admin.dashboard.groups.destroy', group));
+        }
+    }
 }
 
 

@@ -34,10 +34,13 @@
                                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                                             <span class="sr-only">Edit</span>
                                         </th>
+                                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                            <span class="sr-only">Delete</span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
-                                    <tr v-for="coach in coaches" :key="coach.id">
+                                    <tr v-for="coach in  coaches " :key="coach.id">
                                         <td
                                             class="whitespace-nowrap py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-6">
                                             {{ coach.first_name }}</td>
@@ -48,11 +51,18 @@
                                         <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ coach.email }}</td>
                                         <td class=" px-3 py-4 text-md text-gray-500">{{ coach.description
                                         }}</td>
-                                        <!-- <td
+                                        <td
                                             class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-md font-medium sm:pr-6">
-                                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span
-                                                    class="sr-only">, {{ person.name }}</span></a>
-                                        </td> -->
+                                            <inertia-link :href="route('admin.dashboard.coaches.show', coach)"
+                                                class="text-indigo-600 hover:text-indigo-900">Editează<span
+                                                    class="sr-only"></span></inertia-link>
+                                        </td>
+                                        <td
+                                            class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-md font-medium sm:pr-6">
+                                            <button @click="deleteCoach(coach)"
+                                                class="text-red-600 hover:text-red-400">Șterge<span
+                                                    class="sr-only"></span></button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -74,8 +84,16 @@ export default {
 
     props: {
         coaches: Array,
-    }
+    },
 
+
+    methods: {
+        deleteCoach(coach) {
+            if (confirm('Sunteți sigur că doriți să ștergeți acest antrenor?')) {
+                this.$inertia.delete(route('admin.dashboard.coaches.destroy', coach));
+            }
+        }
+    }
 }
 
 </script>

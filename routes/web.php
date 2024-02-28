@@ -69,10 +69,10 @@ Route::name("admin.")->prefix('/admin')->group(function () use ($allMethods) {
             Route::get('/', [PlayerGroupController::class, 'index'])->name('index');
             Route::get('/create', [PlayerGroupController::class, 'create'])->name('create');
             Route::post('/create', [PlayerGroupController::class, 'store'])->name('store');
-            Route::get('/{player}', [PlayerGroupController::class, 'show'])->name('show');
-            Route::get('/{player}/edit', [PlayerGroupController::class, 'edit'])->name('edit');
-            Route::put('/{player}', [PlayerGroupController::class, 'update'])->name('update');
-            Route::delete('/{player}', [PlayerGroupController::class, 'destroy'])->name('destroy');
+            Route::get('/{group}', [PlayerGroupController::class, 'show'])->name('show');
+            Route::get('/{group}/edit', [PlayerGroupController::class, 'edit'])->name('edit');
+            Route::put('/{group}', [PlayerGroupController::class, 'update'])->name('update');
+            Route::delete('/{group}', [PlayerGroupController::class, 'destroy'])->name('destroy');
         });
         Route::name("joins.")->prefix('/joins')->group(function () use ($allMethods) {
             Route::get('/', [AdminJoinController::class, 'index'])->name('index');
