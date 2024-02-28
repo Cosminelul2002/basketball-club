@@ -1,26 +1,4 @@
-<!--
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
 <template>
-    <!--
-      This example requires updating your template:
-  
-      ```
-      <html class="h-full bg-white">
-      <body class="h-full">
-      ```
-    -->
     <div>
         <TransitionRoot as="template" :show="sidebarOpen">
             <Dialog as="div" class="relative z-50 lg:hidden" @close="sidebarOpen = false">
@@ -304,7 +282,7 @@ const navigation = [
     { name: 'Antrenori', href: route('admin.dashboard.coaches.index'), icon: DocumentDuplicateIcon, current: false },
     { name: 'Grupe de vârstă', href: route('admin.dashboard.groups.index'), icon: CalendarIcon, current: false },
     { name: 'Înscrieri', href: route('admin.dashboard.joins.index'), icon: FolderIcon, current: false },
-    { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
+    { name: 'Site', href: route('landing'), icon: ChartPieIcon, current: false },
 ]
 const teams = [
     { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
