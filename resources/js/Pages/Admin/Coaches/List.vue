@@ -1,6 +1,5 @@
 <template>
     <AdminLayout>
-
         <div class="px-4 sm:px-6 lg:px-8">
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">
@@ -75,12 +74,13 @@
 </template>
 
 <script>
-import AdminLayout from '../../Layouts/AdminLayout.vue';
+import AdminLayout from '../../../Layouts/AdminLayout.vue';
+
 
 export default {
     name: 'Coaches/List',
 
-    components: { AdminLayout },
+    components: { AdminLayout, AdminLayout },
 
     props: {
         coaches: Array,
@@ -89,6 +89,7 @@ export default {
 
     methods: {
         deleteCoach(coach) {
+            console.log(coach);
             if (confirm('Sunteți sigur că doriți să ștergeți acest antrenor?')) {
                 this.$inertia.delete(route('admin.dashboard.coaches.destroy', coach));
             }

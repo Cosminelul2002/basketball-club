@@ -52,7 +52,7 @@
                                         </td>
                                         <td
                                             class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-md font-medium sm:pr-6">
-                                            <inertia-link :href="route('admin.dashboard.coaches.show', playerGroup)"
+                                            <inertia-link :href="route('admin.dashboard.groups.show', playerGroup)"
                                                 class="text-indigo-600 hover:text-indigo-900">Editează<span
                                                     class="sr-only"></span></inertia-link>
                                         </td>
@@ -80,7 +80,7 @@ const people = [
 </script>
 
 <script>
-import AdminLayout from '../../Layouts/Adminlayout.vue';
+import AdminLayout from '../../../Layouts/AdminLayout.vue';
 
 export default {
     name: 'Admin/PlayerGroups/List',
@@ -93,7 +93,8 @@ export default {
 
     methods: {
         deleteGroup(group) {
-            this.$inertia.delete(route('admin.dashboard.groups.destroy', group));
+
+            this.$inertia.delete(route('admin.dashboard.groups.destroy', group.id));
         }
     }
 }

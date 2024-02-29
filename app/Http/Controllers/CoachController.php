@@ -11,21 +11,21 @@ class CoachController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Coaches/List', [
+        return Inertia::render('Admin/Coaches/List', [
             'coaches' => Coach::all()
         ]);
     }
 
     public function show(Coach $coach)
     {
-        return Inertia::render('Coaches/Show', [
+        return Inertia::render('Admin/Coaches/Show', [
             'coach' => $coach
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Coaches/Create');
+        return Inertia::render('Admin/Coaches/Create');
     }
 
     public function store(StoreCoachRequest $request)

@@ -47,7 +47,7 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <div class="text-xs font-semibold leading-6 text-gray-400">Your teams</div>
+                                            <div class="text-xs font-semibold leading-6 text-gray-400">Magazin</div>
                                             <ul role="list" class="-mx-2 mt-2 space-y-1">
                                                 <li v-for="team in teams" :key="team.name">
                                                     <a :href="team.href"
@@ -98,7 +98,7 @@
                             </ul>
                         </li>
                         <li>
-                            <div class="text-xs font-semibold leading-6 text-gray-400">Your teams</div>
+                            <div class="text-xs font-semibold leading-6 text-gray-400">Magazin</div>
                             <ul role="list" class="-mx-2 mt-2 space-y-1">
                                 <li v-for="team in teams" :key="team.name">
                                     <a :href="team.href"
@@ -285,8 +285,8 @@ const navigation = [
     { name: 'Site', href: route('landing'), icon: ChartPieIcon, current: false },
 ]
 const teams = [
-    { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
-    { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
+    { id: 1, name: 'Produse', href: route('admin.dashboard.products.index'), initial: 'H', current: false },
+    { id: 2, name: 'Categorii', href: route('admin.dashboard.categories.index'), initial: 'T', current: false },
     { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
 ]
 const userNavigation = [

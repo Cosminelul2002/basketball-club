@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import AdminLayout from '../../Layouts/AdminLayout.vue';
+import AdminLayout from '../../../Layouts/AdminLayout.vue';
 import moment from 'moment';
 import 'moment/locale/ro';
 export default {

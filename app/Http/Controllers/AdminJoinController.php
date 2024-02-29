@@ -12,7 +12,7 @@ class AdminJoinController extends Controller
     {
         $joins = Join::orderByDesc('created_at')->get();
 
-        return Inertia::render('Joins/List', [
+        return Inertia::render('Admin/Joins/List', [
             'joins' => $joins,
         ]);
     }

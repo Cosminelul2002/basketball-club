@@ -16,21 +16,21 @@ class PlayerGroupController extends Controller
         $playerGroups = PlayerGroup::with(['coaches', 'players'])->get();
 
         // Pass the player groups to the Inertia view
-        return Inertia::render('PlayerGroups/List', [
+        return Inertia::render('Admin/PlayerGroups/List', [
             'playerGroups' => $playerGroups,
         ]);
     }
 
     public function show(PlayerGroup $playerGroup)
     {
-        return Inertia::render('PlayerGroups/Show', [
+        return Inertia::render('Admin/PlayerGroups/Show', [
             'playerGroup' => $playerGroup->load('coaches', 'players')
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('PlayerGroups/Create');
+        return Inertia::render('Admin/PlayerGroups/Create');
     }
 
     public function store(StoreGroupRequest $request)
@@ -42,5 +42,13 @@ class PlayerGroupController extends Controller
         ]);
 
         return redirect()->route('admin.dashboard.groups.index')->with('message', 'Grup adăugat cu succes!');
+    }
+
+    public function destroy($id)
+    {
+        $playerGroup = PlayerGroup::findOrFail($id);
+        $playerGroup->delete();
+
+        return redirect()->route('admin.dashboard.groups.index')->with('message', 'Grup șters cu succes!');
     }
 }

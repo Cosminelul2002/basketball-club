@@ -20,7 +20,7 @@ class PlayerController extends Controller
     #[Authorize]
     public function dashboard()
     {
-        return Inertia::render('Player/Dashboard');
+        return Inertia::render('Admin/Player/Dashboard');
     }
 
     public function index(Request $request)
@@ -37,7 +37,7 @@ class PlayerController extends Controller
 
         $players = Player::all();
 
-        return Inertia::render('Players/List', [
+        return Inertia::render('Admin/Players/List', [
             'players' => $players->load('player_group'),
         ]);
     }
@@ -46,7 +46,7 @@ class PlayerController extends Controller
     {
         $groups = PlayerGroup::all();
 
-        return Inertia::render('Players/Show', [
+        return Inertia::render('Admin/Players/Show', [
             'player' => $player->load('player_group'),
             'groups' => $groups
         ]);
@@ -59,7 +59,7 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Players/Create', [
+        return Inertia::render('Admin/Players/Create', [
             'positions' => Positions::values()
         ]);
     }
@@ -86,7 +86,7 @@ class PlayerController extends Controller
 
     public function edit(Player $player)
     {
-        return Inertia::render('Players/Edit', [
+        return Inertia::render('Admin/Players/Edit', [
             'player' => $player,
         ]);
     }

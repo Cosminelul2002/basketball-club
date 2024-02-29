@@ -239,7 +239,7 @@ export default {
 
 <script setup>
 import { PaperClipIcon } from '@heroicons/vue/20/solid'
-import AdminLayout from '../../Layouts/AdminLayout.vue';
+import AdminLayout from '../../../Layouts/AdminLayout.vue';
 import { Inertia } from '@inertiajs/inertia';
 import { ref } from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'

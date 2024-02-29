@@ -1,12 +1,8 @@
 <template>
     <AdminLayout>
         <div class="px-4 sm:px-0">
-            <h3 class="text-base font-semibold leading-7 text-gray-900">Informații antrenor</h3>
-            <p class="mt-1 max-w-2xl text-md leading-6 text-gray-500">Detalii personale</p>
-            <!-- <span class="flex justify-end ml-4 flex-shrink-0">
-                <button type="button"
-                    class="rounded-md bg-white font-medium text-indigo-600 hover:text-indigo-500">Editează</button>
-            </span> -->
+            <h3 class="text-base font-semibold leading-7 text-gray-900">Informații produs</h3>
+            <p class="mt-1 max-w-2xl text-md leading-6 text-gray-500">Detalii</p>
             <dd class="flex justify-end mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                 <span class="ml-4 flex-shrink-0">
                     <template v-if="editing">
@@ -27,36 +23,40 @@
                     <dt class="text-md font-medium leading-6 text-gray-900">Nume</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                         <!-- <input v-if="!editing" v-model="player.first_name" class="flex-grow border-none" readonly> -->
-                        <span v-if="!editing" class="flex-grow">{{ coach.first_name }}</span>
-                        <input v-else v-model="form.editedFirstName" class="flex-grow">
+                        <span v-if="!editing" class="flex-grow">{{ product.name }}</span>
+                        <input v-else v-model="form.editedName" class="flex-grow">
                     </dd>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-md font-medium leading-6 text-gray-900">Prenume</dt>
+                    <dt class="text-md font-medium leading-6 text-gray-900">Descriere</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ coach.last_name }}</span>
-                        <input v-else v-model="form.editedLastName" class="flex-grow">
+                        <span v-if="!editing" class="flex-grow">{{ product.description }}</span>
+                        <input v-else v-model="form.editedDescription" class="flex-grow">
                     </dd>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-md font-medium leading-6 text-gray-900">Vârstă</dt>
+                    <dt class="text-md font-medium leading-6 text-gray-900">Preț</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ coach.date_of_birth }}</span>
-                        <input v-else v-model="form.editedDateOfBirth" class="flex-grow">
+                        <span v-if="!editing" class="flex-grow">{{ product.price }}</span>
+                        <input v-else v-model="form.editedPrice" class="flex-grow">
                     </dd>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-md font-medium leading-6 text-gray-900">Email</dt>
+                    <dt class="text-md font-medium leading-6 text-gray-900">Valabil</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ coach.email }}</span>
-                        <input v-else v-model="form.editedEmail" class="flex-grow">
+                        <span v-if="!editing" class="flex-grow">{{ product.availability ? 'Da' : 'Nu' }}</span>
+                        <input v-else v-model="form.editedAvailability" class="flex-grow">
+                        <select v-else v-model="form.editedAvailability" class="flex-grow">
+                            <option v-for="availability in selectAvailability" :value="availability">{{ availability }}
+                            </option>
+                        </select>
                     </dd>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-md font-medium leading-6 text-gray-900">Telefon</dt>
+                    <dt class="text-md font-medium leading-6 text-gray-900">Categorie</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ coach.phone }}</span>
-                        <input v-else v-model="form.editedPhone" class="flex-grow">
+                        <span v-if="!editing" class="flex-grow">{{ product.category.name }}</span>
+                        <input v-else v-model="form.editedCategory" class="flex-grow">
                     </dd>
                 </div>
             </dl>
@@ -90,7 +90,7 @@
                                 <div class="flex flex-row gap-5 mt-5 sm:mt-6">
                                     <button
                                         class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                        @click="updateCoach">Da</button>
+                                        @click="updateProduct">Da</button>
                                     <button
                                         class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                         @click="cancelUpdate">Nu</button>
@@ -103,18 +103,16 @@
         </TransitionRoot>
     </AdminLayout>
 </template>
-  
 
 <script>
 
 export default {
-    name: 'Player/Show',
+    name: 'Admin/Products/Show',
 
     components: { AdminLayout },
 
     props: {
-        coach: Object,
-        // groups: Array,
+        product: Object,
     },
 
     data() {
@@ -122,23 +120,22 @@ export default {
             editing: false,
             open: false,
             form: {
-                editedFirstName: this.coach.first_name,
-                editedLastName: this.coach.last_name,
-                editedDateOfBirth: this.coach.date_of_birth,
-                editedDescription: this.coach.description,
-                editedEmail: this.coach.email,
-                editedPhone: this.coach.phone,
+                editedName: this.product.name,
+                editedDescription: this.product.description,
+                editedPrice: this.product.price,
+                editedAvailability: this.product.availability,
+                editedCategory: this.product.category.name,
             },
-
-            updatedCoachData: {
-                first_name: '',
-                last_name: '',
-                date_of_birth: '',
+            updatedProduct: {
+                name: '',
                 description: '',
-                email: '',
-                phone: '',
+                price: '',
+                availability: '',
+                category: '',
             },
-        };
+            selectAvailability: ['Da', 'Nu'
+            ]
+        }
     },
 
     methods: {
@@ -147,54 +144,49 @@ export default {
             if (!this.editing) {
                 // Check if any changes were made
                 const changesDetected =
-                    this.form.editedFirstName !== this.coach.first_name ||
-                    this.form.editedLastName !== this.coach.last_name ||
-                    this.form.editedDateOfBirth !== this.coach.date_of_birth ||
-                    this.form.editedDescription !== this.coach.description ||
-                    this.form.editedEmail !== this.coach.email ||
-                    this.form.editedPhone !== this.coach.phone;
+                    this.form.editedName !== this.product.name ||
+                    this.form.editedDescription !== this.product.description ||
+                    this.form.editedPrice !== this.product.price ||
+                    this.form.editedAvailability !== this.product.availability ||
+                    this.form.editedCategory !== this.product.category.name;
 
                 if (changesDetected) {
                     // Make a request to update the player
-                    this.updatedCoachData.first_name = this.form.editedFirstName;
-                    this.updatedCoachData.last_name = this.form.editedLastName;
-                    this.updatedCoachData.date_of_birth = this.form.editedDateOfBirth;
-                    this.updatedCoachData.description = this.form.editedDescription;
-                    this.updatedCoachData.email = this.form.editedEmail;
-                    this.updatedCoachData.phone = this.form.editedPhone;
+                    this.updatedProduct.name = this.form.editedName;
+                    this.updatedProduct.description = this.form.editedDescription;
+                    this.updatedProduct.price = this.form.editedPrice;
+                    this.updatedProduct.availability = this.form.editedAvailability;
+                    this.updatedProduct.category = this.form.editedCategory;
 
                     this.open = true;
                 }
             }
         },
 
-        updateCoach() {
-            this.$inertia.put(route('admin.dashboard.coaches.update', this.coach), this.updatedCoachData);
-
+        updateProduct() {
+            this.$inertia.put(route('admin.dashboard.products.update', this.product), this.updatedProduct);
             this.open = false;
         },
 
         cancelUpdate() {
             this.open = false;
 
-            // reset the form
-            this.form = {
-                editedFirstName: this.coach.first_name,
-                editedLastName: this.coach.last_name,
-                editedDateOfBirth: this.coach.date_of_birth,
-                editedDescription: this.coach.description,
-                editedEmail: this.coach.email,
-                editedPhone: this.coach.phone,
-            };
+            // Reset the form
+            this.form.editedName = this.product.name;
+            this.form.editedDescription = this.product.description;
+            this.form.editedPrice = this.product.price;
+            this.form.editedAvailability = this.product.availability;
+            this.form.editedCategory = this.product.category.name;
         }
-    },
+
+    }
 }
 
 </script>
 
 <script setup>
 import { PaperClipIcon } from '@heroicons/vue/20/solid'
-import AdminLayout from '../../Layouts/AdminLayout.vue';
+import AdminLayout from '../../../Layouts/AdminLayout.vue';
 import { Inertia } from '@inertiajs/inertia';
 import { ref } from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'

@@ -14,8 +14,8 @@
                             </a>
                         </p>
                         <p class="mt-1 flex text-xs leading-5 text-gray-900">
-                            <a class="relative truncate hover:underline">{{ player.player_group.name
-                            }}</a>
+                            <a class="relative truncate hover:underline">{{ player.player_group ?
+                                player.player_group.name : 'Fără grupă' }}</a>
                         </p>
                     </div>
                 </div>
@@ -56,7 +56,7 @@ export default {
 
 <script setup>
 import { ChevronRightIcon } from '@heroicons/vue/20/solid'
-import AdminLayout from '../../Layouts/AdminLayout.vue';
+import AdminLayout from '../../../Layouts/AdminLayout.vue';
 
 const people = [
     {
