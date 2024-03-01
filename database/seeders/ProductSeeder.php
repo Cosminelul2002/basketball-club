@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
         $products = [
             // Mingi de Baschet
             [
-                'category_id' => 1, // Acest id trebuie să se potrivească cu id-ul categoriei 'Mingi de Baschet'
+                'category_id' => NULL, // Acest id trebuie să se potrivească cu id-ul categoriei 'Mingi de Baschet'
                 'name' => 'Mingie de Baschet Nike',
                 'description' => 'Descriere pentru mingie de baschet Nike.',
                 'availability' => 0,

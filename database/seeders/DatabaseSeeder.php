@@ -22,13 +22,13 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            CategorySeeder::class,
+            // CategorySeeder::class,
             ProductSeeder::class,
-            RoleSeeder::class,
-            PlayerGroupSeeder::class,
-            PlayerSeeder::class,
-            CoachSeeder::class,
-            CoachGroupSeeder::class,
+            // RoleSeeder::class,
+            // PlayerGroupSeeder::class,
+            // PlayerSeeder::class,
+            // CoachSeeder::class,
+            // CoachGroupSeeder::class,
         ]);
 
         \App\Models\User::factory(100)->create();
