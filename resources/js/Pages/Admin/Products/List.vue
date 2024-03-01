@@ -7,9 +7,9 @@
                     <p class="mt-2 text-sm text-gray-700">Lista de produse din magazin.</p>
                 </div>
                 <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <button type="button"
+                    <inertia-link :href="route('admin.dashboard.products.create')"
                         class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Adaugă
-                        produs</button>
+                        produs</inertia-link>
                 </div>
             </div>
             <div class="mt-8 flow-root">
@@ -39,8 +39,14 @@
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
                                         {{ product.name }}</td>
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                                        <inertia-link :href="route('admin.dashboard.categories.show', product.category)">{{
-                                            product.category.name }}</inertia-link>
+                                        <template v-if="product.category !== null">
+                                            <inertia-link
+                                                :href="route('admin.dashboard.categories.show', product.category)">{{
+                                                    product.category.name }}</inertia-link>
+                                        </template>
+                                        <template v-else>
+                                            <span class="text-gray-500">Fără categorie</span>
+                                        </template>
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.price }} lei
                                     </td>

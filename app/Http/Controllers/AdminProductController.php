@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
+use App\Models\Category;
 use App\Models\Product;
+use App\Services\SlugService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -24,16 +27,16 @@ class AdminProductController extends Controller
 
     public function create()
     {
-        return Inertia::render('Admin/Products/Create');
+        return Inertia::render('Admin/Products/Create', [
+            'categories' => Category::all(),
+        ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'price' => 'required',
-            'category_id' => 'required',
-        ]);
+        $request->validated();
+
+        $request->merge(['slug' => SlugService::createForModel(Product::class, $request->name)]);
 
         Product::create($request->all());
 

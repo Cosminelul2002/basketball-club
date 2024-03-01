@@ -24,7 +24,8 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('price', 8, 2);
             $table->boolean('availability');
-            $table->string('image');
+            $table->string('image')
+                ->nullable();
             $table->timestamps();
         });
     }
