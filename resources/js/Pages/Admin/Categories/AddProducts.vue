@@ -67,9 +67,20 @@
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                             {{ product.price }}
                                         </td>
-                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                            {{ product.category.name }}
-                                        </td>
+                                        <template v-if="product.category !== null">
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                {{ product.category.name }}
+                                            </td>
+                                            <!-- <inertia-link
+                                                :href="route('admin.dashboard.categories.show', product.category)">{{
+                                                    product.category.name }}</inertia-link> -->
+                                        </template>
+                                        <template v-else>
+                                            <td class="whitespace nowrap px-3 py-4 text-sm text-gray-500">
+                                                Fără categorie
+                                            </td>
+                                        </template>
+
                                     </tr>
                                 </tbody>
                             </table>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\Positions;
 use App\Http\Requests\PlayerRequest;
+use App\Http\Requests\StorePlayerRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Player;
 use App\Models\PlayerGroup;
@@ -14,15 +15,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
+#[Authorize]
 class PlayerController extends Controller
 {
-    #[Authorize(roles: 'player')]
-    #[Authorize]
+    #[Authorize(roles: ['admin', 'player'])]
     public function dashboard()
     {
-        return Inertia::render('Admin/Player/Dashboard');
+        return Inertia::render('Player/Dashboard');
     }
 
+    #[Authorize(roles: 'admin')]
     public function index(Request $request)
     {
         // $players = $request->get('searchQuery')
@@ -42,6 +44,13 @@ class PlayerController extends Controller
         ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Player  $player
+     * @return \Illuminate\Http\Response
+     */
+    #[Authorize(roles: 'admin')]
     public function show(Player $player)
     {
         $groups = PlayerGroup::all();
@@ -57,6 +66,7 @@ class PlayerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    #[Authorize(roles: 'admin')]
     public function create()
     {
         return Inertia::render('Admin/Players/Create', [
@@ -64,6 +74,13 @@ class PlayerController extends Controller
         ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\PlayerRequest  $playerRequest
+     * @return \Illuminate\Http\Response
+     */
+    #[Authorize(roles: 'admin')]
     public function store(PlayerRequest $playerRequest)
     {
         $playerRequest->validated();
@@ -84,6 +101,13 @@ class PlayerController extends Controller
         return redirect()->route('players.index')->with('success', 'Player created.');
     }
 
+    /**
+     * List the form for editing the specified resource.
+     *
+     * @param  \App\Models\Player  $player
+     * @return \Illuminate\Http\Response
+     */
+    #[Authorize(roles: 'admin')]
     public function edit(Player $player)
     {
         return Inertia::render('Admin/Players/Edit', [
@@ -91,12 +115,18 @@ class PlayerController extends Controller
         ]);
     }
 
-    public function update(Request $request, Player $player)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\StorePlayerRequest  $request
+     * @param  \App\Models\Player  $player
+     * @return \Illuminate\Http\Response
+     */
+    #[Authorize(roles: 'admin')]
+    public function update(StorePlayerRequest $request, Player $player)
     {
-        // Get the data from the request
-        $requestData = $request->all();
+        $requestData = $request->validated();
 
-        // Filter the data to include only the fields that are different from the current values
         $updateData = array_filter($requestData, function ($value, $key) use ($player) {
             return $player->{$key} !== $value;
         }, ARRAY_FILTER_USE_BOTH);
@@ -107,17 +137,22 @@ class PlayerController extends Controller
             unset($updateData['player_group']);
         }
 
-        // Update the player with the filtered data
         $player->update($updateData);
 
-        // redirect back to the same page with a success message
-        return redirect()->back()->with('success', 'Player updated.');
+        return redirect()->route('admin.dashboard.players.index')->with('message', 'Jucător actualizat cu succes!.');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Player  $player
+     * @return \Illuminate\Http\Response
+     */
+    #[Authorize(roles: 'admin')]
     public function destroy(Player $player)
     {
         $player->delete();
 
-        return redirect()->route('players.index')->with('success', 'Player deleted.');
+        return redirect()->route('admin.dashboard.players.index')->with('message', 'Jucător șters cu succes!.');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\SlugService;
@@ -22,6 +23,7 @@ class AdminProductController extends Controller
     {
         return Inertia::render('Admin/Products/Show', [
             'product' => $product->load('category'),
+            'categories' => Category::all(),
         ]);
     }
 
@@ -43,13 +45,19 @@ class AdminProductController extends Controller
         return redirect()->route('admin.dashboard.products.index')->with('message', 'Produs adăugat cu succes!');
     }
 
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        $requestData = $request->all();
+        $requestData = $request->validated();
 
         $updateData = array_filter($requestData, function ($value, $key) use ($product) {
             return $product->{$key} !== $value;
         }, ARRAY_FILTER_USE_BOTH);
+
+        if (array_key_exists('category', $updateData)) {
+            $category = Category::where('name', $updateData['category'])->first();
+            $updateData['category_id'] = $category->id;
+            unset($updateData['category']);
+        }
 
         $product->update($updateData);
 

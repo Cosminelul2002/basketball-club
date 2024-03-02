@@ -55,8 +55,10 @@
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Categorie</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ product.category.name }}</span>
-                        <input v-else v-model="form.editedCategory" class="flex-grow">
+                        <span v-if="!editing" class="flex-grow">{{ product.category ? product.category.name : 'Fără categorie' }}</span>
+                        <select v-else v-model="form.editedCategory" class="flex-grow">
+                            <option v-for="category in categories" :value="category.name">{{ category.name }}</option>
+                        </select>
                     </dd>
                 </div>
             </dl>
@@ -113,6 +115,7 @@ export default {
 
     props: {
         product: Object,
+        categories: Array,
     },
 
     data() {
@@ -124,7 +127,7 @@ export default {
                 editedDescription: this.product.description,
                 editedPrice: this.product.price,
                 editedAvailability: this.product.availability,
-                editedCategory: this.product.category.name,
+                editedCategory: this.product.category ?? '',
             },
             updatedProduct: {
                 name: '',
@@ -143,14 +146,17 @@ export default {
             this.editing = !this.editing;
             if (!this.editing) {
                 // Check if any changes were made
+                this.product.category = this.product.category ?? '';
+
                 const changesDetected =
                     this.form.editedName !== this.product.name ||
                     this.form.editedDescription !== this.product.description ||
                     this.form.editedPrice !== this.product.price ||
                     this.form.editedAvailability !== this.product.availability ||
-                    this.form.editedCategory !== this.product.category.name;
+                    this.form.editedCategory !== this.product.category
 
                 if (changesDetected) {
+                    console.log('Changes detected');
                     // Make a request to update the player
                     this.updatedProduct.name = this.form.editedName;
                     this.updatedProduct.description = this.form.editedDescription;
@@ -164,6 +170,12 @@ export default {
         },
 
         updateProduct() {
+            if (this.updateProduct.availability === 'Da') {
+                this.updatedProduct.availability = 1;
+            } else {
+                this.updatedProduct.availability = 0;
+            }
+
             this.$inertia.put(route('admin.dashboard.products.update', this.product), this.updatedProduct);
             this.open = false;
         },

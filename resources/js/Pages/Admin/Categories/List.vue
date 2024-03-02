@@ -47,10 +47,10 @@
                                                 class="text-indigo-600 hover:text-indigo-900">Produse / <span
                                                     class="sr-only">, {{
                                                         category.name }}</span></inertia-link>
-                                            <inertia-link :href="route('admin.dashboard.categories.destroy', category)"
+                                            <button @click="deleteCategory(category)"
                                                 class="text-red-600 hover:text-red-300">Șterge<span class="sr-only">,
                                                     {{
-                                                        category.name }}</span></inertia-link>
+                                                        category.name }}</span></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -74,7 +74,12 @@ export default {
 
     props: {
         categories: Array
+    },
+
+    methods: {
+        deleteCategory(category) {
+            this.$inertia.delete(route('admin.dashboard.categories.destroy', category));
+        },
     }
 }
-
 </script>
