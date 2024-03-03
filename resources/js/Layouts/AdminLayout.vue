@@ -89,11 +89,13 @@
                         <li>
                             <ul role="list" class="-mx-2 space-y-1">
                                 <li v-for="item in navigation" :key="item.name">
-                                    <a :href="item.href"
-                                        :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
-                                        <component :is="item.icon" class="h-6 w-6 shrink-0" aria-hidden="true" />
-                                        {{ item.name }}
-                                    </a>
+                                    <div @click="item.current === true">
+                                        <a :href="item.href"
+                                            :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
+                                            <component :is="item.icon" class="h-6 w-6 shrink-0" aria-hidden="true" />
+                                            {{ item.name }}
+                                        </a>
+                                    </div>
                                 </li>
                             </ul>
                         </li>
@@ -243,8 +245,16 @@ export default {
         return {
             user: this.$page.props.user,
             show: false,
+            navigation: [
+                { name: 'Pagină pricipală', href: route('admin.dashboard'), icon: HomeIcon, current: true },
+                { name: 'Jucători', href: route('admin.dashboard.players.index'), icon: UsersIcon, current: false },
+                { name: 'Antrenori', href: route('admin.dashboard.coaches.index'), icon: DocumentDuplicateIcon, current: false },
+                { name: 'Grupe de vârstă', href: route('admin.dashboard.groups.index'), icon: CalendarIcon, current: false },
+                { name: 'Înscrieri', href: route('admin.dashboard.joins.index'), icon: FolderIcon, current: false },
+                { name: 'Site', href: route('landing'), icon: ChartPieIcon, current: false },
+            ],
         }
-    }
+    },
 }
 
 </script>
@@ -276,14 +286,14 @@ import {
 } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
-const navigation = [
-    { name: 'Pagină pricipală', href: route('admin.dashboard'), icon: HomeIcon, current: true },
-    { name: 'Jucători', href: route('admin.dashboard.players.index'), icon: UsersIcon, current: false },
-    { name: 'Antrenori', href: route('admin.dashboard.coaches.index'), icon: DocumentDuplicateIcon, current: false },
-    { name: 'Grupe de vârstă', href: route('admin.dashboard.groups.index'), icon: CalendarIcon, current: false },
-    { name: 'Înscrieri', href: route('admin.dashboard.joins.index'), icon: FolderIcon, current: false },
-    { name: 'Site', href: route('landing'), icon: ChartPieIcon, current: false },
-]
+// const navigation = [
+//     { name: 'Pagină pricipală', href: route('admin.dashboard'), icon: HomeIcon, current: true },
+//     { name: 'Jucători', href: route('admin.dashboard.players.index'), icon: UsersIcon, current: false },
+//     { name: 'Antrenori', href: route('admin.dashboard.coaches.index'), icon: DocumentDuplicateIcon, current: false },
+//     { name: 'Grupe de vârstă', href: route('admin.dashboard.groups.index'), icon: CalendarIcon, current: false },
+//     { name: 'Înscrieri', href: route('admin.dashboard.joins.index'), icon: FolderIcon, current: false },
+//     { name: 'Site', href: route('landing'), icon: ChartPieIcon, current: false },
+// ]
 const teams = [
     { id: 1, name: 'Produse', href: route('admin.dashboard.products.index'), initial: 'H', current: false },
     { id: 2, name: 'Categorii', href: route('admin.dashboard.categories.index'), initial: 'T', current: false },

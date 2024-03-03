@@ -7,11 +7,19 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\SlugService;
+use Codestage\Authorization\Attributes\Authorize;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+#[Authorize]
+#[Authorize(roles: 'admin')]
 class AdminProductController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Inertia\Response
+     */
     public function index()
     {
         return Inertia::render('Admin/Products/List', [
@@ -19,6 +27,12 @@ class AdminProductController extends Controller
         ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Inertia\Response
+     */
     public function show(Product $product)
     {
         return Inertia::render('Admin/Products/Show', [
@@ -27,6 +41,12 @@ class AdminProductController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Inertia\Response
+     */
     public function create()
     {
         return Inertia::render('Admin/Products/Create', [
@@ -34,6 +54,11 @@ class AdminProductController extends Controller
         ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     * @param StoreProductRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(StoreProductRequest $request)
     {
         $request->validated();
@@ -45,6 +70,13 @@ class AdminProductController extends Controller
         return redirect()->route('admin.dashboard.products.index')->with('message', 'Produs adăugat cu succes!');
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param UpdateProductRequest $request
+     * @param \App\Models\Product $product
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(UpdateProductRequest $request, Product $product)
     {
         $requestData = $request->validated();
@@ -62,5 +94,18 @@ class AdminProductController extends Controller
         $product->update($updateData);
 
         return redirect()->route('admin.dashboard.products.index')->with('message', 'Produs actualizat cu succes!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \App\Models\Product $product
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Product $product)
+    {
+        $product->delete();
+
+        return redirect()->route('admin.dashboard.products.index')->with('message', 'Produs șters cu succes!');
     }
 }

@@ -96,6 +96,7 @@ Route::name("admin.")->prefix('/admin')->group(function () use ($allMethods) {
             Route::post('/create', [AdminCategoryController::class, 'store'])->name('store');
             Route::get('/{category}', [AdminCategoryController::class, 'show'])->name('show');
             Route::get('/{category}/add-products', [AdminCategoryController::class, 'addProdcuts'])->name('add-products');
+            Route::post('/{category}/add-products', [AdminCategoryController::class, 'storeProducts'])->name('store-products');
             Route::get('/{category}/edit', [AdminCategoryController::class, 'edit'])->name('edit');
             Route::put('/{category}', [AdminCategoryController::class, 'update'])->name('update');
             Route::delete('/{category}', [AdminCategoryController::class, 'destroy'])->name('destroy');

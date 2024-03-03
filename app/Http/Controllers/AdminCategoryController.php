@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddProductsRequest;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use App\Models\Product;
@@ -54,6 +55,26 @@ class AdminCategoryController extends Controller
             'category' => $category->load('products'),
             'products' => Product::all()->load('category')
         ]);
+    }
+
+    public function storeProducts(Category $category, AddProductsRequest $request)
+    {
+        $products = Product::whereIn('name', $request->products)->get();
+
+        // make change only if the products are not already in the category
+        foreach ($products as $product) {
+            if ($product->category_id !== $category->id) {
+                $product->category_id = $category->id;
+                $product->save();
+                $ok = true;
+            }
+        }
+
+        if ($ok) {
+            return redirect()->route('admin.dashboard.categories.index')->with('message', 'Produse adăugate cu succes!');
+        } else {
+            return redirect()->route('admin.dashboard.categories.add-products', $category)->with('message', 'Produsele sunt deja în această categorie!');
+        }
     }
 
     /**

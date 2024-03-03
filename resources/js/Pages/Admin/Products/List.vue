@@ -58,8 +58,12 @@
                                     <td
                                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                         <inertia-link :href="route('admin.dashboard.products.show', product)"
-                                            class="text-indigo-600 hover:text-indigo-900">Editează<span class="sr-only">, {{
-                                                product.name }}</span></inertia-link>
+                                            class="text-indigo-600 hover:text-indigo-900">Editează / <span class="sr-only">,
+                                                {{
+                                                    product.name }}</span></inertia-link>
+                                        <button @click="deleteProduct(product)"
+                                            class="text-red-600 hover:text-red-400">Șterge<span class="sr-only">, {{
+                                                product.name }}</span></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -82,6 +86,14 @@ export default {
 
     props: {
         products: Array
+    },
+
+    methods: {
+        deleteProduct(product) {
+            if (confirm('Sunteți sigur că doriți să ștergeți acest produs?')) {
+                this.$inertia.delete(route('admin.dashboard.products.destroy', product));
+            }
+        }
     }
 }
 

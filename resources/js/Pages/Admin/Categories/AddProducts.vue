@@ -3,14 +3,16 @@
         <div class="px-4 sm:px-6 lg:px-8">
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">
-                    <h1 class="text-base font-semibold leading-6 text-gray-900">Users</h1>
-                    <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name,
-                        title, email and role.</p>
+                    <h1 class="text-base font-semibold leading-6 text-gray-900">Adaugă produse</h1>
+                    <p class="mt-2 text-sm text-gray-700">
+                        Adaugă produse la categoria <strong>{{ category.name }}</strong>
+                    </p>
                 </div>
                 <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <button type="button"
-                        class="block rounded-md bg-indigo-600 px-3 py-1.5 text-center text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add
-                        user</button>
+                    <button @click="addProducts" type="button"
+                        class="block rounded-md bg-indigo-600 px-3 py-1.5 text-center text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        Salvează produsele
+                    </button>
                 </div>
             </div>
             <div class="mt-8 flow-root">
@@ -107,6 +109,10 @@ export default {
         }
     },
 
+    mounted() {
+        this.unselectedProducts = this.products.filter((p) => !this.selectedProducts.includes(p.name))
+    },
+
     props: {
         category: Object,
         products: Array
@@ -115,7 +121,17 @@ export default {
     data() {
         return {
             // initially selectedProducts has the products that are already in the category
-            selectedProducts: this.category.products.map((p) => p.name)
+            selectedProducts: this.category.products.map((p) => p.name),
+            unselectedProducts: []
+        }
+    },
+
+    methods: {
+        addProducts() {
+            console.log(this.selectedProducts);
+            this.$inertia.post(route('admin.dashboard.categories.store-products', this.category), {
+                products: this.selectedProducts
+            });
         }
     }
 }
