@@ -55,12 +55,20 @@
                         <input v-else v-model="form.editedPhone" class="flex-grow">
                     </dd>
                 </div>
+                <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-md font-medium leading-6 text-gray-900">Descriere</dt>
+                    <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                        <span v-if="!editing" class="flex-grow">{{ coach.description }}</span>
+                        <textarea rows="5" v-else v-model="form.editedDescription" class="flex-grow">
+                </textarea>
+                    </dd>
+                </div>
             </dl>
         </div>
         <TransitionRoot as="template" :show="open">
             <Dialog as="div" class="relative z-10" @close="open = false">
-                <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100"
-                    leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
+                <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0"
+                    enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
                     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                 </TransitionChild>
 
@@ -79,7 +87,8 @@
                                         <CheckIcon class="h-6 w-6 text-green-600" aria-hidden="true" />
                                     </div>
                                     <div class="mt-3 text-center sm:mt-5">
-                                        <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Salvezi
+                                        <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">
+                                            Salvezi
                                             modificarile ?</DialogTitle>
                                     </div>
                                 </div>
@@ -99,9 +108,10 @@
         </TransitionRoot>
     </AdminLayout>
 </template>
-  
+
 
 <script>
+import AdminLayout from '../../../Layouts/AdminLayout.vue';
 
 export default {
     name: 'Player/Show',
@@ -190,7 +200,6 @@ export default {
 
 <script setup>
 import { PaperClipIcon } from '@heroicons/vue/20/solid'
-import AdminLayout from '../../Layouts/AdminLayout.vue';
 import { Inertia } from '@inertiajs/inertia';
 import { ref } from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'

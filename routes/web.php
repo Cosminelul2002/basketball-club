@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminJoinController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AdminCoachController;
+use App\Http\Controllers\AdminLocationController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventController;
@@ -108,6 +109,15 @@ Route::name("admin.")->prefix('/admin')->group(function () use ($allMethods) {
             Route::get('/{category}/edit', [AdminCategoryController::class, 'edit'])->name('edit');
             Route::put('/{category}', [AdminCategoryController::class, 'update'])->name('update');
             Route::delete('/{category}', [AdminCategoryController::class, 'destroy'])->name('destroy');
+        });
+        Route::name('locations.')->prefix('/locations')->group(function () use ($allMethods) {
+            Route::get('/', [AdminLocationController::class, 'index'])->name('index');
+            Route::get('/create', [AdminLocationController::class, 'create'])->name('create');
+            Route::post('/create', [AdminLocationController::class, 'store'])->name('store');
+            Route::get('/{location}', [AdminLocationController::class, 'show'])->name('show');
+            Route::get('/{location}/edit', [AdminLocationController::class, 'edit'])->name('edit');
+            Route::put('/{location}', [AdminLocationController::class, 'update'])->name('update');
+            Route::delete('/{location}', [AdminLocationController::class, 'destroy'])->name('destroy');
         });
     });
 });

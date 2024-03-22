@@ -2,9 +2,9 @@
     <div>
         <TransitionRoot as="template" :show="sidebarOpen">
             <Dialog as="div" class="relative z-50 lg:hidden" @close="sidebarOpen = false">
-                <TransitionChild as="template" enter="transition-opacity ease-linear duration-300" enter-from="opacity-0"
-                    enter-to="opacity-100" leave="transition-opacity ease-linear duration-300" leave-from="opacity-100"
-                    leave-to="opacity-0">
+                <TransitionChild as="template" enter="transition-opacity ease-linear duration-300"
+                    enter-from="opacity-0" enter-to="opacity-100" leave="transition-opacity ease-linear duration-300"
+                    leave-from="opacity-100" leave-to="opacity-0">
                     <div class="fixed inset-0 bg-gray-900/80" />
                 </TransitionChild>
 
@@ -54,7 +54,7 @@
                                                         :class="[team.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
                                                         <span
                                                             class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">{{
-                                                                team.initial }}</span>
+            team.initial }}</span>
                                                         <span class="truncate">{{ team.name }}</span>
                                                     </a>
                                                 </li>
@@ -107,7 +107,7 @@
                                         :class="[team.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
                                         <span
                                             class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">{{
-                                                team.initial }}</span>
+            team.initial }}</span>
                                         <span class="truncate">{{ team.name }}</span>
                                     </a>
                                 </li>
@@ -138,7 +138,8 @@
                 <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
                     <form class="relative flex flex-1" action="#" method="GET">
                         <label for="search-field" class="sr-only">Search</label>
-                        <MagnifyingGlassIcon class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
+                        <MagnifyingGlassIcon
+                            class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
                             aria-hidden="true" />
                         <input id="search-field"
                             class="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
@@ -177,7 +178,7 @@
                                     <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
                                     <a :href="item.href"
                                         :class="[active ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900']">{{
-                                            item.name }}</a>
+            item.name }}</a>
                                     </MenuItem>
                                 </MenuItems>
                             </transition>
@@ -194,7 +195,8 @@
             </main>
         </div>
     </div>
-    <div aria-live="assertive" class="pointer-events-none fixed inset-12 flex items-end px-4 py-6 sm:items-start sm:p-6">
+    <div aria-live="assertive"
+        class="pointer-events-none fixed inset-12 flex items-end px-4 py-6 sm:items-start sm:p-6">
         <div class="flex w-full flex-col items-center space-y-4 sm:items-end">
             <!-- Notification panel, dynamically insert this into the live region when it needs to be displayed -->
             <transition enter-active-class="transform ease-out duration-300 transition"
@@ -251,14 +253,16 @@ export default {
                 { name: 'Antrenori', href: route('admin.dashboard.coaches.index'), icon: DocumentDuplicateIcon, current: false },
                 { name: 'Grupe de vârstă', href: route('admin.dashboard.groups.index'), icon: CalendarIcon, current: false },
                 { name: 'Înscrieri', href: route('admin.dashboard.joins.index'), icon: FolderIcon, current: false },
+                { name: 'Locații', href: route('admin.dashboard.locations.index'), icon: ChartPieIcon, current: false },
                 { name: 'Site', href: route('landing'), icon: ChartPieIcon, current: false },
+
             ],
         }
     },
 }
 
 </script>
-  
+
 <script setup>
 import { CheckCircleIcon } from '@heroicons/vue/24/outline'
 import { ref } from 'vue'

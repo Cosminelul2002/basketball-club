@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
             // PlayerGroupSeeder::class,
             // PlayerSeeder::class,
             // CoachSeeder::class,
-            // CoachGroupSeeder::class,
-            LocationSeeder::class,
+            CoachGroupSeeder::class,
+            // LocationSeeder::class,
         ]);
 
         // \App\Models\User::factory(100)->create();

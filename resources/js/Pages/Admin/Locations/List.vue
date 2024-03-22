@@ -7,15 +7,16 @@
 <script>
 import AdminLayout from '../../../Layouts/AdminLayout.vue';
 
-
 export default {
-    name: "PlayerGroups/Show",
+
+    name: "Locations/List",
 
     components: { AdminLayout },
 
     props: {
-        playerGroup: Object
+        locations: Array,
     }
+
 }
 
 </script>
