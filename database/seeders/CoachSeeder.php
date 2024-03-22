@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Coach_Roles;
 use App\Models\Coach;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,7 +22,8 @@ class CoachSeeder extends Seeder
                 'description' => 'Pătrașcu Cosmin este un antrenor de baschet cu experiență de peste 10 ani. A antrenat echipe de toate vârstele și a obținut rezultate remarcabile cu fiecare dintre ele.',
                 'email' => 'cosminpatrascu611@yahoo.com',
                 'phone' => '0764620876',
-                'image' => 'coach.jpg'
+                'image' => 'coach.jpg',
+                'role' => Coach_Roles::HeadCoach
             ],
             [
                 'first_name' => 'Mihai',
@@ -30,7 +32,8 @@ class CoachSeeder extends Seeder
                 'description' => 'Mihai Andrei este un antrenor de baschet cu experiență de peste 10 ani. A antrenat echipe de toate vârstele și a obținut rezultate remarcabile cu fiecare dintre ele.',
                 'email' => 'asdafaerfa@yahoo.com',
                 'phone' => '0764620343',
-                'image' => 'coach.jpg'
+                'image' => 'coach.jpg',
+                'role' => Coach_Roles::AssistantCoach
             ],
             [
                 'first_name' => 'Popescu',
@@ -39,7 +42,8 @@ class CoachSeeder extends Seeder
                 'description' => 'Popescu Ion este un antrenor de baschet cu experiență de peste 10 ani. A antrenat echipe de toate vârstele și a obținut rezultate remarcabile cu fiecare dintre ele.',
                 'email' => 'porpre@yahoo.com',
                 'phone' => '0764620343',
-                'image' => 'coach.jpg'
+                'image' => 'coach.jpg',
+                'role' => Coach_Roles::PlayerCoach
             ]
         ];
 
@@ -52,6 +56,7 @@ class CoachSeeder extends Seeder
                 'email' => $coach['email'],
                 'phone' => $coach['phone'],
                 'image' => $coach['image'],
+                'role' => $coach['role']
             ]);
         }
     }

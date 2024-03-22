@@ -27,8 +27,9 @@ class DatabaseSeeder extends Seeder
             // RoleSeeder::class,
             // PlayerGroupSeeder::class,
             // PlayerSeeder::class,
-            CoachSeeder::class,
+            // CoachSeeder::class,
             // CoachGroupSeeder::class,
+            LocationSeeder::class,
         ]);
 
         // \App\Models\User::factory(100)->create();

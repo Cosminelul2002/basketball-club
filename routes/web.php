@@ -49,6 +49,7 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::apiResource('categories', CategoryController::class);
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/coaches', [CoachController::class, 'index'])->name('coaches');
+Route::get('/coaches/{coach}', [CoachController::class, 'show'])->name('coaches.show');
 // Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
 // Route::view('checkout.success')->name('checkout.success');
 // Route::view('checkout.cancel')->name('checkout.cancel');
