@@ -1,6 +1,7 @@
 <template>
     <header class="fixed top-0 z-50 w-full bg-white shadow-lg ">
-        <p class="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
+        <p
+            class="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
             Get free delivery on orders over $100</p>
 
         <nav aria-label="Top" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
@@ -17,8 +18,8 @@
                     <div class="ml-4 flex lg:ml-0">
                         <a href="#">
                             <span class="sr-only">Your Company</span>
-                            <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                alt="" />
+                            <img class="h-8 w-auto"
+                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
                         </a>
                     </div>
 
@@ -54,7 +55,8 @@
                                                             </div>
                                                             <a :href="item.href"
                                                                 class="mt-6 block font-medium text-gray-900">
-                                                                <span class="absolute inset-0 z-10" aria-hidden="true" />
+                                                                <span class="absolute inset-0 z-10"
+                                                                    aria-hidden="true" />
                                                                 {{ item.name }}
                                                             </a>
                                                             <p aria-hidden="true" class="mt-1">Shop now</p>
@@ -70,8 +72,8 @@
                                                                 <li v-for="item in section.items" :key="item.name"
                                                                     class="flex">
                                                                     <a :href="item.href" class="hover:text-gray-800">{{
-                                                                        item.name
-                                                                    }}</a>
+                            item.name
+                        }}</a>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -85,7 +87,7 @@
 
                             <a v-for="page in navigation.pages" :key="page.name" :href="page.href"
                                 class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">{{
-                                    page.name }}</a>
+                            page.name }}</a>
                         </div>
                     </PopoverGroup>
 
@@ -116,12 +118,13 @@
 
                         <!-- Cart -->
                         <div class="ml-4 flow-root lg:ml-6">
-                            <a href="#" class="group -m-2 flex items-center p-2">
+                            <!-- <inertia-link :href="route('payment')" class="group -m-2 flex items-center p-2">
                                 <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                                     aria-hidden="true" />
-                                <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                                <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{{
+                                    countItems }}</span>
                                 <span class="sr-only">items in cart, view bag</span>
-                            </a>
+                            </inertia-link> -->
                         </div>
                     </div>
                 </div>
@@ -129,6 +132,20 @@
         </nav>
     </header>
 </template>
+
+<script>
+
+export default {
+    name: 'ShopHeader',
+
+    data() {
+        return {
+            countItems: 0,
+        }
+    },
+}
+
+</script>
 
 <script setup>
 import { ref } from 'vue'

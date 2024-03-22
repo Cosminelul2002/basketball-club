@@ -13,14 +13,15 @@
   }
   ```
 -->
+
 <template>
     <div class="bg-white">
         <!-- Mobile menu -->
         <TransitionRoot as="template" :show="mobileMenuOpen">
             <Dialog as="div" class="relative z-40 lg:hidden" @close="mobileMenuOpen = false">
-                <TransitionChild as="template" enter="transition-opacity ease-linear duration-300" enter-from="opacity-0"
-                    enter-to="opacity-100" leave="transition-opacity ease-linear duration-300" leave-from="opacity-100"
-                    leave-to="opacity-0">
+                <TransitionChild as="template" enter="transition-opacity ease-linear duration-300"
+                    enter-from="opacity-0" enter-to="opacity-100" leave="transition-opacity ease-linear duration-300"
+                    leave-from="opacity-100" leave-to="opacity-0">
                     <div class="fixed inset-0 bg-black bg-opacity-25" />
                 </TransitionChild>
 
@@ -44,11 +45,11 @@
                             <TabGroup as="div" class="mt-2">
                                 <div class="border-b border-gray-200">
                                     <TabList class="-mb-px flex space-x-8 px-4">
-                                        <Tab as="template" v-for="category in navigation.categories" :key="category.name"
-                                            v-slot="{ selected }">
+                                        <Tab as="template" v-for="category in navigation.categories"
+                                            :key="category.name" v-slot="{ selected }">
                                             <button
                                                 :class="[selected ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-900', 'flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium']">{{
-                                                    category.name }}</button>
+            category.name }}</button>
                                         </Tab>
                                     </TabList>
                                 </div>
@@ -56,13 +57,15 @@
                                     <TabPanel v-for="category in navigation.categories" :key="category.name"
                                         class="space-y-12 px-4 py-6">
                                         <div class="grid grid-cols-2 gap-x-4 gap-y-10">
-                                            <div v-for="item in category.featured" :key="item.name" class="group relative">
+                                            <div v-for="item in category.featured" :key="item.name"
+                                                class="group relative">
                                                 <div
                                                     class="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-100 group-hover:opacity-75">
                                                     <img :src="item.imageSrc" :alt="item.imageAlt"
                                                         class="object-cover object-center" />
                                                 </div>
-                                                <a :href="item.href" class="mt-6 block text-sm font-medium text-gray-900">
+                                                <a :href="item.href"
+                                                    class="mt-6 block text-sm font-medium text-gray-900">
                                                     <span class="absolute inset-0 z-10" aria-hidden="true" />
                                                     {{ item.name }}
                                                 </a>
@@ -76,7 +79,7 @@
                             <div class="space-y-6 border-t border-gray-200 px-4 py-6">
                                 <div v-for="page in navigation.pages" :key="page.name" class="flow-root">
                                     <a :href="page.href" class="-m-2 block p-2 font-medium text-gray-900">{{ page.name
-                                    }}</a>
+                                        }}</a>
                                 </div>
                             </div>
 
@@ -101,7 +104,8 @@
                                                 <option v-for="currency in currencies" :key="currency">{{ currency }}
                                                 </option>
                                             </select>
-                                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center">
+                                            <div
+                                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center">
                                                 <ChevronDownIcon class="h-5 w-5 text-gray-500" aria-hidden="true" />
                                             </div>
                                         </div>
@@ -137,7 +141,8 @@
                                         class="group relative -ml-2 rounded-md border-transparent bg-gray-900 focus-within:ring-2 focus-within:ring-white">
                                         <select id="desktop-currency" name="currency"
                                             class="flex items-center rounded-md border-transparent bg-gray-900 bg-none py-0.5 pl-2 pr-5 text-sm font-medium text-white focus:border-transparent focus:outline-none focus:ring-0 group-hover:text-gray-100">
-                                            <option v-for="currency in currencies" :key="currency">{{ currency }}</option>
+                                            <option v-for="currency in currencies" :key="currency">{{ currency }}
+                                            </option>
                                         </select>
                                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center">
                                             <ChevronDownIcon class="h-5 w-5 text-gray-300" aria-hidden="true" />
@@ -148,9 +153,11 @@
 
                             <div class="flex items-center space-x-6">
                                 <inertia-link :href="route('login')"
-                                    class="text-sm font-medium text-white hover:text-gray-100">Intră în cont</inertia-link>
+                                    class="text-sm font-medium text-white hover:text-gray-100">Intră în
+                                    cont</inertia-link>
                                 <inertia-link :href="route('auth.register')"
-                                    class="text-sm font-medium text-white hover:text-gray-100">Fă-ți un cont</inertia-link>
+                                    class="text-sm font-medium text-white hover:text-gray-100">Fă-ți un
+                                    cont</inertia-link>
                             </div>
                         </div>
                     </div>
@@ -197,7 +204,8 @@
 
                                                             <div class="relative bg-white">
                                                                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                                                                    <div class="grid grid-cols-4 gap-x-8 gap-y-10 py-16">
+                                                                    <div
+                                                                        class="grid grid-cols-4 gap-x-8 gap-y-10 py-16">
                                                                         <div v-for="item in category.featured"
                                                                             :key="item.name" class="group relative">
                                                                             <div
@@ -212,7 +220,8 @@
                                                                                     aria-hidden="true" />
                                                                                 {{ item.name }}
                                                                             </a>
-                                                                            <p aria-hidden="true" class="mt-1">Shop now</p>
+                                                                            <p aria-hidden="true" class="mt-1">Shop now
+                                                                            </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -222,15 +231,17 @@
                                                 </Popover>
 
                                                 <a v-for="page in navigation.pages" :key="page.name" :href="page.href"
-                                                    class="flex items-center text-sm font-medium text-white">{{ page.name
-                                                    }}</a>
+                                                    class="flex items-center text-sm font-medium text-white">{{
+            page.name
+        }}</a>
                                             </div>
                                         </PopoverGroup>
                                     </div>
 
                                     <!-- Mobile menu and search (lg-) -->
                                     <div class="flex flex-1 items-center lg:hidden">
-                                        <button type="button" class="-ml-2 p-2 text-white" @click="mobileMenuOpen = true">
+                                        <button type="button" class="-ml-2 p-2 text-white"
+                                            @click="mobileMenuOpen = true">
                                             <span class="sr-only">Open menu</span>
                                             <Bars3Icon class="h-6 w-6" aria-hidden="true" />
                                         </button>
@@ -271,7 +282,8 @@
 
             <div class="relative mx-auto flex max-w-3xl flex-col items-center px-6 py-32 text-center sm:py-64 lg:px-0">
                 <h1 class="text-4xl font-bold tracking-tight text-white lg:text-6xl">New arrivals are here</h1>
-                <p class="mt-4 text-xl text-white">The new arrivals have, well, newly arrived. Check out the latest options
+                <p class="mt-4 text-xl text-white">The new arrivals have, well, newly arrived. Check out the latest
+                    options
                     from our summer small-batch release while they're still in stock.</p>
                 <a href="#"
                     class="mt-8 inline-block rounded-md border border-transparent bg-white px-8 py-3 text-base font-medium text-gray-900 hover:bg-gray-100">Shop
@@ -283,7 +295,8 @@
             <!-- Category section -->
             <section aria-labelledby="category-heading" class="pt-24 sm:pt-32 xl:mx-auto xl:max-w-7xl xl:px-8">
                 <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
-                    <h2 id="category-heading" class="text-2xl font-bold tracking-tight text-gray-900">Shop by Category</h2>
+                    <h2 id="category-heading" class="text-2xl font-bold tracking-tight text-gray-900">Shop by Category
+                    </h2>
                     <a href="#" class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
                         Browse all categories
                         <span aria-hidden="true"> &rarr;</span>
@@ -304,8 +317,8 @@
                                     </span>
                                     <span aria-hidden="true"
                                         class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50" />
-                                    <span class="relative mt-auto text-center text-xl font-bold text-white">{{ category.name
-                                    }}</span>
+                                    <span class="relative mt-auto text-center text-xl font-bold text-white">{{
+            category.name }}</span>
                                 </inertia-link>
                             </div>
                         </div>
@@ -321,20 +334,23 @@
             </section>
 
             <!-- Featured section -->
-            <section aria-labelledby="social-impact-heading" class="mx-auto max-w-7xl px-4 pt-24 sm:px-6 sm:pt-32 lg:px-8">
+            <section aria-labelledby="social-impact-heading"
+                class="mx-auto max-w-7xl px-4 pt-24 sm:px-6 sm:pt-32 lg:px-8">
                 <div class="relative overflow-hidden rounded-lg">
                     <div class="absolute inset-0">
-                        <img src="https://tailwindui.com/img/ecommerce-images/home-page-01-feature-section-01.jpg" alt=""
-                            class="h-full w-full object-cover object-center" />
+                        <img src="https://tailwindui.com/img/ecommerce-images/home-page-01-feature-section-01.jpg"
+                            alt="" class="h-full w-full object-cover object-center" />
                     </div>
                     <div class="relative bg-gray-900 bg-opacity-75 px-6 py-32 sm:px-12 sm:py-40 lg:px-16">
                         <div class="relative mx-auto flex max-w-3xl flex-col items-center text-center">
-                            <h2 id="social-impact-heading" class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                            <h2 id="social-impact-heading"
+                                class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                                 <span class="block sm:inline">Level up</span>
                                 <span class="block sm:inline">your desk</span>
                             </h2>
                             <p class="mt-3 text-xl text-white">Make your desk beautiful and organized. Post a picture to
-                                social media and watch it get more likes than life-changing announcements. Reflect on the
+                                social media and watch it get more likes than life-changing announcements. Reflect on
+                                the
                                 shallow nature of existence. At least you have a really nice desk setup.</p>
                             <a href="#"
                                 class="mt-8 block w-full rounded-md border border-transparent bg-white px-8 py-3 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto">Shop
@@ -347,12 +363,15 @@
             <!-- Collection section -->
             <section aria-labelledby="collection-heading"
                 class="mx-auto max-w-xl px-4 pt-24 sm:px-6 sm:pt-32 lg:max-w-7xl lg:px-8">
-                <h2 id="collection-heading" class="text-2xl font-bold tracking-tight text-gray-900">Shop by Collection</h2>
-                <p class="mt-4 text-base text-gray-500">Each season, we collaborate with world-class designers to create a
+                <h2 id="collection-heading" class="text-2xl font-bold tracking-tight text-gray-900">Shop by Collection
+                </h2>
+                <p class="mt-4 text-base text-gray-500">Each season, we collaborate with world-class designers to create
+                    a
                     collection inspired by the natural world.</p>
 
                 <div class="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0">
-                    <a v-for="collection in collections" :key="collection.name" :href="collection.href" class="group block">
+                    <a v-for="collection in collections" :key="collection.name" :href="collection.href"
+                        class="group block">
                         <div aria-hidden="true"
                             class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-75">
                             <img :src="collection.imageSrc" :alt="collection.imageAlt"
@@ -368,15 +387,18 @@
             <section aria-labelledby="comfort-heading" class="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
                 <div class="relative overflow-hidden rounded-lg">
                     <div class="absolute inset-0">
-                        <img src="https://tailwindui.com/img/ecommerce-images/home-page-01-feature-section-02.jpg" alt=""
-                            class="h-full w-full object-cover object-center" />
+                        <img src="https://tailwindui.com/img/ecommerce-images/home-page-01-feature-section-02.jpg"
+                            alt="" class="h-full w-full object-cover object-center" />
                     </div>
                     <div class="relative bg-gray-900 bg-opacity-75 px-6 py-32 sm:px-12 sm:py-40 lg:px-16">
                         <div class="relative mx-auto flex max-w-3xl flex-col items-center text-center">
-                            <h2 id="comfort-heading" class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Simple
+                            <h2 id="comfort-heading" class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                                Simple
                                 productivity</h2>
-                            <p class="mt-3 text-xl text-white">Endless tasks, limited hours, a single piece of paper. Not
-                                really a haiku, but we're doing our best here. No kanban boards, burndown charts, or tangled
+                            <p class="mt-3 text-xl text-white">Endless tasks, limited hours, a single piece of paper.
+                                Not
+                                really a haiku, but we're doing our best here. No kanban boards, burndown charts, or
+                                tangled
                                 flowcharts with our Focus system. Just the undeniable urge to fill empty circles.</p>
                             <a href="#"
                                 class="mt-8 block w-full rounded-md border border-transparent bg-white px-8 py-3 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto">Shop
@@ -431,7 +453,8 @@
                     </div>
                     <div class="mt-12 md:mt-16 xl:mt-0">
                         <h3 class="text-sm font-medium text-white">Sign up for our newsletter</h3>
-                        <p class="mt-6 text-sm text-gray-300">The latest deals and savings, sent to your inbox weekly.</p>
+                        <p class="mt-6 text-sm text-gray-300">The latest deals and savings, sent to your inbox weekly.
+                        </p>
                         <form class="mt-2 flex sm:max-w-md">
                             <label for="email-address" class="sr-only">Email address</label>
                             <input id="email-address" type="text" autocomplete="email" required=""
@@ -464,7 +487,7 @@ export default {
 }
 
 </script>
-  
+
 <script setup>
 import { ref } from 'vue'
 import {

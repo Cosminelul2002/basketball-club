@@ -21,6 +21,7 @@ class CoachSeeder extends Seeder
                 'description' => 'Pătrașcu Cosmin este un antrenor de baschet cu experiență de peste 10 ani. A antrenat echipe de toate vârstele și a obținut rezultate remarcabile cu fiecare dintre ele.',
                 'email' => 'cosminpatrascu611@yahoo.com',
                 'phone' => '0764620876',
+                'image' => 'coach.jpg'
             ],
             [
                 'first_name' => 'Mihai',
@@ -29,6 +30,7 @@ class CoachSeeder extends Seeder
                 'description' => 'Mihai Andrei este un antrenor de baschet cu experiență de peste 10 ani. A antrenat echipe de toate vârstele și a obținut rezultate remarcabile cu fiecare dintre ele.',
                 'email' => 'asdafaerfa@yahoo.com',
                 'phone' => '0764620343',
+                'image' => 'coach.jpg'
             ],
             [
                 'first_name' => 'Popescu',
@@ -37,6 +39,7 @@ class CoachSeeder extends Seeder
                 'description' => 'Popescu Ion este un antrenor de baschet cu experiență de peste 10 ani. A antrenat echipe de toate vârstele și a obținut rezultate remarcabile cu fiecare dintre ele.',
                 'email' => 'porpre@yahoo.com',
                 'phone' => '0764620343',
+                'image' => 'coach.jpg'
             ]
         ];
 
@@ -48,6 +51,7 @@ class CoachSeeder extends Seeder
                 'description' => $coach['description'],
                 'email' => $coach['email'],
                 'phone' => $coach['phone'],
+                'image' => $coach['image'],
             ]);
         }
     }

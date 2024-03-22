@@ -23,14 +23,14 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             // CategorySeeder::class,
-            ProductSeeder::class,
+            // ProductSeeder::class,
             // RoleSeeder::class,
             // PlayerGroupSeeder::class,
             // PlayerSeeder::class,
-            // CoachSeeder::class,
+            CoachSeeder::class,
             // CoachGroupSeeder::class,
         ]);
 
-        \App\Models\User::factory(100)->create();
+        // \App\Models\User::factory(100)->create();
     }
 }

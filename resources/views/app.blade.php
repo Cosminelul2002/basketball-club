@@ -7,6 +7,7 @@
             images: "{{ asset('/images') }}",
         };
     </script>
+    <!-- <script src="https://js.stripe.com/v3/"></script> -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Basketball Web App</title>

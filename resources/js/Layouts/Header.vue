@@ -5,11 +5,13 @@
             <div class="flex lg:flex-1">
                 <a href="#" class="-m-1.5 p-1.5">
                     <span class="sr-only">Your Company</span>
-                    <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="" />
+                    <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                        alt="" />
                 </a>
             </div>
             <div class="flex lg:hidden">
-                <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400"
+                <button type="button"
+                    class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400"
                     @click="mobileMenuOpen = true">
                     <span class="sr-only">Open main menu</span>
                     <Bars3Icon class="h-6 w-6" aria-hidden="true" />
@@ -23,7 +25,8 @@
 
             <template v-if="!isLoggedIn">
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-10">
-                    <inertia-link :href="route('auth.register')" class="text-sm font-semibold leading-6 text-white">Fă-ți
+                    <inertia-link :href="route('auth.register')"
+                        class="text-sm font-semibold leading-6 text-white">Fă-ți
                         un cont<span aria-hidden="true">&rarr;</span></inertia-link>
                     <inertia-link :href="route('login')" class="text-sm font-semibold leading-6 text-white">Intră
                         în cont<span aria-hidden="true">&rarr;</span></inertia-link>
@@ -60,7 +63,7 @@
                         <div class="space-y-2 py-6">
                             <a v-for="item in navigation" :key="item.name" :href="item.href"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">{{
-                                    item.name }}</a>
+                        item.name }}</a>
                         </div>
                         <div class="py-6">
                             <inertia-link :href="route('login')"
@@ -113,7 +116,7 @@ const navigation = [
     { name: 'Acasă', href: route('landing') },
     { name: 'Despre noi', href: route('about') },
     { name: 'Înscriere', href: route('join.index') },
-    { name: 'Antrenori', href: '#' },
+    { name: 'Antrenori', href: route('coaches') },
     { name: 'Media', href: route('media') },
     { name: 'Magazin', href: route('shop') },
     { name: 'Știri', href: '#' },

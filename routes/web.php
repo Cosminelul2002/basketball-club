@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminJoinController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AdminCoachController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventController;
@@ -21,8 +22,10 @@ use App\Http\Controllers\PlayerGroupController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
+use Stripe\Stripe;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +48,10 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::apiResource('categories', CategoryController::class);
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/coaches', [CoachController::class, 'index'])->name('coaches');
+// Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
+// Route::view('checkout.success')->name('checkout.success');
+// Route::view('checkout.cancel')->name('checkout.cancel');
 
 Route::name("admin.")->prefix('/admin')->group(function () use ($allMethods) {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -59,13 +66,13 @@ Route::name("admin.")->prefix('/admin')->group(function () use ($allMethods) {
             Route::delete('/{player}', [PlayerController::class, 'destroy'])->name('destroy');
         });
         Route::name('coaches.')->prefix('/coaches')->group(function () use ($allMethods) {
-            Route::get('/', [CoachController::class, 'index'])->name('index');
-            Route::get('/create', [CoachController::class, 'create'])->name('create');
-            Route::post('/create', [CoachController::class, 'store'])->name('store');
-            Route::get('/{coach}', [CoachController::class, 'show'])->name('show');
-            Route::get('/{coach}/edit', [CoachController::class, 'edit'])->name('edit');
-            Route::put('/{coach}', [CoachController::class, 'update'])->name('update');
-            Route::delete('/{coach}', [CoachController::class, 'destroy'])->name('destroy');
+            Route::get('/', [AdminCoachController::class, 'index'])->name('index');
+            Route::get('/create', [AdminCoachController::class, 'create'])->name('create');
+            Route::post('/create', [AdminCoachController::class, 'store'])->name('store');
+            Route::get('/{coach}', [AdminCoachController::class, 'show'])->name('show');
+            Route::get('/{coach}/edit', [AdminCoachController::class, 'edit'])->name('edit');
+            Route::put('/{coach}', [AdminCoachController::class, 'update'])->name('update');
+            Route::delete('/{coach}', [AdminCoachController::class, 'destroy'])->name('destroy');
         });
         Route::name("groups.")->prefix('/groups')->group(function () use ($allMethods) {
             Route::get('/', [PlayerGroupController::class, 'index'])->name('index');
