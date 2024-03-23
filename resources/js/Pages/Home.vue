@@ -16,7 +16,8 @@
                                 <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">Deploy to the cloud
                                     with
                                     confidence</h1>
-                                <p class="mt-6 text-lg leading-8 text-gray-300">Anim aute id magna aliqua ad ad non deserunt
+                                <p class="mt-6 text-lg leading-8 text-gray-300">Anim aute id magna aliqua ad ad non
+                                    deserunt
                                     sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
                                     fugiat
                                     aliqua.</p>
@@ -30,11 +31,11 @@
                                 src="https://tailwindui.com/img/logos/158x48/transistor-logo-white.svg" alt="Transistor"
                                 width="158" height="48" />
                             <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                                src="https://tailwindui.com/img/logos/158x48/reform-logo-white.svg" alt="Reform" width="158"
-                                height="48" />
+                                src="https://tailwindui.com/img/logos/158x48/reform-logo-white.svg" alt="Reform"
+                                width="158" height="48" />
                             <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                                src="https://tailwindui.com/img/logos/158x48/tuple-logo-white.svg" alt="Tuple" width="158"
-                                height="48" />
+                                src="https://tailwindui.com/img/logos/158x48/tuple-logo-white.svg" alt="Tuple"
+                                width="158" height="48" />
                             <img class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
                                 src="https://tailwindui.com/img/logos/158x48/savvycal-logo-white.svg" alt="SavvyCal"
                                 width="158" height="48" />
@@ -54,20 +55,19 @@
                 <div class="mt-32 sm:mt-56">
                     <div class="mx-auto max-w-7xl px-6 lg:px-8">
                         <div class="mx-auto max-w-2xl sm:text-center">
-                            <h2 class="text-base font-semibold leading-7 text-indigo-600">Everything you need</h2>
-                            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">No server? No
-                                problem.
+                            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Performanță
+                                distractivă? Baschetul!
                             </p>
-                            <p class="mt-6 text-lg leading-8 text-gray-600">Lorem ipsum, dolor sit amet consectetur
-                                adipisicing
-                                elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis.</p>
+                            <p class="mt-6 text-lg leading-8 text-gray-600">Baschetul îți oferă ambele! Hai să jucăm și
+                                să ne
+                                distrăm!</p>
                         </div>
                     </div>
                     <div class="relative overflow-hidden pt-16">
                         <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                            <img src="https://tailwindui.com/img/component-images/project-app-screenshot.png"
-                                alt="App screenshot" class="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-gray-900/10"
-                                width="2432" height="1442" />
+                            <img :src="featureImg" alt="App screenshot"
+                                class="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-gray-900/10" width="2432"
+                                height="1442" />
                             <div class="relative" aria-hidden="true">
                                 <div class="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-white pt-[7%]" />
                             </div>
@@ -76,13 +76,12 @@
                     <div class="mx-auto mt-16 max-w-7xl px-6 sm:mt-20 md:mt-24 lg:px-8">
                         <dl
                             class="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16">
-                            <div v-for="feature in features" :key="feature.name" class="relative pl-9">
+                            <div v-for="feature in features" :key="feature.name" class="flex flex-col relative pl-9">
                                 <dt class="inline font-semibold text-gray-900">
                                     <component :is="feature.icon" class="absolute left-1 top-1 h-5 w-5 text-indigo-600"
                                         aria-hidden="true" />
                                     {{ feature.name }}
                                 </dt>
-                                {{ ' ' }}
                                 <dd class="inline">{{ feature.description }}</dd>
                             </div>
                         </dl>
@@ -115,8 +114,10 @@
                                     <use href="#b56e9dab-6ccb-4d32-ad02-6b4bb5d9bbeb" x="86" />
                                 </svg>
                                 <blockquote class="text-xl font-semibold leading-8 text-white sm:text-2xl sm:leading-9">
-                                    <p>Gravida quam mi erat tortor neque molestie. Auctor aliquet at porttitor a enim nunc
-                                        suscipit tincidunt nunc. Et non lorem tortor posuere. Nunc eu scelerisque interdum
+                                    <p>Gravida quam mi erat tortor neque molestie. Auctor aliquet at porttitor a enim
+                                        nunc
+                                        suscipit tincidunt nunc. Et non lorem tortor posuere. Nunc eu scelerisque
+                                        interdum
                                         eget
                                         tellus non nibh scelerisque bibendum.</p>
                                 </blockquote>
@@ -128,58 +129,30 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Pricing section -->
-                <div class="relative isolate mt-32 bg-white px-6 sm:mt-56 lg:px-8">
-                    <div class="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-36 blur-3xl"
-                        aria-hidden="true">
-                        <div class="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30"
-                            style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" />
-                    </div>
-                    <div class="mx-auto max-w-2xl text-center lg:max-w-4xl">
-                        <h2 class="text-base font-semibold leading-7 text-indigo-600">Pricing</h2>
-                        <p class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">The right price for you,
-                            whoever you are</p>
-                    </div>
-                    <p class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">Qui iusto aut est earum
-                        eos
-                        quae. Eligendi est at nam aliquid ad quo reprehenderit in aliquid fugiat dolorum voluptatibus.</p>
-                    <div
-                        class="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
-                        <div v-for="(tier, tierIdx) in tiers" :key="tier.id"
-                            :class="[tier.featured ? 'relative bg-gray-900 shadow-2xl' : 'bg-white/60 sm:mx-8 lg:mx-0', tier.featured ? '' : tierIdx === 0 ? 'rounded-t-3xl sm:rounded-b-none lg:rounded-tr-none lg:rounded-bl-3xl' : 'sm:rounded-t-none lg:rounded-tr-3xl lg:rounded-bl-none', 'rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10']">
-                            <h3 :id="tier.id"
-                                :class="[tier.featured ? 'text-indigo-400' : 'text-indigo-600', 'text-base font-semibold leading-7']">
-                                {{ tier.name }}</h3>
-                            <p class="mt-4 flex items-baseline gap-x-2">
-                                <span
-                                    :class="[tier.featured ? 'text-white' : 'text-gray-900', 'text-5xl font-bold tracking-tight']">{{
-                                        tier.priceMonthly }}</span>
-                                <span
-                                    :class="[tier.featured ? 'text-gray-400' : 'text-gray-500', 'text-base']">/month</span>
-                            </p>
-                            <p :class="[tier.featured ? 'text-gray-300' : 'text-gray-600', 'mt-6 text-base leading-7']">{{
-                                tier.description }}</p>
-                            <ul role="list"
-                                :class="[tier.featured ? 'text-gray-300' : 'text-gray-600', 'mt-8 space-y-3 text-sm leading-6 sm:mt-10']">
-                                <li v-for="feature in tier.features" :key="feature" class="flex gap-x-3">
-                                    <CheckIcon
-                                        :class="[tier.featured ? 'text-indigo-400' : 'text-indigo-600', 'h-6 w-5 flex-none']"
-                                        aria-hidden="true" />
-                                    {{ feature }}
-                                </li>
-                            </ul>
-                            <a :href="tier.href" :aria-describedby="tier.id"
-                                :class="[tier.featured ? 'bg-indigo-500 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline-indigo-500' : 'text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300 focus-visible:outline-indigo-600', 'mt-8 block rounded-md py-2.5 px-3.5 text-center text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10']">Get
-                                started today</a>
+                <div class="bg-white py-16 sm:py-24 lg:py-32 sm:mt-32">
+                    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">
+                        <div class="max-w-xl text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:col-span-7">
+                            <h2 class="inline sm:block lg:inline xl:block">Fii la curent cu noutățile și actualizările
+                                noastre!</h2>
+                            {{ ' ' }}
+                            <p class="inline sm:block lg:inline xl:block">Abonează-te la newsletter-ul nostru.</p>
                         </div>
+                        <form class="w-full max-w-md lg:col-span-5 lg:pt-2">
+                            <div class="flex gap-x-4">
+                                <label for="email-address" class="sr-only">Email address</label>
+                                <input id="email-address" name="email" type="email" autocomplete="email" required=""
+                                    class="min-w-0 flex-auto rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    placeholder="Enter your email" />
+                                <button type="submit"
+                                    class="flex-none rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Subscribe</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
                 <!-- FAQ section -->
-                <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
+                <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-32 lg:px-8">
                     <div class="mx-auto max-w-4xl divide-y divide-gray-900/10">
-                        <h2 class="text-2xl font-bold leading-10 tracking-tight text-gray-900">Frequently asked questions
+                        <h2 class="text-2xl font-bold leading-10 tracking-tight text-gray-900">Întrebări frecvente
                         </h2>
                         <dl class="mt-10 space-y-6 divide-y divide-gray-900/10">
                             <Disclosure as="div" v-for="faq in faqs" :key="faq.question" class="pt-6" v-slot="{ open }">
@@ -204,7 +177,7 @@
         </Layout>
     </div>
 </template>
-  
+
 
 <script>
 
@@ -215,6 +188,7 @@ export default {
     data() {
         return {
             hero: 'images/hero2.jpg',
+            featureImg: 'images/team.jpg',
         }
     }
 }
@@ -248,34 +222,24 @@ const navigation = [
 ]
 const features = [
     {
-        name: 'Push to deploy.',
-        description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit aute id magna.',
+        name: 'Descoperă pasiunea pentru baschet!',
+        description: 'În echipa noastră, fiecare dribling și fiecare coș contează. Alătură-te comunității noastre și fă parte dintr-o experiență autentică de baschet.',
         icon: CloudArrowUpIcon,
     },
     {
-        name: 'SSL certificates.',
-        description: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.',
+        name: 'Vino să trăiești emoția jocului!',
+        description: 'La clubul nostru de baschet, nu este vorba doar despre puncte marcate sau meciuri câștigate. Este despre echipă, despre dedicare și despre bucuria de a juca baschet la cel mai înalt nivel.',
         icon: LockClosedIcon,
     },
     {
-        name: 'Simple queues.',
-        description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus.',
+        name: 'Explorează potențialul tău!',
+        description: 'Indiferent dacă ești începător sau jucător experimentat, la clubul nostru de baschet vei găsi resursele și suportul de care ai nevoie pentru a-ți îmbunătăți abilitățile și a-ți atinge obiectivele în acest sport minunat.',
         icon: ArrowPathIcon,
     },
     {
-        name: 'Advanced security.',
-        description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit aute id magna.',
-        icon: FingerPrintIcon,
-    },
-    {
-        name: 'Powerful API.',
-        description: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.',
+        name: 'Împreună suntem mai puternici!',
+        description: 'Baschetul nu este doar un sport, este o comunitate. La clubul nostru, vei găsi prieteni, mentori și oportunități de creștere personală și profesională. Hai să construim împreună ceva special!',
         icon: Cog6ToothIcon,
-    },
-    {
-        name: 'Database backups.',
-        description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. ',
-        icon: ServerIcon,
     },
 ]
 const tiers = [
@@ -307,11 +271,30 @@ const tiers = [
 ]
 const faqs = [
     {
-        question: "What's the best thing about Switzerland?",
+        question: "Cât de des se desfășoară antrenamentele și meciurile?",
         answer:
-            "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+            "Antrenamentele noastre sunt programate de obicei de două sau trei ori pe săptămână, iar meciurile pot avea loc în funcție de programul competițional.",
     },
-    // More questions...
+    {
+        question: "Care sunt criteriile de selecție pentru a deveni membru al echipei de baschet?",
+        answer:
+            "În general, selecția se face pe baza abilităților tehnice și fizice, dar și a angajamentului și atitudinii pozitive față de echipă și sport.",
+    },
+    {
+        question: "Există vreo limită de vârstă pentru a te înscrie în clubul nostru de baschet?",
+        answer:
+            "De obicei, acceptăm membri de toate vârstele, de la copii la adulți. Înscrierea poate fi supusă unor restricții specifice anumitor categorii de vârstă sau niveluri de abilitate.",
+    },
+    {
+        question: "Care sunt costurile implicate în a face parte din echipa de baschet?",
+        answer:
+            "Costurile pot varia în funcție de diverse aspecte, cum ar fi taxa de înscriere, echipamentul sportiv, deplasările la meciuri și antrenamente, dar echipa noastră încearcă să ofere opțiuni accesibile pentru toți membrii",
+    },
+    {
+        question: "Ce oportunități de dezvoltare oferiți membrilor clubului de baschet?",
+        answer:
+            " În afară de antrenamentele regulate și participarea la competiții, oferim și programe de dezvoltare a abilităților, tabere de instruire, evenimente sociale și ședințe informative pentru a promova creșterea personală și sportivă a membrilor noștri.",
+    },
 ]
 const footerNavigation = {
     solutions: [
