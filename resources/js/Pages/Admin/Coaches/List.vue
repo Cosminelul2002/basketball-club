@@ -1,7 +1,7 @@
 <template>
     <AdminLayout>
         <div class="px-4 sm:px-6 lg:px-8">
-            <div class="sm:flex sm:items-center">
+            <div class="sm:flex sm:items-center mb-8">
                 <div class="sm:flex-auto">
                     <h1 class="text-base font-semibold leading-6 text-gray-900">Antrenori</h1>
                     <p class="mt-2 text-md text-gray-700">Lista antrenori club.</p>
@@ -12,6 +12,15 @@
                         antrenor</inertia-link>
                 </div>
             </div>
+
+            <!-- Filter section -->
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Filter by name -->
+                <div>
+                    <Filter :filter="nameFilter" :value="filters.name" :onUpdateValue="updateNameFilter" />
+                </div>
+            </div>
+
             <div class="mt-8 flow-root">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -22,13 +31,17 @@
                                         <th scope="col"
                                             class="py-3.5 pl-4 pr-3 text-left text-md font-semibold text-gray-900 sm:pl-6">
                                             Nume</th>
-                                        <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
                                             Prenume</th>
-                                        <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
                                             Număr de telefon</th>
-                                        <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
                                             Email</th>
-                                        <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
                                             Descriere</th>
                                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                                             <span class="sr-only">Edit</span>
@@ -39,17 +52,19 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
-                                    <tr v-for="coach in  coaches " :key="coach.id">
+                                    <tr v-for="coach in filteredCoaches " :key="coach.id">
                                         <td
                                             class="whitespace-nowrap py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-6">
                                             {{ coach.first_name }}</td>
-                                        <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ coach.last_name }}
+                                        <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ coach.last_name
+                                            }}
                                         </td>
                                         <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ coach.phone }}
                                         </td>
-                                        <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ coach.email }}</td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ coach.email }}
+                                        </td>
                                         <td class=" px-3 py-4 text-md text-gray-500">{{ coach.description
-                                        }}</td>
+                                            }}</td>
                                         <td
                                             class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-md font-medium sm:pr-6">
                                             <inertia-link :href="route('admin.dashboard.coaches.show', coach)"
@@ -75,17 +90,42 @@
 
 <script>
 import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import Filter from '../../../Components/Filter.vue';
 
 
 export default {
     name: 'Coaches/List',
 
-    components: { AdminLayout, AdminLayout },
+    components: { AdminLayout, Filter },
+
+    computed: {
+        filteredCoaches() {
+            const { name } = this.filters;
+            return this.coaches.filter(coach => {
+                return (!name || coach.first_name.toLowerCase().includes(name.toLowerCase()));
+            });
+        },
+
+        nameFilter() {
+            return {
+                label: 'Filtru după nume',
+                type: 'text',
+                placeholder: 'Caută după nume',
+            }
+        },
+    },
 
     props: {
         coaches: Array,
     },
 
+    data() {
+        return {
+            filters: {
+                name: '',
+            }
+        }
+    },
 
     methods: {
         deleteCoach(coach) {
@@ -93,7 +133,11 @@ export default {
             if (confirm('Sunteți sigur că doriți să ștergeți acest antrenor?')) {
                 this.$inertia.delete(route('admin.dashboard.coaches.destroy', coach));
             }
-        }
+        },
+
+        updateNameFilter(value) {
+            this.filters.name = value;
+        },
     }
 }
 

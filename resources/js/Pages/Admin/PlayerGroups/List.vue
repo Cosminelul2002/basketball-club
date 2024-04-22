@@ -1,7 +1,7 @@
 <template>
     <AdminLayout>
         <div class="px-4 sm:px-6 lg:px-8">
-            <div class="sm:flex sm:items-center">
+            <div class="sm:flex sm:items-center mb-8">
                 <div class="sm:flex-auto">
                     <h1 class="text-base font-semibold leading-6 text-gray-900">Grupe</h1>
                     <p class="mt-2 text-md text-gray-700">Liste grupe și antrenori.</p>
@@ -12,6 +12,19 @@
                         grupă nouă</inertia-link>
                 </div>
             </div>
+
+            <!-- Filter section -->
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Filter by name -->
+                <div>
+                    <Filter :filter="nameFilter" :value="filters.name" :onUpdateValue="updateNameFilter" />
+                </div>
+                <!-- Filter by coach -->
+                <div>
+                    <Filter :filter="coachFilter" :value="filters.coaches" :onUpdateValue="updateCoachFilter" />
+                </div>
+            </div>
+
             <div class="mt-8 flow-root">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -22,11 +35,14 @@
                                         <th scope="col"
                                             class="py-3.5 pl-4 pr-3 text-left text-md font-semibold text-gray-900 sm:pl-6">
                                             Grupe</th>
-                                        <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
                                             Jucători</th>
-                                        <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
                                             Taxă</th>
-                                        <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
                                             Antrenor</th>
                                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                                             <span class="sr-only">Edit</span>
@@ -37,11 +53,12 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
-                                    <tr v-for="playerGroup in playerGroups" :key="playerGroup.id">
+                                    <tr v-for="playerGroup in filteredPlayerGroups" :key="playerGroup.id">
                                         <td
                                             class="whitespace-nowrap py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-6">
                                             {{ playerGroup.name }}</td>
-                                        <td class="py-4 px-3 text-md text-gray-500">{{ playerGroup.players.length }}</td>
+                                        <td class="py-4 px-3 text-md text-gray-500">{{ playerGroup.players.length }}
+                                        </td>
                                         <td class="py-4 px-3 text-md text-gray-500">{{ playerGroup.tax }}</td>
                                         <td class="py-4 px-3 text-md text-gray-500">
                                             <ul>
@@ -81,21 +98,75 @@ const people = [
 
 <script>
 import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import Filter from '../../../Components/Filter.vue';
 
 export default {
     name: 'Admin/PlayerGroups/List',
 
-    components: { AdminLayout },
+    components: { AdminLayout, Filter },
+
+    computed: {
+
+        filteredPlayerGroups() {
+            const { name, coach } = this.filters;
+            return this.playerGroups.filter(playerGroup => {
+                return (
+                    playerGroup.name.toLowerCase().includes(name.toLowerCase()) &&
+                    (!coach || playerGroup.coaches.some(c => c.id === parseInt(coach)))
+                );
+            });
+        },
+
+        nameFilter() {
+            return {
+                label: 'Filtru după nume',
+                type: 'text',
+                id: 'filter-name',
+            };
+        },
+
+        coachFilter() {
+            return {
+                id: 'filter-coach',
+                label: 'Filtru după antrenor',
+                type: 'select',
+                placeholder: 'Selectează un antrenor',
+                options: this.coaches.map(coach => ({
+                    value: coach.id,
+                    label: `${coach.first_name} ${coach.last_name}`,
+                })),
+            };
+        },
+    },
 
     props: {
         playerGroups: Array,
+        coaches: Array,
+    },
+
+    data() {
+        return {
+            filters: {
+                name: '',
+                coach: '',
+            },
+        };
     },
 
     methods: {
         deleteGroup(group) {
 
             this.$inertia.delete(route('admin.dashboard.groups.destroy', group.id));
-        }
+        },
+
+        updateNameFilter(value) {
+            this.filters.name = value;
+        },
+
+        updateCoachFilter(value) {
+            this.filters.coach = value;
+        },
+
     }
 }
 

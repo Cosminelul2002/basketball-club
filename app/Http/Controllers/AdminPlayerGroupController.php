@@ -26,6 +26,7 @@ class AdminPlayerGroupController extends Controller
         // Pass the player groups to the Inertia view
         return Inertia::render('Admin/PlayerGroups/List', [
             'playerGroups' => $playerGroups,
+            'coaches' => Coach::all(),
         ]);
     }
 
