@@ -1,7 +1,7 @@
 <template>
     <AdminLayout>
         <div class="px-4 sm:px-6 lg:px-8">
-            <div class="sm:flex sm:items-center">
+            <div class="sm:flex sm:items-center mb-8">
                 <div class="sm:flex-auto">
                     <h1 class="text-base font-semibold leading-6 text-gray-900">Locații</h1>
                     <p class="mt-2 text-md text-gray-700">Listă locații.</p>
@@ -12,6 +12,23 @@
                         grupă nouă</inertia-link>
                 </div>
             </div>
+
+            <!-- Filter section -->
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Filter by address -->
+                <div>
+                    <Filter :filter="addressFilter" :value="filters.address" :onUpdateValue="updateAddressFilter" />
+                </div>
+                <!-- Filter by city -->
+                <div>
+                    <Filter :filter="cityFilter" :value="filters.city" :onUpdateValue="updateCityFilter" />
+                </div>
+                <!-- Filter by area -->
+                <div>
+                    <Filter :filter="areaFilter" :value="filters.area" :onUpdateValue="updateAreaFilter" />
+                </div>
+            </div>
+
             <div class="mt-8 flow-root">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -37,7 +54,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
-                                    <tr v-for="location in locations" :key="location.id">
+                                    <tr v-for="location in filteredLocations" :key="location.id">
                                         <td
                                             class="whitespace-nowrap py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-6">
                                             {{ location.address }}</td>
@@ -68,15 +85,61 @@
 
 <script>
 import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import Filter from '../../../Components/Filter.vue';
 
 export default {
 
     name: "Locations/List",
 
-    components: { AdminLayout },
+    components: { AdminLayout, Filter },
+
+    computed: {
+        filteredLocations() {
+            const { address, city, area } = this.filters;
+            return this.locations.filter(location => {
+                return location.address.toLowerCase().includes(address.toLowerCase()) &&
+                    location.city.toLowerCase().includes(city.toLowerCase()) &&
+                    location.area.toLowerCase().includes(area.toLowerCase());
+            });
+        },
+
+        addressFilter() {
+            return {
+                id: 'address',
+                label: 'Adresă',
+                type: 'text',
+            };
+        },
+
+        cityFilter() {
+            return {
+                id: 'city',
+                label: 'Sector',
+                type: 'text',
+            };
+        },
+
+        areaFilter() {
+            return {
+                id: 'area',
+                label: 'Zonă',
+                type: 'text',
+            };
+        }
+    },
 
     props: {
         locations: Array,
+    },
+
+    data() {
+        return {
+            filters: {
+                address: '',
+                city: '',
+                area: '',
+            }
+        }
     },
 
     methods: {
@@ -84,7 +147,19 @@ export default {
             if (confirm('Sunteți sigur că doriți să ștergeți această locație?')) {
                 this.$inertia.delete(route('admin.dashboard.locations.destroy', location));
             }
-        }
+        },
+
+        updateAddressFilter(value) {
+            this.filters.address = value;
+        },
+
+        updateCityFilter(value) {
+            this.filters.city = value;
+        },
+
+        updateAreaFilter(value) {
+            this.filters.area = value;
+        },
     }
 }
 

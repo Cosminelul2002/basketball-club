@@ -21,6 +21,7 @@ trait AdminProductTrait
     {
         return Inertia::render('Admin/Products/List', [
             'products' => Product::all()->load('category'),
+            'categories' => Category::all(),
         ]);
     }
 

@@ -1,12 +1,29 @@
 <template>
     <AdminLayout>
         <div class="px-4 sm:px-6 lg:px-8">
-            <div class="sm:flex sm:items-center">
+            <div class="sm:flex sm:items-center mb-8">
                 <div class="sm:flex-auto">
                     <h1 class="text-base font-semibold leading-6 text-gray-900">Înscrieri</h1>
                     <p class="mt-2 text-md text-gray-700">Lista cu înscrieri noi.</p>
                 </div>
             </div>
+
+            <!-- Filter section -->
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Filter by name -->
+                <div>
+                    <Filter :filter="nameFilter" :value="filters.name" :onUpdateValue="updateNameFilter" />
+                </div>
+                <!-- Filter by created at -->
+                <div>
+                    <Filter :filter="sortFilter" :value="filters.sort" :onUpdateValue="updateSortFilter" />
+                </div>
+                <!-- Filter by approved -->
+                <div>
+                    <Filter :filter="approvedFilter" :value="filters.approved" :onUpdateValue="updateApprovedFilter" />
+                </div>
+            </div>
+
             <div class="mt-8 flow-root">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -43,7 +60,7 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
-                                <tr v-for="join in  joins " :key="joins.id" class="even:bg-gray-50">
+                                <tr v-for="join in  filteredJoins " :key="joins.id" class="even:bg-gray-50">
                                     <td
                                         class="whitespace-nowrap py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-3">
                                         {{ formatDate(join.created_at) }}</td>
@@ -56,7 +73,7 @@
                                     <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.phone }}</td>
                                     <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.email }}</td>
                                     <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{
-                                    formatBoolean(join.approved) }}</td>
+                        formatBoolean(join.approved) }}</td>
                                     <td
                                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-md font-medium sm:pr-3">
                                         <template v-if="!join.approved">
@@ -81,13 +98,102 @@
 import AdminLayout from '../../../Layouts/AdminLayout.vue';
 import moment from 'moment';
 import 'moment/locale/ro';
+import Filter from '../../../Components/Filter.vue';
+
 export default {
     name: 'Joins/List',
 
-    components: { AdminLayout },
+    components: { AdminLayout, Filter },
+
+    computed: {
+        filteredJoins() {
+            const { sort, name, approved } = this.filters;
+
+            return this.joins.filter(join => {
+                return join.first_name.toLowerCase().includes(name.toLowerCase()) ||
+                    join.last_name.toLowerCase().includes(name.toLowerCase());
+            }).filter(join => {
+                if (sort === 'oldest') {
+                    return this.oldestJoins.includes(join);
+                } else if (sort === 'newest') {
+                    return this.newestJoins.includes(join);
+                }
+
+                return true;
+            }).filter(join => {
+                if (approved === '1') {
+                    return this.approvedJoins.includes(join);
+                } else if (approved === '0') {
+                    return !this.approvedJoins.includes(join);
+                }
+
+                return true;
+            });
+        },
+
+        oldestJoins() {
+            return this.joins.sort((a, b) => {
+                return new Date(a.created_at) - new Date(b.created_at);
+            });
+        },
+
+        newestJoins() {
+            return this.joins.sort((a, b) => {
+                return new Date(b.created_at) - new Date(a.created_at);
+            });
+        },
+
+        approvedJoins() {
+            return this.joins.filter(join => join.approved === 1);
+        },
+
+        sortFilter() {
+            return {
+                label: 'Sortează',
+                type: 'select',
+                id: 'filter-sort',
+                placeholder: 'Alege o opțiune',
+                options: [
+                    { label: 'Cele mai vechi', value: 'oldest' },
+                    { label: 'Cele mai noi', value: 'newest' },
+                ],
+            };
+        },
+
+        nameFilter() {
+            return {
+                label: 'Filtru după nume',
+                type: 'text',
+                id: 'filter-name',
+            };
+        },
+
+        approvedFilter() {
+            return {
+                label: 'Filtru după aprobare',
+                type: 'select',
+                id: 'filter-approved',
+                placeholder: 'Alege o opțiune',
+                options: [
+                    { label: 'Aprobat', value: '1' },
+                    { label: 'Neaprobat', value: '0' },
+                ],
+            };
+        },
+    },
 
     props: {
         joins: Array,
+    },
+
+    data() {
+        return {
+            filters: {
+                sort: '',
+                name: '',
+                approved: '',
+            },
+        };
     },
 
     methods: {
@@ -115,14 +221,19 @@ export default {
         approveJoin(join) {
             this.$inertia.post(route('admin.dashboard.joins.approve', join));
         },
+
+        updateSortFilter(value) {
+            this.filters.sort = value;
+        },
+
+        updateNameFilter(value) {
+            this.filters.name = value;
+        },
+
+        updateApprovedFilter(value) {
+            this.filters.approved = value;
+        },
     }
 }
 
-</script>
-
-<script setup>
-const people = [
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    // More people...
-]
 </script>
