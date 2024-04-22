@@ -18,8 +18,8 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ParentController;
-use App\Http\Controllers\PlayerController;
-use App\Http\Controllers\PlayerGroupController;
+use App\Http\Controllers\AdminPlayerController;
+use App\Http\Controllers\AdminPlayerGroupController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ShopController;
@@ -59,13 +59,13 @@ Route::name("admin.")->prefix('/admin')->group(function () use ($allMethods) {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::name("dashboard.")->prefix('/dashboard')->group(function () use ($allMethods) {
         Route::name("players.")->prefix('/players')->group(function () use ($allMethods) {
-            Route::get('/', [PlayerController::class, 'index'])->name('index');
-            Route::get('/create', [PlayerController::class, 'create'])->name('create');
-            Route::post('/create', [PlayerController::class, 'store'])->name('store');
-            Route::get('/{player}', [PlayerController::class, 'show'])->name('show');
-            Route::get('/{player}/edit', [PlayerController::class, 'edit'])->name('edit');
-            Route::put('/{player}', [PlayerController::class, 'update'])->name('update');
-            Route::delete('/{player}', [PlayerController::class, 'destroy'])->name('destroy');
+            Route::get('/', [AdminPlayerController::class, 'index'])->name('index');
+            Route::get('/create', [AdminPlayerController::class, 'create'])->name('create');
+            Route::post('/create', [AdminPlayerController::class, 'store'])->name('store');
+            Route::get('/{player}', [AdminPlayerController::class, 'show'])->name('show');
+            Route::get('/{player}/edit', [AdminPlayerController::class, 'edit'])->name('edit');
+            Route::put('/{player}', [AdminPlayerController::class, 'update'])->name('update');
+            Route::delete('/{player}', [AdminPlayerController::class, 'destroy'])->name('destroy');
         });
         Route::name('coaches.')->prefix('/coaches')->group(function () use ($allMethods) {
             Route::get('/', [AdminCoachController::class, 'index'])->name('index');
@@ -77,13 +77,13 @@ Route::name("admin.")->prefix('/admin')->group(function () use ($allMethods) {
             Route::delete('/{coach}', [AdminCoachController::class, 'destroy'])->name('destroy');
         });
         Route::name("groups.")->prefix('/groups')->group(function () use ($allMethods) {
-            Route::get('/', [PlayerGroupController::class, 'index'])->name('index');
-            Route::get('/create', [PlayerGroupController::class, 'create'])->name('create');
-            Route::post('/create', [PlayerGroupController::class, 'store'])->name('store');
-            Route::get('/{group}', [PlayerGroupController::class, 'show'])->name('show');
-            Route::get('/{group}/edit', [PlayerGroupController::class, 'edit'])->name('edit');
-            Route::put('/{group}', [PlayerGroupController::class, 'update'])->name('update');
-            Route::delete('/{group}', [PlayerGroupController::class, 'destroy'])->name('destroy');
+            Route::get('/', [AdminPlayerGroupController::class, 'index'])->name('index');
+            Route::get('/create', [AdminPlayerGroupController::class, 'create'])->name('create');
+            Route::post('/create', [AdminPlayerGroupController::class, 'store'])->name('store');
+            Route::get('/{group}', [AdminPlayerGroupController::class, 'show'])->name('show');
+            Route::get('/{group}/edit', [AdminPlayerGroupController::class, 'edit'])->name('edit');
+            Route::put('/{group}', [AdminPlayerGroupController::class, 'update'])->name('update');
+            Route::delete('/{group}', [AdminPlayerGroupController::class, 'destroy'])->name('destroy');
         });
         Route::name("joins.")->prefix('/joins')->group(function () use ($allMethods) {
             Route::get('/', [AdminJoinController::class, 'index'])->name('index');
@@ -123,10 +123,10 @@ Route::name("admin.")->prefix('/admin')->group(function () use ($allMethods) {
 });
 
 Route::name('player.')->prefix('/player')->group(function () {
-    Route::get('/dashboard', [PlayerController::class, 'dashboard'])->name('dashboard');
-    Route::get('/profile', [PlayerController::class, 'profile'])->name('profile');
-    Route::get('/edit', [PlayerController::class, 'edit'])->name('edit');
-    Route::put('/update', [PlayerController::class, 'update'])->name('update');
+    Route::get('/dashboard', [AdminPlayerController::class, 'dashboard'])->name('dashboard');
+    Route::get('/profile', [AdminPlayerController::class, 'profile'])->name('profile');
+    Route::get('/edit', [AdminPlayerController::class, 'edit'])->name('edit');
+    Route::put('/update', [AdminPlayerController::class, 'update'])->name('update');
 });
 
 Route::name('parent.')->prefix('/parent')->group(function () {
@@ -155,9 +155,9 @@ Route::post('/register', [RegisterController::class, 'register'])->name('auth.re
 // Route::resource('events', EventController::class);
 
 // Route::name('players.')->prefix('/players')->group(function () {
-//     Route::get('/', [PlayerController::class, 'index'])->name('index');
+//     Route::get('/', [AdminPlayerController::class, 'index'])->name('index');
 // });
-// Route::resource('players', PlayerController::class);
+// Route::resource('players', AdminPlayerController::class);
 
 // Route::name('activities.')->prefix('/activities')->group(function () {
 //     Route::get('/', [ActivityController::class, 'index'])->name('index');

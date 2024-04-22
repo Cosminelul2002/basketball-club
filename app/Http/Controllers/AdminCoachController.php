@@ -2,56 +2,98 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\CoachRepositoryInterface;
 use App\Http\Requests\StoreCoachRequest;
 use App\Models\Coach;
+use App\Traits\AdminCoachTrait;
+use App\Traits\AdminResourceTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class AdminCoachController extends Controller
 {
+    use AdminCoachTrait, AdminResourceTrait;
+
+    /**
+     * The coach repository instance.
+     *
+     * @var CoachRepositoryInterface
+     */
+    private $repoCoach;
+
+    /**
+     * Create a new AdminCoachController instance.
+     *
+     * @param CoachRepositoryInterface $repoCoach
+     * @return void
+     */
+    public function __construct(CoachRepositoryInterface $repoCoach)
+    {
+        $this->repoCoach = $repoCoach;
+    }
+
+    /**
+     * Display a listing of the coaches.
+     *
+     * @return \Inertia\Response
+     */
     public function index()
     {
-        return Inertia::render('Admin/Coaches/List', [
-            'coaches' => Coach::all()
-        ]);
+        return $this->indexResources('Coaches', Coach::class);
     }
 
+    /**
+     * Display the specified coach.
+     *
+     * @param Coach $coach
+     * @return \Inertia\Response
+     */
     public function show(Coach $coach)
     {
-        return Inertia::render('Admin/Coaches/Show', [
-            'coach' => $coach
-        ]);
+        return $this->showResource('Coaches', $coach);
     }
 
+    /**
+     * Show the form for creating a new coach.
+     *
+     * @return \Inertia\Response
+     */
     public function create()
     {
-        return Inertia::render('Admin/Coaches/Create');
+        return $this->createResourceView('Coaches');
     }
 
+    /**
+     * Store a newly created coach in storage.
+     *
+     * @param StoreCoachRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(StoreCoachRequest $request)
     {
-        Coach::create($request->validated());
-
-        return redirect()->route('admin.dashboard.coaches.index')->with('message', 'Antrenor adăugat cu succes!');
+        return $this->storeResource($request, Coach::class, 'admin.dashboard.coaches.index', 'Antrenor adăugat cu succes!');
     }
 
+    /**
+     * Update the specified coach in storage.
+     *
+     * @param Request $request
+     * @param Coach $coach
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, Coach $coach)
     {
-        $requestData = $request->all();
-
-        $updateData = array_filter($requestData, function ($value, $key) use ($coach) {
-            return $coach->{$key} !== $value;
-        }, ARRAY_FILTER_USE_BOTH);
-
-        $coach->update($updateData);
-
-        return redirect()->route('admin.dashboard.coaches.index')->with('message', 'Antrenor actualizat cu succes!');
+        return $this->updateCoach($request, $coach);
     }
 
+    /**
+     * Remove the specified coach from storage.
+     *
+     * @param Coach $coach
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Coach $coach)
     {
-        $coach->delete();
-
-        return redirect()->route('admin.dashboard.coaches.index')->with('message', 'Antrenor șters cu succes!');
+        return $this->destroyResource($coach, 'admin.dashboard.coaches.index', 'Antrenor șters cu succes!');
     }
 }

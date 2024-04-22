@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Models\Category;
 use App\Models\Product;
-use App\Services\SlugService;
+use App\Traits\AdminProductTrait;
+use App\Traits\AdminResourceTrait;
 use Codestage\Authorization\Attributes\Authorize;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -15,6 +15,9 @@ use Inertia\Inertia;
 #[Authorize(roles: 'admin')]
 class AdminProductController extends Controller
 {
+
+    use AdminProductTrait, AdminResourceTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +25,7 @@ class AdminProductController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Products/List', [
-            'products' => Product::all()->load('category'),
-        ]);
+        return $this->index_products();
     }
 
     /**
@@ -35,10 +36,7 @@ class AdminProductController extends Controller
      */
     public function show(Product $product)
     {
-        return Inertia::render('Admin/Products/Show', [
-            'product' => $product->load('category'),
-            'categories' => Category::all(),
-        ]);
+        return $this->show_product($product);
     }
 
     /**
@@ -49,9 +47,7 @@ class AdminProductController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Products/Create', [
-            'categories' => Category::all(),
-        ]);
+        return $this->create_product_view();
     }
 
     /**
@@ -61,13 +57,7 @@ class AdminProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $request->validated();
-
-        $request->merge(['slug' => SlugService::createForModel(Product::class, $request->name)]);
-
-        Product::create($request->all());
-
-        return redirect()->route('admin.dashboard.products.index')->with('message', 'Produs adăugat cu succes!');
+        return $this->store_product($request);
     }
 
     /**
@@ -79,21 +69,7 @@ class AdminProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $requestData = $request->validated();
-
-        $updateData = array_filter($requestData, function ($value, $key) use ($product) {
-            return $product->{$key} !== $value;
-        }, ARRAY_FILTER_USE_BOTH);
-
-        if (array_key_exists('category', $updateData)) {
-            $category = Category::where('name', $updateData['category'])->first();
-            $updateData['category_id'] = $category->id;
-            unset($updateData['category']);
-        }
-
-        $product->update($updateData);
-
-        return redirect()->route('admin.dashboard.products.index')->with('message', 'Produs actualizat cu succes!');
+        return $this->update_product($request, $product);
     }
 
     /**
@@ -104,8 +80,6 @@ class AdminProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
-
-        return redirect()->route('admin.dashboard.products.index')->with('message', 'Produs șters cu succes!');
+        return $this->destroyResource($product, 'admin.dashboard.products.index', 'Produs șters cu succes!');
     }
 }

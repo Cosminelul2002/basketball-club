@@ -14,10 +14,12 @@
                             <thead>
                                 <tr>
                                     <th scope="col"
-                                        class="py-3.5 pl-4 pr-3 text-left text-md font-semibold text-gray-900 sm:pl-3">Data
+                                        class="py-3.5 pl-4 pr-3 text-left text-md font-semibold text-gray-900 sm:pl-3">
+                                        Data
                                         Înscrieri
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">Nume
+                                    <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
+                                        Nume
                                     </th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
                                         Prenume
@@ -25,10 +27,12 @@
                                     <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
                                         Vârstă
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">Număr
+                                    <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
+                                        Număr
                                         de telefon
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">Email
+                                    <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
+                                        Email
                                     </th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-md font-semibold text-gray-900">
                                         Aprobat
@@ -40,19 +44,28 @@
                             </thead>
                             <tbody class="bg-white">
                                 <tr v-for="join in  joins " :key="joins.id" class="even:bg-gray-50">
-                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-3">
+                                    <td
+                                        class="whitespace-nowrap py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-3">
                                         {{ formatDate(join.created_at) }}</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.first_name }}</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.last_name }}</td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.age }} ani</td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.first_name }}
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.last_name }}
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.age }} ani
+                                    </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.phone }}</td>
                                     <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{ join.email }}</td>
                                     <td class="whitespace-nowrap px-3 py-4 text-md text-gray-500">{{
-                                        formatBoolean(join.approved) }}</td>
+                                    formatBoolean(join.approved) }}</td>
                                     <td
                                         class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-md font-medium sm:pr-3">
-                                        <button @click="approveJoin(join)"
-                                            class="text-indigo-600 hover:text-indigo-900">Aprobă</button>
+                                        <template v-if="!join.approved">
+                                            <button @click="approveJoin(join)"
+                                                class="text-indigo-600 hover:text-indigo-900">Aprobă</button>
+                                        </template>
+                                        <template v-else>
+                                            <!-- <span class="text-indigo-600">Aprobat</span> -->
+                                        </template>
                                     </td>
                                 </tr>
                             </tbody>

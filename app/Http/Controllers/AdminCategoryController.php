@@ -7,6 +7,8 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\SlugService;
+use App\Traits\AdminCategoryTrait;
+use App\Traits\AdminResourceTrait;
 use Codestage\Authorization\Attributes\Authorize;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,6 +16,9 @@ use Inertia\Inertia;
 #[Authorize]
 class AdminCategoryController extends Controller
 {
+
+    use AdminCategoryTrait, AdminResourceTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +27,7 @@ class AdminCategoryController extends Controller
     #[Authorize(roles: 'admin')]
     public function index()
     {
-        return Inertia::render('Admin/Categories/List', [
-            'categories' => Category::all()->load('products')
-        ]);
+        return $this->index_categories();
     }
 
     /**
@@ -36,9 +39,7 @@ class AdminCategoryController extends Controller
     #[Authorize(roles: 'admin')]
     public function show(Category $category)
     {
-        return Inertia::render('Admin/Categories/Show', [
-            'category' => $category->load('products')
-        ]);
+        return $this->show_category($category);
     }
 
     /**
@@ -51,30 +52,20 @@ class AdminCategoryController extends Controller
     #[Authorize(roles: 'admin')]
     public function addProdcuts(Category $category)
     {
-        return Inertia::render('Admin/Categories/AddProducts', [
-            'category' => $category->load('products'),
-            'products' => Product::all()->load('category')
-        ]);
+        return $this->add_products_view($category);
     }
 
+    /**
+     * Store products to a category.
+     * 
+     * @param  \App\Models\Category  $category
+     * @param  \App\Http\Requests\AddProductsRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    #[Authorize(roles: 'admin')]
     public function storeProducts(Category $category, AddProductsRequest $request)
     {
-        $products = Product::whereIn('name', $request->products)->get();
-
-        // make change only if the products are not already in the category
-        foreach ($products as $product) {
-            if ($product->category_id !== $category->id) {
-                $product->category_id = $category->id;
-                $product->save();
-                $ok = true;
-            }
-        }
-
-        if ($ok) {
-            return redirect()->route('admin.dashboard.categories.index')->with('message', 'Produse adăugate cu succes!');
-        } else {
-            return redirect()->route('admin.dashboard.categories.add-products', $category)->with('message', 'Produsele sunt deja în această categorie!');
-        }
+        return $this->store_products_to_category($category, $request);
     }
 
     /**
@@ -87,9 +78,7 @@ class AdminCategoryController extends Controller
     #[Authorize(roles: 'admin')]
     public function create()
     {
-        return Inertia::render('Admin/Categories/Create', [
-            'products' => Product::whereNull('category_id')->get(),
-        ]);
+        return $this->create_category_view();
     }
 
     /**
@@ -101,27 +90,7 @@ class AdminCategoryController extends Controller
     #[Authorize(roles: 'admin')]
     public function store(StoreCategoryRequest $request)
     {
-        $categoryName = $request->input('name');
-
-        $slug = SlugService::createForModel(Category::class, $categoryName);
-
-        $category = new Category();
-        $category->name = $request->input('name');
-        $category->slug = $slug;
-        $category->save();
-
-        $category = Category::where('slug', $slug)->first();
-
-        if (!$request->products) {
-            return redirect()->route('admin.dashboard.categories.index')->with('message', 'Categorie adăugată cu succes!');
-        } else {
-            $products = Product::whereIn('id', $request->products)->get();
-
-            foreach ($products as $product) {
-                $product->category_id = $category->id;
-                $product->save();
-            }
-        }
+        return $this->store_category($request);
     }
 
     /**
@@ -133,8 +102,6 @@ class AdminCategoryController extends Controller
     #[Authorize(roles: 'admin')]
     public function destroy(Category $category)
     {
-        $category->delete();
-
-        return redirect()->route('admin.dashboard.categories.index')->with('message', 'Categorie ștearsă cu succes!');
+        $this->destroyResource($category, 'admin.dashboard.categories.index', 'Categorie ștearsă cu succes!');
     }
 }

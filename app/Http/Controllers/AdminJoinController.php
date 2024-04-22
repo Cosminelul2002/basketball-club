@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Join;
+use App\Services\PlayerFromJoin;
+use App\Traits\AdminJoinTrait;
 use Codestage\Authorization\Attributes\Authorize;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -18,10 +20,8 @@ class AdminJoinController extends Controller
     #[Authorize(roles: 'admin')]
     public function index()
     {
-        $joins = Join::orderByDesc('created_at')->get();
-
         return Inertia::render('Admin/Joins/List', [
-            'joins' => $joins,
+            'joins' => Join::orderByDesc('created_at')->get(),
         ]);
     }
 
@@ -34,10 +34,6 @@ class AdminJoinController extends Controller
     #[Authorize(roles: 'admin')]
     public function approve(Request $request, Join $join)
     {
-        $join->update([
-            'approved' => true,
-        ]);
-
-        return redirect()->back()->with('message', 'Cererea a fost aprobata');
+        return $this->approveJoin($request, $join);
     }
 }

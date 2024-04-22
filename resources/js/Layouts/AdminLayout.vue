@@ -212,7 +212,13 @@
                                 <CheckCircleIcon class="h-6 w-6 text-green-400" aria-hidden="true" />
                             </div>
                             <div class="ml-3 w-0 flex-1 pt-0.5">
-                                <p class="text-sm font-medium text-gray-900">{{ $page.props.message }}</p>
+                                <template v-if="$page.props.message">
+                                    <p class="text-sm font-medium text-gray-900">{{ $page.props.message }}</p>
+                                </template>
+                                <template v-else>
+                                    <p class="text-sm font-medium text-gray-900">{{ $page.props.errors.message }}</p>
+                                </template>
+                                <!-- <p class="text-sm font-medium text-gray-900">{{ $page.props.message }}</p> -->
                             </div>
                             <div class="ml-4 flex flex-shrink-0">
                                 <button type="button" @click="show = false"

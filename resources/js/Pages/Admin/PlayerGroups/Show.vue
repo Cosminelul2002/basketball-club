@@ -1,6 +1,6 @@
 <template>
     <AdminLayout>
-
+        <h1>{{ playerGroup.name }} aaaaaaaaa</h1>
     </AdminLayout>
 </template>
 
@@ -14,7 +14,7 @@ export default {
     components: { AdminLayout },
 
     props: {
-        playerGroup: Object
+        playerGroup: Object,
     }
 }
 

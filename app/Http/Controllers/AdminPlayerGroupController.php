@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 #[Authorize]
-class PlayerGroupController extends Controller
+class AdminPlayerGroupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,8 +38,9 @@ class PlayerGroupController extends Controller
     #[Authorize(roles: 'admin')]
     public function show(PlayerGroup $playerGroup)
     {
+        // dd($playerGroup);
         return Inertia::render('Admin/PlayerGroups/Show', [
-            'playerGroup' => $playerGroup->load('coaches', 'players')
+            'playerGroup' => $playerGroup,
         ]);
     }
 

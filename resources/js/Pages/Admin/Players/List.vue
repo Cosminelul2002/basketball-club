@@ -1,121 +1,188 @@
 <template>
     <AdminLayout>
-        <ul role="list" class="divide-y divide-gray-100">
-            <inertia-link v-for="player in players" :key="player.email"
-                :href="route('admin.dashboard.players.show', player)"
-                class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 sm:px-6 lg:px-8">
-                <div class="flex min-w-0 gap-x-4">
-                    <img class="h-12 w-12 flex-none rounded-full bg-gray-50" alt="" />
-                    <div class="min-w-0 flex-auto">
-                        <p class="text-sm font-semibold leading-6 text-gray-900">
-                            <a :href="player.href">
-                                <span class="absolute inset-x-0 -top-px bottom-0" />
-                                {{ player.first_name }} {{ player.last_name }}
-                            </a>
-                        </p>
-                        <p class="mt-1 flex text-xs leading-5 text-gray-900">
-                            <a class="relative truncate hover:underline">{{ player.player_group ?
-                                player.player_group.name : 'Fără grupă' }}</a>
-                        </p>
-                    </div>
+        <div class="px-4 sm:px-6 lg:px-8">
+            <div class="sm:flex sm:items-center mb-8">
+                <div class="sm:flex-auto">
+                    <h1 class="text-base font-semibold leading-6 text-gray-900">Jucători</h1>
+                    <p class="mt-2 text-md text-gray-700">Listă Jucători.</p>
                 </div>
-                <div class="flex shrink-0 items-center gap-x-4">
-                    <div class="hidden sm:flex sm:flex-col sm:items-end">
-                        <p class="text-sm leading-6 text-gray-900">{{ }}</p>
-                        <p class="mt-1 text-xs leading-5 text-gray-500">
-                            Last seen <time>{{ }}</time>
-                        </p>
-                        <div class="mt-1 flex items-center gap-x-1.5">
-                            <div class="flex-none rounded-full bg-emerald-500/20 p-1">
-                                <div class="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                            </div>
-                            <p class="text-xs leading-5 text-gray-500">Online</p>
-                        </div>
-                    </div>
-                    <ChevronRightIcon class="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+                <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                    <inertia-link :href="route('admin.dashboard.players.create')"
+                        class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Adaugă
+                        jucător nou</inertia-link>
                 </div>
-            </inertia-link>
-        </ul>
+            </div>
+
+            <!-- Filter section -->
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Filter by name -->
+                <div>
+                    <Filter :filter="nameFilter" :value="filters.name" :onUpdateValue="updateNameFilter" />
+                </div>
+                <!-- Filter by group -->
+                <div>
+                    <Filter :filter="groupFilter" :value="filters.group" :onUpdateValue="updateGroupFilter" />
+                </div>
+                <!-- Filter by skill level -->
+                <div>
+                    <Filter :filter="skillLevelFilter" :value="filters.skill_level"
+                        :onUpdateValue="updateSkillLevelFilter" />
+                </div>
+                <!-- Filter by year from date_of_birth -->
+                <div>
+                    <Filter :filter="yearFilter" :value="filters.year" :onUpdateValue="updateYearFilter" />
+                </div>
+            </div>
+
+            <!-- Player table -->
+            <div class="mt-8 overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-md font-semibold text-gray-900">Nume</th>
+                            <th scope="col" class="px-6 py-3 text-left text-md font-semibold text-gray-900">Prenume</th>
+                            <th scope="col" class="px-6 py-3 text-left text-md font-semibold text-gray-900">Zi de
+                                naștere</th>
+                            <th scope="col" class="px-6 py-3 text-left text-md font-semibold text-gray-900">Nivel</th>
+                            <th scope="col" class="px-6 py-3 text-left text-md font-semibold text-gray-900">Grupă</th>
+                            <th scope="col" class="px-6 py-3 text-left text-md font-semibold text-gray-900">Nume părinte
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-md font-semibold text-gray-900">Număr
+                                telefon părinte</th>
+                            <th scope="col" class="px-6 py-3 text-left text-md font-semibold text-gray-900">Acțiuni</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr v-for="player in filteredPlayers" :key="player.id">
+                            <td class="px-6 py-4 whitespace-nowrap text-md font-medium text-gray-900">{{
+                        player.first_name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">{{ player.last_name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">{{ player.date_of_birth }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">{{ player.skill_level }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">
+                                <span v-if="player.player_group && player.player_group.name">{{ player.player_group.name
+                                    }}</span>
+                                <span v-else>Fără grupă</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">{{ player.parent_name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">{{ player.parent_phone }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
+                                <inertia-link :href="route('admin.dashboard.players.show', player)"
+                                    class="text-indigo-600 hover:text-indigo-900">Editează</inertia-link>
+                                <button @click="deletePlayer(player)"
+                                    class="ml-4 text-red-600 hover:text-red-400">Șterge</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </AdminLayout>
 </template>
 
+
 <script>
+import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import Filter from '../../../Components/Filter.vue';
 
 export default {
-    name: 'Admin/Players/List',
 
-    components: { AdminLayout },
+    name: "Players/List",
+
+    components: { AdminLayout, Filter },
 
     props: {
         players: Array,
+        groups: Array,
+    },
+
+    computed: {
+        filteredPlayers() {
+            const { name, group, skill_level, year } = this.filters;
+            return this.players.filter(player => {
+                return (!name || player.first_name.toLowerCase().includes(name.toLowerCase())) &&
+                    (!group || (player.player_group && player.player_group.name.toLowerCase().includes(group.toLowerCase()))) &&
+                    (!skill_level || player.skill_level === skill_level) &&
+                    (!year || player.date_of_birth.includes(year));
+            });
+        },
+
+        nameFilter() {
+            return {
+                id: 'filter-name',
+                label: 'Filtru după nume',
+                type: 'text',
+            };
+        },
+
+        groupFilter() {
+            return {
+                id: 'filter-group',
+                label: 'Filtru după grupă',
+                type: 'select',
+                placeholder: 'Alegeți o grupă',
+                options: this.groups.map(group => ({ value: group.name, label: group.name })),
+            };
+        },
+
+        skillLevelFilter() {
+            return {
+                id: 'filter-skill-level',
+                label: 'Filtru după nivel',
+                type: 'select',
+                placeholder: 'Alegeți un nivel',
+                options: [
+                    { value: 'Începător', label: 'Începător' },
+                    { value: 'Intermediar', label: 'Intermediar' },
+                    { value: 'Avansat', label: 'Avansat' },
+                ],
+            };
+        },
+
+        yearFilter() {
+            return {
+                id: 'filter-year',
+                label: 'Filtru după an',
+                type: 'text',
+            };
+        },
+    },
+
+    data() {
+        return {
+            filters: {
+                name: '',
+                group: '',
+                skill_level: '',
+                year: '',
+            }
+        };
+    },
+
+    methods: {
+        deletePlayer(location) {
+            if (confirm('Sunteți sigur că doriți să ștergeți aceast jucător?')) {
+                this.$inertia.delete(route('admin.dashboard.players.destroy', location));
+            }
+        },
+
+        updateNameFilter(newValue) {
+            this.filters.name = newValue;
+        },
+
+        updateGroupFilter(newValue) {
+            this.filters.group = newValue;
+        },
+
+        updateYearFilter(newValue) {
+            this.filters.year = newValue;
+        },
+
+        updateSkillLevelFilter(newValue) {
+            this.filters.skill_level = newValue;
+        },
     }
 }
 
-</script>
-
-
-<script setup>
-import { ChevronRightIcon } from '@heroicons/vue/20/solid'
-import AdminLayout from '../../../Layouts/AdminLayout.vue';
-
-const people = [
-    {
-        name: 'Leslie Alexander',
-        email: 'leslie.alexander@example.com',
-        role: 'Co-Founder / CEO',
-        imageUrl:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        href: '#',
-        lastSeen: '3h ago',
-        lastSeenDateTime: '2023-01-23T13:23Z',
-    },
-    {
-        name: 'Michael Foster',
-        email: 'michael.foster@example.com',
-        role: 'Co-Founder / CTO',
-        imageUrl:
-            'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        href: '#',
-        lastSeen: '3h ago',
-        lastSeenDateTime: '2023-01-23T13:23Z',
-    },
-    {
-        name: 'Dries Vincent',
-        email: 'dries.vincent@example.com',
-        role: 'Business Relations',
-        imageUrl:
-            'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        href: '#',
-        lastSeen: null,
-    },
-    {
-        name: 'Lindsay Walton',
-        email: 'lindsay.walton@example.com',
-        role: 'Front-end Developer',
-        imageUrl:
-            'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        href: '#',
-        lastSeen: '3h ago',
-        lastSeenDateTime: '2023-01-23T13:23Z',
-    },
-    {
-        name: 'Courtney Henry',
-        email: 'courtney.henry@example.com',
-        role: 'Designer',
-        imageUrl:
-            'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        href: '#',
-        lastSeen: '3h ago',
-        lastSeenDateTime: '2023-01-23T13:23Z',
-    },
-    {
-        name: 'Tom Cook',
-        email: 'tom.cook@example.com',
-        role: 'Director of Product',
-        imageUrl:
-            'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        href: '#',
-        lastSeen: null,
-    },
-]
 </script>
