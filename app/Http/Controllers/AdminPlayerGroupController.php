@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin\Traits\AdminPlayerGroupTrait;
-use App\Admin\Traits\AdminResourceTrait;
+use App\Traits\Admin\AdminPlayerGroupTrait;
+use App\Traits\Admin\AdminResourceTrait;
 use App\Http\Requests\StoreGroupRequest;
 use App\Models\Coach;
 use App\Models\PlayerGroup;

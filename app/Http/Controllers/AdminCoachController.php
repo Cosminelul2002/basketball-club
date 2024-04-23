@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin\Traits\AdminCoachTrait;
-use App\Admin\Traits\AdminResourceTrait;
+use App\Traits\Admin\AdminCoachTrait;
+use App\Traits\Admin\AdminResourceTrait;
 use App\Contracts\CoachRepositoryInterface;
 use App\Http\Requests\StoreCoachRequest;
 use App\Models\Coach;

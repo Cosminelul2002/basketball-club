@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin\Traits;
+namespace App\Traits\Admin;
 
 use Inertia\Inertia;
 

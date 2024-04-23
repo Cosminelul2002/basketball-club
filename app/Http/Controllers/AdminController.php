@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin\Traits\AdminTrait;
+use App\Traits\Admin\AdminTrait;
 use App\Models\Coach;
 use App\Models\Join;
 use App\Models\Player;

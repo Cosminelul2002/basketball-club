@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin\Traits;
+namespace App\Traits\Admin;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;

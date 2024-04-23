@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin\Traits\AdminPlayerTrait;
-use App\Admin\Traits\AdminResourceTrait;
+use App\Traits\Admin\AdminPlayerTrait;
+use App\Traits\Admin\AdminResourceTrait;
 use App\Enums\Positions;
 use App\Http\Requests\PlayerRequest;
 use App\Http\Requests\StorePlayerRequest;

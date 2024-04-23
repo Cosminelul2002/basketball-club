@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin\Traits\AdminJoinTrait;
-use App\Admin\Traits\AdminResourceTrait;
+use App\Traits\Admin\AdminJoinTrait;
+use App\Traits\Admin\AdminResourceTrait;
 use App\Models\Join;
 use App\Services\PlayerFromJoin;
 use Codestage\Authorization\Attributes\Authorize;

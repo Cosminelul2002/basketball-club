@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin\Traits\AdminCategoryTrait;
-use App\Admin\Traits\AdminResourceTrait;
 use App\Http\Requests\AddProductsRequest;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\SlugService;
+use App\Traits\Admin\AdminCategoryTrait;
+use App\Traits\Admin\AdminResourceTrait;
 use Codestage\Authorization\Attributes\Authorize;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

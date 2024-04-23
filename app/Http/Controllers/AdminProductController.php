@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin\Traits\AdminProductTrait;
-use App\Admin\Traits\AdminResourceTrait;
+use App\Traits\Admin\AdminProductTrait;
+use App\Traits\Admin\AdminResourceTrait;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;

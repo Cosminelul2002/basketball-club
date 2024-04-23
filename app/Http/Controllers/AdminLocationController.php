@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin\Traits\AdminLocationTrait;
-use App\Admin\Traits\AdminResourceTrait;
+use App\Traits\Admin\AdminLocationTrait;
+use App\Traits\Admin\AdminResourceTrait;
 use App\Contracts\LocationRepositoryInterface;
 use App\Models\Location;
 use Codestage\Authorization\Attributes\Authorize;
