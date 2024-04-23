@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin\Traits\AdminCoachTrait;
+use App\Admin\Traits\AdminResourceTrait;
 use App\Contracts\CoachRepositoryInterface;
 use App\Http\Requests\StoreCoachRequest;
 use App\Models\Coach;
-use App\Traits\AdminCoachTrait;
-use App\Traits\AdminResourceTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 

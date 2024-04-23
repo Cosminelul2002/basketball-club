@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin\Traits\AdminLocationTrait;
+use App\Admin\Traits\AdminResourceTrait;
 use App\Contracts\LocationRepositoryInterface;
 use App\Models\Location;
-use App\Traits\AdminLocationTrait;
-use App\Traits\AdminResourceTrait;
 use Codestage\Authorization\Attributes\Authorize;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

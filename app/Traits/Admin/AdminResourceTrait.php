@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace App\Admin\Traits;
 
 use App\Services\SingularLowerNouns;
 use Inertia\Inertia;

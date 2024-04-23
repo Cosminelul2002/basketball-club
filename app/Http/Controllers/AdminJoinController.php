@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin\Traits\AdminJoinTrait;
+use App\Admin\Traits\AdminResourceTrait;
 use App\Models\Join;
 use App\Services\PlayerFromJoin;
-use App\Traits\AdminJoinTrait;
-use App\Traits\AdminResourceTrait;
 use Codestage\Authorization\Attributes\Authorize;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

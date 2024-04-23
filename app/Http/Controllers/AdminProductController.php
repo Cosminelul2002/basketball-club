@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin\Traits\AdminProductTrait;
+use App\Admin\Traits\AdminResourceTrait;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
-use App\Traits\AdminProductTrait;
-use App\Traits\AdminResourceTrait;
 use Codestage\Authorization\Attributes\Authorize;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

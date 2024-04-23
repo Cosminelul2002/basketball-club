@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace App\Admin\Traits;
 
 use App\Enums\Positions;
 use App\Http\Requests\StorePlayerRequest;

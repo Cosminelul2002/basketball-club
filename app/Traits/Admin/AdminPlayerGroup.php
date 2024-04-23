@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace App\Admin\Traits;
 
 use App\Models\Coach;
 use App\Models\PlayerGroup;

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin\Traits\AdminPlayerTrait;
+use App\Admin\Traits\AdminResourceTrait;
 use App\Enums\Positions;
 use App\Http\Requests\PlayerRequest;
 use App\Http\Requests\StorePlayerRequest;
@@ -9,8 +11,6 @@ use App\Http\Requests\UserRequest;
 use App\Models\Player;
 use App\Models\PlayerGroup;
 use App\Models\User;
-use App\Traits\AdminPlayerTrait;
-use App\Traits\AdminResourceTrait;
 use Codestage\Authorization\Attributes\Authorize;
 use Codestage\Authorization\Models\Role;
 use Illuminate\Http\Request;
