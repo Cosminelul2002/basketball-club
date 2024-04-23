@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreGroupRequest;
 use App\Models\Coach;
 use App\Models\PlayerGroup;
+use App\Traits\AdminPlayerGroupTrait;
+use App\Traits\AdminResourceTrait;
 use Codestage\Authorization\Attributes\Authorize;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -12,6 +14,8 @@ use Inertia\Inertia;
 #[Authorize]
 class AdminPlayerGroupController extends Controller
 {
+    use AdminPlayerGroupTrait, AdminResourceTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -20,14 +24,7 @@ class AdminPlayerGroupController extends Controller
     #[Authorize(roles: 'admin')]
     public function index()
     {
-        // Retrieve all player groups with their associated coaches and players
-        $playerGroups = PlayerGroup::with(['coaches', 'players'])->get();
-
-        // Pass the player groups to the Inertia view
-        return Inertia::render('Admin/PlayerGroups/List', [
-            'playerGroups' => $playerGroups,
-            'coaches' => Coach::all(),
-        ]);
+        return $this->index_player_groups();
     }
 
     /**
@@ -39,10 +36,7 @@ class AdminPlayerGroupController extends Controller
     #[Authorize(roles: 'admin')]
     public function show(PlayerGroup $playerGroup)
     {
-        // dd($playerGroup);
-        return Inertia::render('Admin/PlayerGroups/Show', [
-            'playerGroup' => $playerGroup,
-        ]);
+        return $this->showResource('PlayerGroups', $playerGroup);
     }
 
     /**
@@ -54,7 +48,7 @@ class AdminPlayerGroupController extends Controller
     #[Authorize(roles: 'admin')]
     public function create()
     {
-        return Inertia::render('Admin/PlayerGroups/Create');
+        return $this->createResourceView('PlayerGroups');
     }
 
     /**
@@ -66,13 +60,7 @@ class AdminPlayerGroupController extends Controller
     #[Authorize(roles: 'admin')]
     public function store(StoreGroupRequest $request)
     {
-        $request->validated();
-
-        PlayerGroup::create([
-            'name' => $request->name,
-        ]);
-
-        return redirect()->route('admin.dashboard.groups.index')->with('message', 'Grup adăugat cu succes!');
+        return $this->storeResource($request, PlayerGroup::class, 'admin.dashboard.groups.index', 'Grup creat cu succes!');
     }
 
     /**
@@ -84,9 +72,6 @@ class AdminPlayerGroupController extends Controller
     #[Authorize(roles: 'admin')]
     public function destroy($id)
     {
-        $playerGroup = PlayerGroup::findOrFail($id);
-        $playerGroup->delete();
-
-        return redirect()->route('admin.dashboard.groups.index')->with('message', 'Grup șters cu succes!');
+        return $this->destroy_player_group($id);
     }
 }

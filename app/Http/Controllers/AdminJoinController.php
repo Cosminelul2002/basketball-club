@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Join;
 use App\Services\PlayerFromJoin;
 use App\Traits\AdminJoinTrait;
+use App\Traits\AdminResourceTrait;
 use Codestage\Authorization\Attributes\Authorize;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -12,6 +13,8 @@ use Inertia\Inertia;
 #[Authorize]
 class AdminJoinController extends Controller
 {
+    use AdminJoinTrait, AdminResourceTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -20,9 +23,7 @@ class AdminJoinController extends Controller
     #[Authorize(roles: 'admin')]
     public function index()
     {
-        return Inertia::render('Admin/Joins/List', [
-            'joins' => Join::orderByDesc('created_at')->get(),
-        ]);
+        return $this->index_joins();
     }
 
     /**
@@ -34,6 +35,17 @@ class AdminJoinController extends Controller
     #[Authorize(roles: 'admin')]
     public function approve(Request $request, Join $join)
     {
-        return $this->approveJoin($request, $join);
+        return $this->approve_join($request, $join);
+    }
+
+    /**
+     * Delete the specified resource.
+     * 
+     * @param  \App\Models\Join  $join
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Join $join)
+    {
+        return $this->destroyResource($join, 'admin.dashboard.joins.index', 'înregistrarea de înscriere a fost ștearsă cu succes.');
     }
 }

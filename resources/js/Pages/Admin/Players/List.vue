@@ -161,9 +161,9 @@ export default {
     },
 
     methods: {
-        deletePlayer(location) {
+        deletePlayer(player) {
             if (confirm('Sunteți sigur că doriți să ștergeți aceast jucător?')) {
-                this.$inertia.delete(route('admin.dashboard.players.destroy', location));
+                this.$inertia.delete(route('admin.dashboard.players.destroy', player));
             }
         },
 
