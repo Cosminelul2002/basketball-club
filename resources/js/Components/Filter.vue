@@ -38,6 +38,18 @@
             </div>
         </template>
 
+        <!-- number of products dropdown -->
+        <template v-else-if="filter.type === 'products'">
+            <select :value="value" @change="updateValue($event.target.value)" :id="filter.id" :name="filter.id"
+                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <option value="">Selectează numărul de produse</option>
+                <option v-for="numberOfProduct in numberOfProducts" :value="numberOfProduct.value"
+                    :key="numberOfProduct.value">
+                    {{ numberOfProduct.label }}
+                </option>
+            </select>
+        </template>
+
         <!-- type date -->
         <template v-else-if="filter.type === 'date'">
             <input :value="value" @input="updateValue($event.target.value)" :id="filter.id" :name="filter.id"
@@ -72,6 +84,16 @@ export default {
                 { value: [50, 100], label: '50 RON - 100 RON' },
                 { value: [100, Infinity], label: 'Peste 100 RON' },
                 // Add more predefined price ranges as needed
+            ],
+
+            numberOfProducts: [
+                // with range 1-5
+                { value: [1, 5], label: '1 - 5' },
+                // with range 6-10
+                { value: [6, 10], label: '6 - 10' },
+                // with range 11-15
+                { value: [11, 15], label: '11 - 15' },
+                // Add more predefined number of products as needed
             ]
         }
     },
