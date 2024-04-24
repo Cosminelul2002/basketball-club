@@ -20,6 +20,11 @@ class RoleSeeder extends Seeder
         ]);
 
         $user = Role::query()->firstOrCreate([
+            'key' => 'user',
+            'name' => 'Utilizator'
+        ]);
+
+        $user = Role::query()->firstOrCreate([
             'key' => 'parent',
             'name' => 'Părinte'
         ]);

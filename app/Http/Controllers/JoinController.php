@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJoinRequest;
 use App\Models\Join;
+use App\Traits\Public\JoinTrait;
 use App\Traits\Public\PublicResourceTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class JoinController extends Controller
 {
-    use PublicResourceTrait;
+    use PublicResourceTrait, JoinTrait;
 
     /**
      * Display the create join page.
@@ -22,19 +23,14 @@ class JoinController extends Controller
         return $this->create_resource('Join');
     }
 
+    /**
+     * Store a newly created resource in database for the join form.
+     *
+     * @param StoreJoinRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(StoreJoinRequest $request)
     {
-        $request->validated();
-
-        Join::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'age' => $request->age,
-            'phone' => $request->phone,
-            'message' => $request->message ?? '',
-        ]);
-
-        return redirect()->back()->with('message', 'Formularul a fost trimis cu succes. Va multumim!');
+        return $this->store_join($request);
     }
 }

@@ -2,43 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\Permission;
 use App\Http\Requests\LoginRequest;
+use App\Traits\Auth\LoginTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class LoginController extends Controller
 {
-    public function show()
+    use LoginTrait;
+
+    /**
+     * Display the login page.
+     *
+     * @return \Inertia\Response
+     */
+    public function index()
     {
-        return Inertia::render('Auth/Login');
+        return $this->login_view();
     }
 
+    /**
+     * Login a user to the application.
+     *
+     * @param  \App\Http\Requests\LoginRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function login(LoginRequest $request)
     {
-        // verify if credentials are valid
-        // maintain the user log in
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            if ($request->get('remember')) {
-                Auth::user()->setRememberToken($request->get('remember'));
-            }
-            $request->session()->regenerate();
-
-            return redirect()->route('landing');
-        } else {
-            return redirect()->back()->with('error', 'Invalid credentials');
-        }
+        return $this->login_user($request);
     }
 
+    // public function login(LoginRequest $request)
+    // {
+    //     if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+    //         if ($request->get('remember')) {
+    //             Auth::user()->setRememberToken($request->get('remember'));
+    //         }
+    //         $request->session()->regenerate();
+
+    //         return redirect()->route('landing');
+    //     } else {
+    //         return redirect()->back()->with('error', 'Invalid credentials');
+    //     }
+    // }
+
+    /**
+     * Logout a user from the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout(Request $request)
     {
-        Auth::logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect()->route('landing');
+        return $this->logout_user($request);
     }
 }

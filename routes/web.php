@@ -136,7 +136,7 @@ Route::name('parent.')->prefix('/parent')->group(function () {
     Route::post('/update', [ParentController::class, 'update'])->name('update');
 });
 
-Route::get('/login', [LoginController::class, 'show'])->name('login');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 Route::post('/login', [LoginController::class, 'login'])->name('auth.login.post');
 Route::get('/reset-password', [LoginController::class, 'showForgotPass'])->middleware('guest')->name('password.request');
