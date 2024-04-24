@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Traits\Admin\AdminLocationTrait;
 use App\Traits\Admin\AdminResourceTrait;
 use App\Contracts\LocationRepositoryInterface;
+use App\Http\Controllers\Controller;
 use App\Models\Location;
 use Codestage\Authorization\Attributes\Authorize;
 use Illuminate\Http\Request;

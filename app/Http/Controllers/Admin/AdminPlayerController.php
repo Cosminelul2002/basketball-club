@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Traits\Admin\AdminPlayerTrait;
 use App\Traits\Admin\AdminResourceTrait;
 use App\Enums\Positions;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PlayerRequest;
 use App\Http\Requests\StorePlayerRequest;
 use App\Http\Requests\UserRequest;

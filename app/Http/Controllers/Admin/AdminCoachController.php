@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Traits\Admin\AdminCoachTrait;
 use App\Traits\Admin\AdminResourceTrait;
 use App\Contracts\CoachRepositoryInterface;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCoachRequest;
 use App\Models\Coach;
 use Illuminate\Http\Request;

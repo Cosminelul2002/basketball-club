@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\AddProductsRequest;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;

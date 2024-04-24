@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Traits\Admin\AdminProductTrait;
 use App\Traits\Admin\AdminResourceTrait;
 use App\Http\Requests\StoreProductRequest;
