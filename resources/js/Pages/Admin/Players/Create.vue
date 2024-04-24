@@ -185,7 +185,7 @@ export default {
             }
 
             if (Object.keys(this.errors).length === 0) {
-                this.$inertia.post(route('admin.dashboard.players.create'), this.form);
+                this.$inertia.post(route('admin.dashboard.players.store'), this.form);
                 this.form = {
                     first_name: null,
                     last_name: null,

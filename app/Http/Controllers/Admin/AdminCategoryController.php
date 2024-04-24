@@ -94,6 +94,18 @@ class AdminCategoryController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     * 
+     * @param  \App\Models\Category  $category
+     * @return \Inertia\Response
+     */
+    public function update(Category $category, StoreCategoryRequest $request)
+    {
+        dd('To be implemented');
+        return $this->update_category($category, $request);
+    }
+
+    /**
      * Delete the specified resource from storage.
      * 
      * @param  \App\Models\Category  $category

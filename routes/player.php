@@ -17,6 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::name('player.')->prefix('/player')->group(function () {
     Route::get('/dashboard', [AdminPlayerController::class, 'dashboard'])->name('dashboard');
     Route::get('/profile', [AdminPlayerController::class, 'profile'])->name('profile');
-    Route::get('/edit', [AdminPlayerController::class, 'edit'])->name('edit');
-    Route::put('/update', [AdminPlayerController::class, 'update'])->name('update');
+    // Route::get('/edit', [AdminPlayerController::class, 'edit'])->name('edit');
+    // Route::put('/update', [AdminPlayerController::class, 'update'])->name('update');
 });

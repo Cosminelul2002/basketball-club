@@ -49,4 +49,3 @@ Route::apiResource('categories', CategoryController::class);
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/coaches', [CoachController::class, 'index'])->name('coaches');
 Route::get('/coaches/{coach}', [CoachController::class, 'show'])->name('coaches.show');
-
