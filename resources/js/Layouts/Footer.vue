@@ -32,7 +32,7 @@ import { defineComponent, h } from 'vue'
 const navigation = {
     main: [
         { name: 'Despre noi', href: route('about') },
-        { name: 'Înscriere', href: route('join.index') },
+        { name: 'Înscriere', href: route('join.create') },
         {
             name: 'Contactează-ne', options: [
                 {

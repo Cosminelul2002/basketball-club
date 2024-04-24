@@ -115,7 +115,7 @@ import {
 const navigation = [
     { name: 'Acasă', href: route('landing') },
     { name: 'Despre noi', href: route('about') },
-    { name: 'Înscriere', href: route('join.index') },
+    { name: 'Înscriere', href: route('join.create') },
     { name: 'Antrenori', href: route('coaches') },
     { name: 'Media', href: route('media') },
     { name: 'Magazin', href: route('shop') },

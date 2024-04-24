@@ -4,14 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJoinRequest;
 use App\Models\Join;
+use App\Traits\Public\PublicResourceTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class JoinController extends Controller
 {
-    public function index()
+    use PublicResourceTrait;
+
+    /**
+     * Display the create join page.
+     *
+     * @return \Inertia\Response
+     */
+    public function create()
     {
-        return Inertia::render('Join/Show');
+        return $this->create_resource('Join');
     }
 
     public function store(StoreJoinRequest $request)

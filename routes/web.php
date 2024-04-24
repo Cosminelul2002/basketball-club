@@ -43,7 +43,7 @@ $allMethods = ['index', 'show', 'store', 'update', 'destroy', 'create', 'edit'];
 Route::get('/', [LandingController::class, 'index'])->name('landing');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/media', [MediaController::class, 'index'])->name('media');
-Route::get('/join', [JoinController::class, 'index'])->name('join.index');
+Route::get('/join', [JoinController::class, 'create'])->name('join.create');
 Route::post('/join', [JoinController::class, 'store'])->name('join.store');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
