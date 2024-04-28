@@ -22,7 +22,6 @@
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Adresă</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <!-- <input v-if="!editing" v-model="player.first_name" class="flex-grow border-none" readonly> -->
                         <span v-if="!editing" class="flex-grow">{{ location.address }}</span>
                         <input v-else v-model="form.editedAddress" class="flex-grow">
                     </dd>
@@ -141,7 +140,9 @@ export default {
 
         updateLocation() {
             this.$inertia.put(route('admin.dashboard.locations.update', this.location), this.updatedLocationData);
-
+            if (this.$attrs.errors) {
+                this.editing = true;
+            }
             this.open = false;
         },
 
@@ -161,9 +162,6 @@ export default {
 </script>
 
 <script setup>
-import { PaperClipIcon } from '@heroicons/vue/20/solid'
-import { Inertia } from '@inertiajs/inertia';
-import { ref } from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { CheckIcon } from '@heroicons/vue/24/outline'
 

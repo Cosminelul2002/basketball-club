@@ -30,6 +30,9 @@
                         <span v-if="!editing" class="flex-grow">{{ player.first_name }}</span>
                         <input v-else v-model="form.editedFirstName" class="flex-grow">
                     </dd>
+                    <template v-if="$attrs.errors.first_name">
+                        <div class="mt-2 text-sm text-red-600">{{ $attrs.errors.first_name }}</div>
+                    </template>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Prenume</dt>
@@ -37,22 +40,32 @@
                         <span v-if="!editing" class="flex-grow">{{ player.last_name }}</span>
                         <input v-else v-model="form.editedLastName" class="flex-grow">
                     </dd>
+                    <template v-if="$attrs.errors.last_name">
+                        <div class="mt-2 text-sm text-red-600">{{ $attrs.errors.last_name }}</div>
+                    </template>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-md font-medium leading-6 text-gray-900">Vârstă</dt>
+                    <dt class="text-md font-medium leading-6 text-gray-900">Data nașterii</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                         <span v-if="!editing" class="flex-grow">{{ player.date_of_birth }}</span>
                         <input v-else v-model="form.editedDateOfBirth" class="flex-grow">
                     </dd>
+                    <template v-if="$attrs.errors.date_of_birth">
+                        <div class="mt-2 text-sm text-red-600">{{ $attrs.errors.date_of_birth }}</div>
+                    </template>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Grupă de vârstă</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                         <span v-if="!editing" class="flex-grow">{{ player.player_group.name }}</span>
                         <select v-else v-model="form.editedPlayerGroup" class="flex-grow">
-                            <option v-for="group in groups" :key="group.id" :value="group.name">{{ group.name }}</option>
+                            <option v-for="group in groups" :key="group.id" :value="group.name">{{ group.name }}
+                            </option>
                         </select>
                     </dd>
+                    <template v-if="$attrs.errors.player_group_id">
+                        <div class="mt-2 text-sm text-red-600">{{ $attrs.errors.player_group_id }}</div>
+                    </template>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Nivel</dt>
@@ -60,11 +73,14 @@
                         <span v-if="!editing" class="flex-grow">{{ player.skill_level }}</span>
                         <select v-else v-model="form.editedSkillLevel" class="flex-grow">
                             <option v-for="skill_level in skill_levels" :key="skill_level" :value="skill_level">{{
-                                skill_level
-                            }}</option>
+                        skill_level
+                    }}</option>
                         </select>
                         <!-- <input v-else v-model="form.editedSkillLevel" class="flex-grow"> -->
                     </dd>
+                    <template v-if="$attrs.errors.skill_level">
+                        <div class="mt-2 text-sm text-red-600">{{ $attrs.errors.skill_level }}</div>
+                    </template>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Înălțime</dt>
@@ -72,6 +88,9 @@
                         <span v-if="!editing" class="flex-grow">{{ player.height }} cm</span>
                         <input v-else v-model="form.editedHeight" class="flex-grow">
                     </dd>
+                    <template v-if="$attrs.errors.height">
+                        <div class="mt-2 text-sm text-red-600">{{ $attrs.errors.height }}</div>
+                    </template>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Greutate</dt>
@@ -79,6 +98,9 @@
                         <span v-if="!editing" class="flex-grow">{{ player.weight }} kg</span>
                         <input v-else v-model="form.editedWeight" class="flex-grow">
                     </dd>
+                    <template v-if="$attrs.errors.weight">
+                        <div class="mt-2 text-sm text-red-600">{{ $attrs.errors.weight }}</div>
+                    </template>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Nume părinte</dt>
@@ -86,6 +108,9 @@
                         <span v-if="!editing" class="flex-grow">{{ player.parent_name }} </span>
                         <input v-else v-model="form.editedParentName" class="flex-grow">
                     </dd>
+                    <template v-if="$attrs.errors.parent_name">
+                        <div class="mt-2 text-sm text-red-600">{{ $attrs.errors.parent_name }}</div>
+                    </template>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Număr de telefon părinte</dt>
@@ -93,13 +118,16 @@
                         <span v-if="!editing" class="flex-grow">{{ player.parent_phone }} </span>
                         <input v-else v-model="form.editedParentPhoneNumber" class="flex-grow">
                     </dd>
+                    <template v-if="$attrs.errors.parent_phone">
+                        <div class="mt-2 text-sm text-red-600">{{ $attrs.errors.parent_phone }}</div>
+                    </template>
                 </div>
             </dl>
         </div>
         <TransitionRoot as="template" :show="open">
             <Dialog as="div" class="relative z-10" @close="open = false">
-                <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100"
-                    leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
+                <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0"
+                    enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
                     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                 </TransitionChild>
                 <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -117,7 +145,8 @@
                                         <CheckIcon class="h-6 w-6 text-green-600" aria-hidden="true" />
                                     </div>
                                     <div class="mt-3 text-center sm:mt-5">
-                                        <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Salvezi
+                                        <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">
+                                            Salvezi
                                             modificarile ?</DialogTitle>
                                     </div>
                                 </div>
@@ -137,7 +166,7 @@
         </TransitionRoot>
     </AdminLayout>
 </template>
-  
+
 
 <script>
 
@@ -216,6 +245,9 @@ export default {
 
         updatePlayer() {
             this.$inertia.put(route('admin.dashboard.players.update', this.player), this.updatedPlayerData);
+            if (this.$attrs.errors) {
+                this.editing = true;
+            }
             this.open = false;
         },
 

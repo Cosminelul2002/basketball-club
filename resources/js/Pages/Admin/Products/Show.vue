@@ -47,7 +47,7 @@
                         <span v-if="!editing" class="flex-grow">{{ product.availability ? 'Da' : 'Nu' }}</span>
                         <input v-else v-model="form.editedAvailability" class="flex-grow">
                         <select v-else v-model="form.editedAvailability" class="flex-grow">
-                            <option v-for="availability in selectAvailability" :value="availability">{{ availability }}
+                            <option v-for="availability in selectAvailability" :key="availability" :value="availability">{{ availability }}
                             </option>
                         </select>
                     </dd>
@@ -126,8 +126,8 @@ export default {
                 editedName: this.product.name,
                 editedDescription: this.product.description,
                 editedPrice: this.product.price,
-                editedAvailability: this.product.availability,
-                editedCategory: this.product.category ?? '',
+                editedAvailability: this.product.availability ? 'Da' : 'Nu',
+                editedCategory: this.product.category.name,
             },
             updatedProduct: {
                 name: '',
@@ -145,19 +145,16 @@ export default {
         toggleEdit() {
             this.editing = !this.editing;
             if (!this.editing) {
-                // Check if any changes were made
-                this.product.category = this.product.category ?? '';
+                var initialAvailability = this.product.availability ? 'Da' : 'Nu';
 
                 const changesDetected =
                     this.form.editedName !== this.product.name ||
                     this.form.editedDescription !== this.product.description ||
                     this.form.editedPrice !== this.product.price ||
-                    this.form.editedAvailability !== this.product.availability ||
-                    this.form.editedCategory !== this.product.category
+                    this.form.editedAvailability !== initialAvailability ||
+                    this.form.editedCategory !== this.product.category.name;
 
                 if (changesDetected) {
-                    console.log('Changes detected');
-                    // Make a request to update the player
                     this.updatedProduct.name = this.form.editedName;
                     this.updatedProduct.description = this.form.editedDescription;
                     this.updatedProduct.price = this.form.editedPrice;
@@ -170,10 +167,11 @@ export default {
         },
 
         updateProduct() {
-            if (this.updateProduct.availability === 'Da') {
-                this.updatedProduct.availability = 1;
+
+            if ( this.updatedProduct.availability === 'Da' ) {
+                this.updatedProduct.availability = true;
             } else {
-                this.updatedProduct.availability = 0;
+                this.updatedProduct.availability = false;
             }
 
             this.$inertia.put(route('admin.dashboard.products.update', this.product), this.updatedProduct);

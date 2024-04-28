@@ -58,7 +58,7 @@ class AdminProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        return $this->store_product($request);
+        return $this->storeResource($request, Product::class, 'admin.dashboard.products.index', 'Produs adăugat cu succes!');
     }
 
     /**

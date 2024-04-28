@@ -2,8 +2,11 @@
 
 namespace App\Traits\Admin;
 
+use App\Enums\ExceptionMessage;
+use App\Exceptions\ResourcesNotFoundException;
 use App\Models\Join;
 use App\Services\JoinService;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -17,9 +20,15 @@ trait AdminJoinTrait
      */
     public function index_joins()
     {
-        return Inertia::render('Admin/Joins/List', [
-            'joins' => Join::orderByDesc('created_at')->get(),
-        ]);
+        try {
+            return Inertia::render('Admin/Joins/List', [
+                'joins' => Join::orderByDesc('created_at')->get(),
+            ]);
+        } catch (QueryException $e) {
+            throw new ResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Joins'), null, 404, $e);
+        } catch (\Exception $e) {
+            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+        }
     }
 
     /**

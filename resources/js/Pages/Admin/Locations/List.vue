@@ -7,9 +7,9 @@
                     <p class="mt-2 text-md text-gray-700">Listă locații.</p>
                 </div>
                 <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <inertia-link :href="route('admin.dashboard.groups.create')"
+                    <inertia-link :href="route('admin.dashboard.locations.create')"
                         class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Adaugă
-                        grupă nouă</inertia-link>
+                        locație nouă</inertia-link>
                 </div>
             </div>
 

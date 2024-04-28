@@ -11,7 +11,7 @@ class StoreLocationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,23 @@ class StoreLocationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'address' => 'required|string',
+            'city' => 'required|string',
+            'area' => 'required|string',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'address.required' => 'Câmpul adresă este obligatoriu.',
+            'city.required' => 'Câmpul oraș este obligatoriu.',
+            'area.required' => 'Câmpul zonă este obligatoriu.',
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exceptions\ResourcesNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddProductsRequest;
 use App\Http\Requests\StoreCategoryRequest;
@@ -11,6 +12,7 @@ use App\Services\SlugService;
 use App\Traits\Admin\AdminCategoryTrait;
 use App\Traits\Admin\AdminResourceTrait;
 use Codestage\Authorization\Attributes\Authorize;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -19,6 +21,7 @@ class AdminCategoryController extends Controller
 {
 
     use AdminCategoryTrait, AdminResourceTrait;
+
     /**
      * Display a listing of the resource.
      *

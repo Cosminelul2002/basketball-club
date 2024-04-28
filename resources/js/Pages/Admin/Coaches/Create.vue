@@ -10,7 +10,7 @@
                                 v-model="form.first_name"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             <span v-if="errors.first_name" class="text-red-500 text-sm">{{ errors.first_name
-                            }}</span>
+                                }}</span>
                         </div>
                     </div>
 
@@ -21,7 +21,7 @@
                                 v-model="form.last_name"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             <span v-if="errors.last_name" class="text-red-500 text-sm">{{ errors.last_name
-                            }}</span>
+                                }}</span>
                         </div>
                     </div>
 
@@ -31,7 +31,7 @@
                             <input id="email" name="email" type="email" autocomplete="email" v-model="form.email"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             <span v-if="errors.email" class="text-red-500 text-sm">{{ errors.email
-                            }}</span>
+                                }}</span>
                         </div>
                     </div>
 
@@ -42,7 +42,7 @@
                             <input id="phone" name="phone" autocomplete="phone" v-model="form.phone"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             <span v-if="errors.phone" class="text-red-500 text-sm">{{ errors.phone
-                            }}</span>
+                                }}</span>
                         </div>
                     </div>
 
@@ -54,18 +54,19 @@
                                 v-model="form.date_of_birth"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             <span v-if="errors.date_of_birth" class="text-red-500 text-sm">{{ errors.date_of_birth
-                            }}</span>
+                                }}</span>
                         </div>
                     </div>
 
                     <div class="sm:col-span-4">
-                        <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Descriere</label>
+                        <label for="description"
+                            class="block text-sm font-medium leading-6 text-gray-900">Descriere</label>
                         <div class="mt-2">
                             <textarea rows="3" name="description" id="description" autocomplete="description"
                                 v-model="form.description"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             <span v-if="errors.description" class="text-red-500 text-sm">{{ errors.description
-                            }}</span>
+                                }}</span>
                         </div>
                     </div>
                 </div>
@@ -130,7 +131,7 @@ export default {
             }
 
             if (Object.keys(this.errors).length === 0) {
-                this.$inertia.post(route('admin.dashboard.coaches.create'), this.form);
+                this.$inertia.post(route('admin.dashboard.coaches.store'), this.form);
                 this.form = {
                     first_name: null,
                     last_name: null,

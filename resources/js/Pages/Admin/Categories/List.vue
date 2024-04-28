@@ -1,5 +1,10 @@
 <template>
     <AdminLayout>
+        <template>
+            <div v-if="$page.props.errors">
+                <p>{{ $page.props.errors.message }}</p>
+            </div>
+        </template>
         <div class="px-4 sm:px-6 lg:px-8">
             <div class="sm:flex sm:items-center mb-8">
                 <div class="sm:flex-auto">

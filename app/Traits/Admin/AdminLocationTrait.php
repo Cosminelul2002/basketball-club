@@ -21,7 +21,7 @@ trait AdminLocationTrait
             return $location->{$key} !== $value;
         }, ARRAY_FILTER_USE_BOTH);
 
-        $this->repoLocation->update($location->id, $data);
+        $this->repoLocation->update($location->id, $updateData);
 
         return redirect()->route('admin.dashboard.locations.index')->with('message', 'Location updated successfully!');
     }

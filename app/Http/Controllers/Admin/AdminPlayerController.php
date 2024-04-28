@@ -8,6 +8,7 @@ use App\Enums\Positions;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PlayerRequest;
 use App\Http\Requests\StorePlayerRequest;
+use App\Http\Requests\UpdatePlayerRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Player;
 use App\Models\PlayerGroup;
@@ -100,9 +101,9 @@ class AdminPlayerController extends Controller
      * @return \Illuminate\Http\Response
      */
     #[Authorize(roles: 'admin')]
-    public function update(StorePlayerRequest $request, Player $player)
+    public function update(UpdatePlayerRequest $request, Player $player)
     {
-        return $this->update_player($request, $player);
+        return $this->updateResource($request, $player, 'admin.dashboard.players.index', 'Jucător actualizat cu succes!');
     }
 
     /**

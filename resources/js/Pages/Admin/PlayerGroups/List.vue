@@ -106,7 +106,6 @@ export default {
     components: { AdminLayout, Filter },
 
     computed: {
-
         filteredPlayerGroups() {
             const { name, coach } = this.filters;
             return this.playerGroups.filter(playerGroup => {

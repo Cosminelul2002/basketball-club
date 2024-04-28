@@ -7,7 +7,9 @@ use App\Traits\Admin\AdminResourceTrait;
 use App\Contracts\CoachRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCoachRequest;
+use App\Http\Requests\UpdateCoachRequest;
 use App\Models\Coach;
+use Codestage\Authorization\Attributes\Authorize;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -49,6 +51,7 @@ class AdminCoachController extends Controller
      * @param Coach $coach
      * @return \Inertia\Response
      */
+    #[Authorize(roles: 'admin')]
     public function show(Coach $coach)
     {
         return $this->showResource('Coaches', $coach);
@@ -82,7 +85,7 @@ class AdminCoachController extends Controller
      * @param Coach $coach
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Coach $coach)
+    public function update(UpdateCoachRequest $request, Coach $coach)
     {
         return $this->updateCoach($request, $coach);
     }

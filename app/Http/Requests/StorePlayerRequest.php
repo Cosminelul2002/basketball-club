@@ -22,15 +22,15 @@ class StorePlayerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'string|max:255',
-            'last_name' => 'string|max:255',
-            'date_of_birth' => 'date',
-            'height' => 'numeric',
-            'weight' => 'numeric',
-            'skill_level' => 'string|max:255',
-            'parent_name' => 'string|max:255',
-            'parent_phone' => 'string|max:255',
-            'player_group_id' => 'exists:player_groups,id',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'date_of_birth' => 'required|date',
+            'height' => 'nullable|numeric',
+            'weight' => 'nullable|numeric',
+            'skill_level' => 'required|string|max:255',
+            'parent_name' => 'required|string|max:255',
+            'parent_phone' => 'required|string|max:255',
+            'player_group_id' => 'nullable|exists:player_groups,id',
         ];
     }
 }

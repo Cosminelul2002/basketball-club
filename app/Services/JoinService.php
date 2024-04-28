@@ -18,11 +18,11 @@ class JoinService
                 'parent_phone' => $join->phone,
                 'parent_email' => $join->email,
             ]);
-
             $join->update([
                 'approved' => true,
             ]);
         } catch (\Exception $e) {
+            dd($e->getMessage());
             throw new CustomException('Player could not be created from join.');
         }
     }

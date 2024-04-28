@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Traits\Admin\AdminLocationTrait;
 use App\Traits\Admin\AdminResourceTrait;
 use App\Contracts\LocationRepositoryInterface;
+use App\Exceptions\ResourcesNotFoundException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreLocationRequest;
+use App\Http\Requests\UpdateLocationRequest;
 use App\Models\Location;
 use Codestage\Authorization\Attributes\Authorize;
 use Illuminate\Http\Request;
@@ -71,7 +74,7 @@ class AdminLocationController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreLocationRequest $request)
     {
         return $this->storeResource($request, Location::class, 'admin.dashboard.locations.index', 'Locație adăugată cu succes!');
     }
@@ -83,7 +86,7 @@ class AdminLocationController extends Controller
      * @param \App\Models\Location $location
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Location $location)
+    public function update(UpdateLocationRequest $request, Location $location)
     {
         return $this->updateLocation($request, $location);
     }

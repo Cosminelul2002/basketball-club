@@ -12,6 +12,7 @@ class Join extends Model
     protected $fillable = [
         'first_name',
         'last_name',
+        'date_of_birth',
         'email',
         'age',
         'phone',

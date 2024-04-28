@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                             <div class="sm:col-span-2">
-                                <label for="age" class="block text-sm font-semibold leading-6 text-gray-900">Vârstă</label>
+                                <label for="age" class="block text-sm font-semibold leading-6 text-gray-900">Data nasterii</label>
                                 <div class="mt-2.5">
                                     <input type="text" name="age" id="age" autocomplete="given-name" v-model="form.age"
                                         :class="{ 'border-red-500': errors.age }"

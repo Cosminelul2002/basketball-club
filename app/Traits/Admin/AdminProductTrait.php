@@ -2,11 +2,16 @@
 
 namespace App\Traits\Admin;
 
+use App\Enums\ExceptionMessage;
+use App\Exceptions\ResourcesNotFoundException;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\SlugService;
+use Exception;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
+use Illuminate\Database\QueryException;
 use Inertia\Inertia;
 
 trait AdminProductTrait
@@ -19,10 +24,18 @@ trait AdminProductTrait
      */
     public function index_products()
     {
-        return Inertia::render('Admin/Products/List', [
-            'products' => Product::all()->load('category'),
-            'categories' => Category::all(),
-        ]);
+        try {
+            return Inertia::render('Admin/Products/List', [
+                'products' => Product::all()->load('category'),
+                'categories' => Category::all(),
+            ]);
+        } catch (RelationNotFoundException $e) {
+            throw new ResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Category'), null, 500, $e);
+        } catch (QueryException $e) {
+            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Products'), null, 500, $e);
+        } catch (Exception $e) {
+            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+        }
     }
 
     /**
@@ -33,10 +46,16 @@ trait AdminProductTrait
      */
     public function show_product(Product $product)
     {
-        return Inertia::render('Admin/Products/Show', [
-            'product' => $product->load('category'),
-            'categories' => Category::all(),
-        ]);
+        try {
+            return Inertia::render('Admin/Products/Show', [
+                'product' => $product->load('category'),
+                'categories' => Category::all(),
+            ]);
+        } catch (RelationNotFoundException $e) {
+            throw new ResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Category'), null, 500, $e);
+        } catch (Exception $e) {
+            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+        }
     }
 
     /**
@@ -61,9 +80,7 @@ trait AdminProductTrait
     {
         $request->validated();
 
-        $request->merge(['slug' => SlugService::createForModel(Product::class, $request->name)]);
-
-        Product::create($request->all());
+        Product::create($request->validated());
 
         return redirect()->route('admin.dashboard.products.index')->with('message', 'Produs adăugat cu succes!');
     }
@@ -77,20 +94,28 @@ trait AdminProductTrait
      */
     public function update_product(UpdateProductRequest $request, Product $product)
     {
-        $requestData = $request->validated();
+        try {
+            $requestData = $request->validated();
 
-        $updateData = array_filter($requestData, function ($value, $key) use ($product) {
-            return $product->{$key} !== $value;
-        }, ARRAY_FILTER_USE_BOTH);
+            $updateData = array_filter($requestData, function ($value, $key) use ($product) {
+                return $product->{$key} !== $value;
+            }, ARRAY_FILTER_USE_BOTH);
 
-        if (array_key_exists('category', $updateData)) {
-            $category = Category::where('name', $updateData['category'])->first();
-            $updateData['category_id'] = $category->id;
-            unset($updateData['category']);
+            if (array_key_exists('category', $updateData)) {
+                $category = Category::where('name', $updateData['category'])->first();
+                $updateData['category_id'] = $category->id;
+                unset($updateData['category']);
+            }
+
+            $product->update($updateData);
+
+            return redirect()->route('admin.dashboard.products.index')->with('message', 'Produs actualizat cu succes!');
+        } catch (RelationNotFoundException $e) {
+            throw new ResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Category'), null, 500, $e);
+        } catch (QueryException $e) {
+            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Products'), null, 500, $e);
+        } catch (Exception $e) {
+            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
         }
-
-        $product->update($updateData);
-
-        return redirect()->route('admin.dashboard.products.index')->with('message', 'Produs actualizat cu succes!');
     }
 }

@@ -10,7 +10,8 @@
                 <div class="px-4 py-6 sm:p-8">
                     <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Nume produs</label>
+                            <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Nume
+                                produs</label>
                             <div class="mt-2">
                                 <input type="text" name="name" id="name" autocomplete="given-name" v-model="form.name"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
@@ -81,6 +82,8 @@ import AdminLayout from '../../../Layouts/AdminLayout.vue';
 export default {
     name: 'Admin/Products/Create',
 
+    components: { AdminLayout },
+
     props: {
         categories: Array,
     },
@@ -93,6 +96,7 @@ export default {
                 price: '',
                 description: '',
                 availability: '',
+                slug: '',
             }),
         };
     },
@@ -104,11 +108,14 @@ export default {
             } else {
                 this.form.availability = false;
             }
-
+            this.makeSlug();
             this.form.post(route('admin.dashboard.products.store', this.form));
         },
+
+        makeSlug() {
+            this.form.slug = this.form.name.toLowerCase().replace(/ /g, '-');
+        },
     },
-    components: { AdminLayout }
 }
 
 

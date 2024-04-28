@@ -2,7 +2,12 @@
 
 namespace App\Traits\Admin;
 
+use App\Enums\ExceptionMessage;
+use App\Exceptions\ResourcesNotFoundException;
 use App\Services\SingularLowerNouns;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 /**
@@ -33,9 +38,15 @@ trait AdminResourceTrait
      */
     public function showResource($resource, $model)
     {
-        return Inertia::render("Admin/{$resource}/Show", [
-            lcfirst(SingularLowerNouns::makeSingularLowercase($resource)) => $model,
-        ]);
+        try {
+            return Inertia::render("Admin/{$resource}/Show", [
+                lcfirst(SingularLowerNouns::makeSingularLowercase($resource)) => $model,
+            ]);
+        } catch (ModelNotFoundException $e) {
+            throw new ResourcesNotFoundException(ExceptionMessage::ResourceNotFound($resource));
+        } catch (Exception $e) {
+            throw new ResourcesNotFoundException(ExceptionMessage::GeneralResourceError());
+        }
     }
 
     /**
@@ -60,8 +71,34 @@ trait AdminResourceTrait
      */
     public function storeResource($request, $modelName, $redirectRoute, $successMessage)
     {
-        $validatedData = $request->validated();
-        $modelName::create($validatedData);
+        try {
+            $validatedData = $request->validated();
+            $modelName::create($validatedData);
+            return redirect()->route($redirectRoute)->with('message', $successMessage);
+        } catch (Exception $e) {
+            throw new ResourcesNotFoundException(ExceptionMessage::GeneralStoreResourceError(), null, 500, $e);
+        }
+    }
+
+    /**
+     * Update an existing resource.
+     *
+     * @param \Illuminate\Http\Request $request The HTTP request containing the resource data.
+     * @param mixed $model The model instance to update.
+     * @param string $redirectRoute The route to redirect to after updating the resource.
+     * @param string $successMessage The success message to display upon successful update.
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateResource($request, $model, $redirectRoute, $successMessage)
+    {
+        $requestData = $request->validated();
+
+        $updateData = array_filter($requestData, function ($value, $key) use ($model) {
+            return $model->{$key} !== $value;
+        }, ARRAY_FILTER_USE_BOTH);
+
+        $model->update($updateData);
+
         return redirect()->route($redirectRoute)->with('message', $successMessage);
     }
 
@@ -75,7 +112,12 @@ trait AdminResourceTrait
      */
     public function destroyResource($model, $redirectRoute, $successMessage)
     {
-        $model->delete();
-        return redirect()->route($redirectRoute)->with('message', $successMessage);
+        try {
+            $model->delete();
+            return redirect()->route($redirectRoute)->with('message', $successMessage);
+        } catch (Exception $e) {
+            $className = basename(str_replace('\\', '/', get_class($model)));
+            throw new ResourcesNotFoundException(ExceptionMessage::DeleteResourceError($className, null, 500, $e));
+        }
     }
 }

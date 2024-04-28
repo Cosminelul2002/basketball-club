@@ -177,13 +177,12 @@ export default {
             if (!this.form.date_of_birth) {
                 this.errors.date_of_birth = 'Data de naștere este obligatorie';
             }
-            if (!this.form.height) {
-                this.errors.height = 'Înălțimea este obligatorie';
-            }
-            if (!this.form.weight) {
-                this.errors.weight = 'Greutatea este obligatorie';
-            }
-
+            // if (!this.form.height) {
+            //     this.errors.height = 'Înălțimea este obligatorie';
+            // }
+            // if (!this.form.weight) {
+            //     this.errors.weight = 'Greutatea este obligatorie';
+            // }
             if (Object.keys(this.errors).length === 0) {
                 this.$inertia.post(route('admin.dashboard.players.store'), this.form);
                 this.form = {

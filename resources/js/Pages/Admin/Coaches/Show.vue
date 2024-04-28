@@ -22,10 +22,12 @@
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Nume</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <!-- <input v-if="!editing" v-model="player.first_name" class="flex-grow border-none" readonly> -->
                         <span v-if="!editing" class="flex-grow">{{ coach.first_name }}</span>
                         <input v-else v-model="form.editedFirstName" class="flex-grow">
                     </dd>
+                    <template v-if="$attrs.errors.first_name">
+                        <div class="mt-2 text-sm text-red-600">{{ $attrs.errors.first_name }}</div>
+                    </template>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Prenume</dt>
@@ -33,13 +35,19 @@
                         <span v-if="!editing" class="flex-grow">{{ coach.last_name }}</span>
                         <input v-else v-model="form.editedLastName" class="flex-grow">
                     </dd>
+                    <template v-if="$attrs.errors.last_name">
+                        <div class="mt-2 text-sm text-red-600">{{ $attrs.errors.last_name }}</div>
+                    </template>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Vârstă</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                         <span v-if="!editing" class="flex-grow">{{ coach.date_of_birth }}</span>
-                        <input v-else v-model="form.editedDateOfBirth" class="flex-grow">
+                        <input v-else v-model="form.editedDateOfBirth" class="flex-grow" type="date">
                     </dd>
+                    <template v-if="$attrs.errors.last_name">
+                        <div class="mt-2 text-sm text-red-600">{{ $attrs.errors.date_of_birth }}</div>
+                    </template>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Email</dt>
@@ -47,6 +55,9 @@
                         <span v-if="!editing" class="flex-grow">{{ coach.email }}</span>
                         <input v-else v-model="form.editedEmail" class="flex-grow">
                     </dd>
+                    <template v-if="$attrs.errors.email">
+                        <div class="mt-2 text-sm text-red-600">{{ $attrs.errors.email }}</div>
+                    </template>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Telefon</dt>
@@ -54,6 +65,9 @@
                         <span v-if="!editing" class="flex-grow">{{ coach.phone }}</span>
                         <input v-else v-model="form.editedPhone" class="flex-grow">
                     </dd>
+                    <template v-if="$attrs.errors.phone">
+                        <div class="mt-2 text-sm text-red-600">{{ $attrs.errors.phone }}</div>
+                    </template>
                 </div>
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Descriere</dt>
@@ -176,7 +190,9 @@ export default {
 
         updateCoach() {
             this.$inertia.put(route('admin.dashboard.coaches.update', this.coach), this.updatedCoachData);
-
+            if (this.$attrs.errors) {
+                this.editing = true;
+            }
             this.open = false;
         },
 
