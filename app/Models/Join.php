@@ -15,6 +15,7 @@ class Join extends Model
         'date_of_birth',
         'email',
         'age',
+        'parent_name',
         'phone',
         'message',
         'approved',

@@ -50,25 +50,38 @@
                                 </div>
                             </div>
                             <div class="sm:col-span-2">
-                                <label for="age" class="block text-sm font-semibold leading-6 text-gray-900">Data nasterii</label>
+                                <label for="date_of_birth" class="block text-sm font-semibold leading-6 text-gray-900">Data nasterii</label>
                                 <div class="mt-2.5">
-                                    <input type="text" name="age" id="age" autocomplete="given-name" v-model="form.age"
-                                        :class="{ 'border-red-500': errors.age }"
+                                    <input type="date" name="date_of_birth" id="date_of_birth" autocomplete="given-name" v-model="form.date_of_birth"
+                                        :class="{ 'border-red-500': errors.date_of_birth }"
                                         class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                                    <span v-if="errors.age" class="text-red-500 text-sm">{{ errors.age
+                                    <span v-if="errors.date_of_birth" class="text-red-500 text-sm">{{ errors.date_of_birth
                                     }}</span>
                                 </div>
                             </div>
                             <div class="sm:col-span-2">
                                 <div class="flex justify-between text-sm leading-6">
-                                    <label for="phone" class="block font-semibold text-gray-900">Număr de telefon</label>
-                                    <p id="phone-description" class="text-gray-400">Optional</p>
+                                    <label for="phone" class="block font-semibold text-gray-900">Număr de telefon parinte</label>
+                                    <!-- <p id="phone-description" class="text-gray-400">Optional</p> -->
                                 </div>
                                 <div class="mt-2.5">
                                     <input type="text" name="phone" id="phone" autocomplete="given-name"
                                         v-model="form.phone" :class="{ 'border-red-500': errors.phone }"
                                         class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                     <span v-if="errors.phone" class="text-red-500 text-sm">{{ errors.phone
+                                    }}</span>
+                                </div>
+
+
+                                <div class="flex justify-between text-sm leading-6">
+                                    <label for="parent_name" class="block font-semibold text-gray-900">Nume parinte</label>
+                                    <!-- <p id="phone-description" class="text-gray-400">Optional</p> -->
+                                </div>
+                                <div class="mt-2.5">
+                                    <input type="text" name="parent_name" id="parent_name" autocomplete="given-name"
+                                        v-model="form.parent_name" :class="{ 'border-red-500': errors.parent_name }"
+                                        class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                    <span v-if="errors.parent_name" class="text-red-500 text-sm">{{ errors.parent_name
                                     }}</span>
                                 </div>
                             </div>
@@ -149,8 +162,9 @@ export default {
                 first_name: null,
                 last_name: null,
                 email: null,
-                age: null,
+                date_of_birth: null,
                 phone: null,
+                parent_name: null,
                 message: null
             },
             show: false,
@@ -164,7 +178,8 @@ export default {
             if (!this.form.first_name) this.errors.first_name = 'Numele este obligatoriu.';
             if (!this.form.last_name) this.errors.last_name = 'Prenumele este obligatoriu.';
             if (!this.form.email) this.errors.email = 'Email-ul este obligatoriu.';
-            if (!this.form.age) this.errors.age = 'Vârsta este obligatorie.';
+            if (!this.form.date_of_birth) this.errors.date_of_birth = 'Vârsta este obligatorie.';
+            if (!this.form.parent_name) this.errors.parent_name = 'Numele parintelui este obligatoriu.';
             if (!this.form.phone) this.errors.phone = 'Numărul de telefon este obligatoriu.';
             // validate phone number to be a number of max 10 digits and needs to start with 07
             if (this.form.phone && !/^(07)\d{8}$/.test(this.form.phone)) this.errors.phone = 'Numărul de telefon nu este valid.';
@@ -176,7 +191,7 @@ export default {
                     first_name: null,
                     last_name: null,
                     email: null,
-                    age: null,
+                    date_of_birth: null,
                     phone: null,
                     message: null
                 }

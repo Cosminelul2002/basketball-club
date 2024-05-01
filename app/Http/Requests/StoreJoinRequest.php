@@ -25,7 +25,8 @@ class StoreJoinRequest extends FormRequest
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'email' => 'required|email|unique:users,email',
-            'age' => 'required|integer',
+            'date_of_birth' => 'required|date',
+            'parent_name' => 'required|string',
             'phone' => 'required|string',
             'message' => 'nullable|string',
         ];

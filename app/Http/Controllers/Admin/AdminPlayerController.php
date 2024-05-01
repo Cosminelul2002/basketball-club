@@ -103,7 +103,7 @@ class AdminPlayerController extends Controller
     #[Authorize(roles: 'admin')]
     public function update(UpdatePlayerRequest $request, Player $player)
     {
-        return $this->updateResource($request, $player, 'admin.dashboard.players.index', 'Jucător actualizat cu succes!');
+        return $this->update_player($request, $player);
     }
 
     /**

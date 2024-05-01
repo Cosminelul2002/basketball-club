@@ -27,10 +27,11 @@ class UpdatePlayerRequest extends FormRequest
             'date_of_birth' => 'date',
             'height' => 'numeric',
             'weight' => 'numeric',
-            'skill_level' => 'in:Începător', 'Intermediar', 'Avansat',
+            'skill_level' => ['in:Începător,Intermediar,Avansat'],
             'parent_name' => 'regex:/^[A-Za-z\s]+$/|max:255',
             'parent_phone' => 'numeric|digits_between:10,15',
-            'player_group_id' => 'exists:player_groups,id',
+            // 'player_group_id' => 'exists:player_groups,id',
+            'player_group' => 'exists:player_groups,name',
         ];
     }
 }

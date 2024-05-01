@@ -21,7 +21,7 @@ trait JoinTrait
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
-            'age' => $request->age,
+            'date_of_birth' => $request->date_of_birth,
             'phone' => $request->phone,
             'message' => $request->message ?? '',
         ]);

@@ -115,7 +115,7 @@ trait AdminPlayerTrait
     {
         try {
             $requestData = $request->validated();
-
+            
             $updateData = array_filter($requestData, function ($value, $key) use ($player) {
                 return $player->{$key} !== $value;
             }, ARRAY_FILTER_USE_BOTH);
