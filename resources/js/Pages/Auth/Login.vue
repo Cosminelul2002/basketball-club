@@ -26,6 +26,14 @@
                                 <input type="password" class="input bg-white rounded-md text-black px-2 py-1"
                                     placeholder="Parola" v-model="form.password" />
                             </div>
+
+                            <div class="flex flex-col md:flex-row justify-between gap-2 mt-5">
+                                <div class="flex flex-row items-center justify-center gap-2">
+                                    <input v-model="form.remember" type="checkbox" />
+                                    <span class="text-gray-500 text-md">Păstrează-mă autentificat</span>
+                                </div>
+                            </div>
+
                             <button type="submit"
                                 class="button bg-gradient-to-br from-blue-400 to-blue-600 !max-w-full font-bold hover:from-blue-500 hover:to-blue-700">
                                 Intră în cont
@@ -67,7 +75,8 @@ export default {
         return {
             form: {
                 email: null,
-                password: null
+                password: null,
+                remember: false
             },
             register_image: '../images/hero.jpg'
         }

@@ -3,7 +3,7 @@
 namespace App\Traits\Admin;
 
 use App\Enums\ExceptionMessage;
-use App\Exceptions\ResourcesNotFoundException;
+use App\Exceptions\AdminResourcesNotFoundException;
 use App\Models\Coach;
 use App\Models\PlayerGroup;
 use Exception;
@@ -29,11 +29,11 @@ trait AdminPlayerGroupTrait
                 'coaches' => Coach::all(),
             ]);
         } catch (RelationNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Coaches or Players'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Coaches or Players'), null, 500, $e);
         } catch (QueryException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Groups'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Groups'), null, 500, $e);
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
         }
     }
 
@@ -53,9 +53,9 @@ trait AdminPlayerGroupTrait
                 'coaches' => Coach::all(),
             ]);
         } catch (ModelNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Group'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Group'), null, 500, $e);
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
         }
     }
 
@@ -84,11 +84,11 @@ trait AdminPlayerGroupTrait
 
             return redirect()->route('admin.dashboard.groups.index')->with('message', 'Grup actualizat cu succes!');
         } catch (ModelNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Group'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Group'), null, 500, $e);
         } catch (QueryException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Group'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Group'), null, 500, $e);
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralUpdateResourceError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralUpdateResourceError(), null, 500, $e);
         }
     }
 
@@ -106,11 +106,11 @@ trait AdminPlayerGroupTrait
 
             return redirect()->route('admin.dashboard.groups.index')->with('message', 'Grup șters cu succes!');
         } catch (ModelNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Group'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Group'), null, 500, $e);
         } catch (QueryException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Group'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Group'), null, 500, $e);
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Traits\Admin;
 
 use App\Enums\ExceptionMessage;
-use App\Exceptions\ResourcesNotFoundException;
+use App\Exceptions\AdminResourcesNotFoundException;
 use App\Models\Join;
 use App\Services\JoinService;
 use Illuminate\Database\QueryException;
@@ -25,9 +25,9 @@ trait AdminJoinTrait
                 'joins' => Join::orderByDesc('created_at')->get(),
             ]);
         } catch (QueryException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Joins'), null, 404, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Joins'), null, 404, $e);
         } catch (\Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
         }
     }
 

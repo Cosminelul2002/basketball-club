@@ -28,6 +28,7 @@ trait LoginTrait
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials, $request->filled('remember'))) {
+
             $request->session()->regenerate();
 
             return redirect()->intended(route('landing'));
@@ -36,6 +37,12 @@ trait LoginTrait
         return redirect()->back()->with('error', 'Invalid credentials');
     }
 
+    /**
+     * Logout a user from the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout_user($request)
     {
         Auth::logout();

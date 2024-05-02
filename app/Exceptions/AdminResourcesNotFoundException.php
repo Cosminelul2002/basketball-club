@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Inertia\Inertia;
 use Throwable;
 
-class ResourcesNotFoundException extends Exception
+class AdminResourcesNotFoundException extends Exception
 {
     protected $model;
     protected $code;
@@ -35,7 +35,7 @@ class ResourcesNotFoundException extends Exception
         // report to the logs
     }
 
-    public function renderErrorPage()
+    public function renderAdminErrorPage()
     {
         return Inertia::render('Errors/ErrorPage', [
             'message' => $this->getMessage(),

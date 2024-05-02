@@ -37,8 +37,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
-        if ($e instanceof ResourcesNotFoundException) {
-            return $e->renderErrorPage();
+        if ($e instanceof AdminResourcesNotFoundException) {
+            return $e->renderAdminErrorPage();
+        }
+
+        if ( $e instanceof PublicException) {
+            return $e->renderPublicErrorPage();
         }
 
         return parent::render($request, $e);

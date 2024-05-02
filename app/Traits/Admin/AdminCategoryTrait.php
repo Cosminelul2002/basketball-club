@@ -3,7 +3,7 @@
 namespace App\Traits\Admin;
 
 use App\Enums\ExceptionMessage;
-use App\Exceptions\ResourcesNotFoundException;
+use App\Exceptions\AdminResourcesNotFoundException;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\SlugService;
@@ -31,7 +31,7 @@ trait AdminCategoryTrait
         try {
             $categories = Category::all()->load('products');
         } catch (RelationNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Products'));
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Products'));
         }
 
         return Inertia::render('Admin/Categories/List', (compact('categories')));
@@ -53,11 +53,11 @@ trait AdminCategoryTrait
                 'category' => $categoryWithProducts,
             ]);
         } catch (ModelNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Category'));
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Category'));
         } catch (RelationNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Products'));
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Products'));
         } catch (QueryException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Category'));
+            throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Category'));
         }
     }
 
@@ -92,9 +92,9 @@ trait AdminCategoryTrait
 
             return redirect()->route('admin.dashboard.categories.index')->with('message', 'Categorie adăugată cu succes!');
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralStoreResourceError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralStoreResourceError(), null, 500, $e);
         } catch (QueryException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Category'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Category'), null, 500, $e);
         }
     }
 
@@ -114,7 +114,7 @@ trait AdminCategoryTrait
                 'products' => $products
             ]);
         } catch (RelationNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Products'));
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Products'));
         }
     }
 
@@ -147,11 +147,11 @@ trait AdminCategoryTrait
                 return redirect()->route('admin.dashboard.categories.add-products', $category)->with('message', 'Produsele sunt deja în această categorie!');
             }
         } catch (ModelNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Category'));
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Category'));
         } catch (QueryException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Category'));
+            throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Category'));
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralStoreResourceError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralStoreResourceError(), null, 500, $e);
         }
     }
 
@@ -169,9 +169,9 @@ trait AdminCategoryTrait
                 'products' => $products,
             ]);
         } catch (QueryException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Products'));
+            throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Products'));
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace App\Traits\Admin;
 
 use App\Enums\ExceptionMessage;
 use App\Enums\Positions;
-use App\Exceptions\ResourcesNotFoundException;
+use App\Exceptions\AdminResourcesNotFoundException;
 use App\Http\Requests\StorePlayerRequest;
 use App\Models\Player;
 use App\Models\PlayerGroup;
@@ -31,11 +31,11 @@ trait AdminPlayerTrait
                 'groups' => PlayerGroup::all(),
             ]);
         } catch (RelationNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Groups'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Groups'), null, 500, $e);
         } catch (QueryException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Players'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Players'), null, 500, $e);
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
         }
     }
 
@@ -53,11 +53,11 @@ trait AdminPlayerTrait
                 'groups' => PlayerGroup::all(),
             ]);
         } catch (RelationNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Groups'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Groups'), null, 500, $e);
         } catch (ModelNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Player'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Player'), null, 500, $e);
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
         }
     }
 
@@ -74,7 +74,7 @@ trait AdminPlayerTrait
                 'groups' => PlayerGroup::all(),
             ]);
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
         }
     }
 
@@ -99,9 +99,9 @@ trait AdminPlayerTrait
 
             return redirect()->route('admin.dashboard.players.index')->with('message', 'Jucător adăugat cu succes!.');
         } catch (QueryException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Players'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Players'), null, 500, $e);
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralStoreResourceError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralStoreResourceError(), null, 500, $e);
         }
     }
 
@@ -130,11 +130,11 @@ trait AdminPlayerTrait
 
             return redirect()->route('admin.dashboard.players.index')->with('message', 'Jucător actualizat cu succes!.');
         } catch (ModelNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Player'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Player'), null, 500, $e);
         } catch (QueryException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Player'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Player'), null, 500, $e);
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralUpdateResourceError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralUpdateResourceError(), null, 500, $e);
         }
     }
 }

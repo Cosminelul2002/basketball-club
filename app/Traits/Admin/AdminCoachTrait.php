@@ -3,7 +3,7 @@
 namespace App\Traits\Admin;
 
 use App\Enums\ExceptionMessage;
-use App\Exceptions\ResourcesNotFoundException;
+use App\Exceptions\AdminResourcesNotFoundException;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -31,11 +31,11 @@ trait AdminCoachTrait
 
             return redirect()->route('admin.dashboard.coaches.index')->with('message', 'Antrenor actualizat cu succes!');
         } catch (ModelNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Coach'));
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Coach'));
         } catch (QueryException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Coach'));
+            throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Coach'));
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralUpdateResourceError());
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralUpdateResourceError());
         }
     }
 }

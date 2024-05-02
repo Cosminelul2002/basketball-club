@@ -3,7 +3,7 @@
 namespace App\Traits\Admin;
 
 use App\Enums\ExceptionMessage;
-use App\Exceptions\ResourcesNotFoundException;
+use App\Exceptions\AdminResourcesNotFoundException;
 use App\Services\SingularLowerNouns;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -43,9 +43,9 @@ trait AdminResourceTrait
                 lcfirst(SingularLowerNouns::makeSingularLowercase($resource)) => $model,
             ]);
         } catch (ModelNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceNotFound($resource));
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceNotFound($resource));
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralResourceError());
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralResourceError());
         }
     }
 
@@ -76,7 +76,7 @@ trait AdminResourceTrait
             $modelName::create($validatedData);
             return redirect()->route($redirectRoute)->with('message', $successMessage);
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralStoreResourceError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralStoreResourceError(), null, 500, $e);
         }
     }
 
@@ -117,7 +117,7 @@ trait AdminResourceTrait
             return redirect()->route($redirectRoute)->with('message', $successMessage);
         } catch (Exception $e) {
             $className = basename(str_replace('\\', '/', get_class($model)));
-            throw new ResourcesNotFoundException(ExceptionMessage::DeleteResourceError($className, null, 500, $e));
+            throw new AdminResourcesNotFoundException(ExceptionMessage::DeleteResourceError($className, null, 500, $e));
         }
     }
 }

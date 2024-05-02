@@ -2,7 +2,10 @@
 
 namespace App\Traits\Public;
 
+use App\Enums\ExceptionMessage;
+use App\Exceptions\PublicException;
 use App\Services\SingularLowerNouns;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Inertia\Inertia;
 
 trait PublicResourceTrait
@@ -26,9 +29,15 @@ trait PublicResourceTrait
      */
     public function show_resource($resource, $model)
     {
-        return Inertia::render("{$resource}/Show", [
-            lcfirst(SingularLowerNouns::makeSingularLowercase($resource)) => $model,
-        ]);
+        $fondModel = $model::findOrFail($model->id);
+
+        try {
+            return Inertia::render("{$resource}/Show", [
+                lcfirst(SingularLowerNouns::makeSingularLowercase($resource)) => $fondModel,
+            ]);
+        } catch (ModelNotFoundException $e) {
+            throw new PublicException(ExceptionMessage::ResourceNotFound($resource));
+        }
     }
 
     /**

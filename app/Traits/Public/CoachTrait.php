@@ -2,7 +2,9 @@
 
 namespace App\Traits\Public;
 
+use App\Exceptions\PublicException;
 use App\Models\Coach;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Inertia\Inertia;
 
 trait CoachTrait
@@ -14,6 +16,12 @@ trait CoachTrait
      */
     public function index_coach()
     {
+        $coaches = Coach::all();
+
+        if ($coaches->isEmpty()) {
+            throw new PublicException('No coaches found.', 404);
+        }
+
         return Inertia::render('Coaches/Index', [
             'coaches' => Coach::all(),
         ]);

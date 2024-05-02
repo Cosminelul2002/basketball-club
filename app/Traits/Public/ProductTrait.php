@@ -2,6 +2,9 @@
 
 namespace App\Traits\Public;
 
+use App\Enums\ExceptionMessage;
+use App\Exceptions\PublicException;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Inertia\Inertia;
 
 trait ProductTrait
@@ -14,8 +17,12 @@ trait ProductTrait
      */
     public function show_product($product)
     {
-        return Inertia::render('Product/Show', [
-            'product' => $product->load('category'),
-        ]);
+        try {
+            return Inertia::render('Product/Show', [
+                'product' => $product->load('category'),
+            ]);
+        } catch (RelationNotFoundException $e) {
+            throw new PublicException(ExceptionMessage::ResourceAssociatedNotFound('Category'));
+        }
     }
 }

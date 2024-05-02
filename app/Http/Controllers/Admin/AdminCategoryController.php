@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exceptions\ResourcesNotFoundException;
+use App\Exceptions\AdminResourcesNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddProductsRequest;
 use App\Http\Requests\StoreCategoryRequest;

@@ -39,7 +39,7 @@
 import Layout from '../../Layouts/Layout.vue';
 
 export default {
-    name: 'CoachesShow',
+    name: 'Coaches/Index',
 
     components: {
         Layout,

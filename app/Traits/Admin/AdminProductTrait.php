@@ -3,7 +3,7 @@
 namespace App\Traits\Admin;
 
 use App\Enums\ExceptionMessage;
-use App\Exceptions\ResourcesNotFoundException;
+use App\Exceptions\AdminResourcesNotFoundException;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
@@ -30,11 +30,11 @@ trait AdminProductTrait
                 'categories' => Category::all(),
             ]);
         } catch (RelationNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Category'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Category'), null, 500, $e);
         } catch (QueryException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Products'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Products'), null, 500, $e);
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
         }
     }
 
@@ -52,9 +52,9 @@ trait AdminProductTrait
                 'categories' => Category::all(),
             ]);
         } catch (RelationNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Category'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Category'), null, 500, $e);
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
         }
     }
 
@@ -111,11 +111,11 @@ trait AdminProductTrait
 
             return redirect()->route('admin.dashboard.products.index')->with('message', 'Produs actualizat cu succes!');
         } catch (RelationNotFoundException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Category'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Category'), null, 500, $e);
         } catch (QueryException $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::QueryFailed('Products'), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Products'), null, 500, $e);
         } catch (Exception $e) {
-            throw new ResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
         }
     }
 }

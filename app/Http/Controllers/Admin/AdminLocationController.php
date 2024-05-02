@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Traits\Admin\AdminLocationTrait;
 use App\Traits\Admin\AdminResourceTrait;
 use App\Contracts\LocationRepositoryInterface;
-use App\Exceptions\ResourcesNotFoundException;
+use App\Exceptions\AdminResourcesNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLocationRequest;
 use App\Http\Requests\UpdateLocationRequest;
