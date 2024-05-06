@@ -28,7 +28,7 @@
                     <inertia-link :href="route('auth.register')"
                         class="text-sm font-semibold leading-6 text-white">Fă-ți
                         un cont<span aria-hidden="true">&rarr;</span></inertia-link>
-                    <inertia-link :href="route('login')" class="text-sm font-semibold leading-6 text-white">Intră
+                    <inertia-link :href="route('auth.login')" class="text-sm font-semibold leading-6 text-white">Intră
                         în cont<span aria-hidden="true">&rarr;</span></inertia-link>
                 </div>
             </template>

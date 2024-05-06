@@ -41,6 +41,12 @@
                             <inertia-link :href="route('auth.register')" class="flex justify-center text-gray-500 text-md">
                                 Nu ai cont ? Fă-ți unul aici !
                             </inertia-link>
+
+                            <div class="flex justify-center">
+                                <inertia-link :href="route('password.request')" class="text-gray-500 text-md">
+                                    Ai uitat parola?
+                                </inertia-link>
+                            </div>
                         </div>
                     </form>
                 </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\ResetLinkRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Traits\Auth\LoginTrait;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -55,5 +57,49 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         return $this->logout_user($request);
+    }
+
+    /**
+     * Display the forgot password page.
+     *
+     * @return \Inertia\Response
+     */
+    public function showForgotPass()
+    {
+        return Inertia::render('Auth/ForgotPassword');
+    }
+
+    /**
+     * Send a reset password link to the user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function sendResetLink(ResetLinkRequest $request)
+    {
+        return $this->send_reset_link($request);
+    }
+
+    /**
+     * Display the reset password form.
+     *
+     * @param  string  $token
+     * @param  string  $email
+     * @return \Inertia\Response
+     */
+    public function showResetForm(string $token, string $email)
+    {
+        return $this->show_reset_form($token, $email);
+    }
+
+    /**
+     * Reset the user's password.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function resetPassword(ResetPasswordRequest $request)
+    {
+        return $this->reset_password($request);
     }
 }
