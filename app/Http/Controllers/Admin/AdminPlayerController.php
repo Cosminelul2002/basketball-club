@@ -24,12 +24,6 @@ class AdminPlayerController extends Controller
 {
     use AdminResourceTrait, AdminPlayerTrait;
 
-    #[Authorize(roles: ['admin', 'player'])]
-    public function dashboard()
-    {
-        return Inertia::render('Player/Dashboard');
-    }
-
     #[Authorize(roles: 'admin')]
     public function index(Request $request)
     {

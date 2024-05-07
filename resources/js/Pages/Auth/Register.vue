@@ -18,8 +18,8 @@
                             </div>
                             <div class="flex flex-col gap-1">
                                 <span>Nume</span>
-                                <input type="name" class="input bg-white rounded-md text-black px-2 py-1" placeholder="Nume"
-                                    v-model="form.name" />
+                                <input type="name" class="input bg-white rounded-md text-black px-2 py-1"
+                                    placeholder="Nume" v-model="form.name" />
                             </div>
                             <div class="flex flex-col gap-1">
                                 <span>Email</span>
@@ -40,7 +40,7 @@
                                 class="button bg-gradient-to-br from-blue-400 to-blue-600 !max-w-full font-bold hover:from-blue-500 hover:to-blue-700">
                                 Înregistrează-te
                             </button>
-                            <inertia-link :href="route('login')" class="flex justify-center text-gray-500 text-md">
+                            <inertia-link :href="route('auth.login')" class="flex justify-center text-gray-500 text-md">
                                 Ai un cont deja? Loghează-te aici !
                             </inertia-link>
                         </div>

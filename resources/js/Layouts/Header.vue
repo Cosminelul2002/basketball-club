@@ -66,7 +66,7 @@
                         item.name }}</a>
                         </div>
                         <div class="py-6">
-                            <inertia-link :href="route('login')"
+                            <inertia-link :href="route('auth.login') "
                                 class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Intră
                                 în cont
                             </inertia-link>
@@ -91,6 +91,7 @@ export default {
 
     computed: {
         isLoggedIn() {
+            console.log(this.$page.props.user);
             return this.$page.props.user ? true : false;
         }
     }

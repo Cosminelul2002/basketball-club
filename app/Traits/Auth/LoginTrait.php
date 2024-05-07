@@ -4,6 +4,7 @@ namespace App\Traits\Auth;
 
 use App\Http\Requests\ResetLinkRequest;
 use App\Http\Requests\ResetPasswordRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
@@ -33,14 +34,20 @@ trait LoginTrait
     {
         $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
-
-            $request->session()->regenerate();
-
-            return redirect()->intended(route('landing'));
+        // Check if user's email is verified
+        if (!Auth::attempt($credentials, $request->filled('remember'))) {
+            return redirect()->back()->with('error', 'Invalid credentials');
         }
 
-        return redirect()->back()->with('error', 'Invalid credentials');
+        // Check if the user's email is verified
+        // if (!Auth::user()->hasVerifiedEmail()) {
+        //     Auth::logout();
+        //     return redirect()->back()->withErrors(['email' => 'Your email is not verified. Please verify your email to login.']);
+        // }
+
+        $request->session()->regenerate();
+
+        return redirect()->intended(route('landing'));
     }
 
     /**
@@ -115,5 +122,31 @@ trait LoginTrait
         return $status === Password::PASSWORD_RESET
             ? redirect()->route('auth.login')->with('status', __($status))
             : back()->withErrors(['email' => [__($status)]]);
+    }
+
+    /**
+     * Display the verify email page.
+     *
+     * @return \Inertia\Response
+     */
+    public function show_verify_email()
+    {
+        return Inertia::render('Auth/VerifyEmail');
+    }
+
+    /**
+     * Verify the user's email.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function verify_email($request)
+    {
+        dd($request->route('id'), $request->route('hash'));
+        // $request->fullfill();
+
+        if ($request->user()->hasVerifiedEmail()) {
+            return redirect()->route('landing');
+        }
     }
 }

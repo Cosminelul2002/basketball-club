@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmailVerificationRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ResetLinkRequest;
 use App\Http\Requests\ResetPasswordRequest;
@@ -101,5 +102,26 @@ class LoginController extends Controller
     public function resetPassword(ResetPasswordRequest $request)
     {
         return $this->reset_password($request);
+    }
+
+    /**
+     * Show the email verification notice.
+     *
+     * @return \Inertia\Response
+     */
+    public function showVerifyEmail()
+    {
+        return $this->show_verify_email();
+    }
+
+    /**
+     * Verify the user's email address.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function verifyEmail(EmailVerificationRequest $request)
+    {
+        return $this->verify_email($request);
     }
 }

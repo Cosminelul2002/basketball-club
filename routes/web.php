@@ -38,6 +38,8 @@ use Stripe\Stripe;
 */
 
 $allMethods = ['index', 'show', 'store', 'update', 'destroy', 'create', 'edit'];
+
+// Routes requiring authentication
 Route::get('/', [LandingController::class, 'index'])->name('landing');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/media', [MediaController::class, 'index'])->name('media');
