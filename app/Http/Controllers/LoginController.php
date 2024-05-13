@@ -32,7 +32,7 @@ class LoginController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        return $this->login_user($request);
+        return $this->login_tenant($request);
     }
 
     // public function login(LoginRequest $request)

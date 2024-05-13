@@ -48,6 +48,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
+    /**
+     * Get the roles that belong to the user.
+     */
     public function user_roles()
     {
         return $this->hasMany(UserRole::class);

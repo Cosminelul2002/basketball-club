@@ -4,6 +4,7 @@ namespace App\Traits\Auth;
 
 use App\Http\Requests\ResetLinkRequest;
 use App\Http\Requests\ResetPasswordRequest;
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +12,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
+use Stancl\Tenancy\Database\Models\Domain;
 
 trait LoginTrait
 {
@@ -30,13 +32,20 @@ trait LoginTrait
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function login_user($request)
+    public function login_tenant($request)
     {
+
+        // get the tenant
+        // $domain = Domain::where('domain', $request->getHost())->first();
+
+        // $tenant = $domain->tenant;
+        // tenancy()->initialize($tenant);
+        
         $credentials = $request->only('email', 'password');
 
         // Check if user's email is verified
         if (!Auth::attempt($credentials, $request->filled('remember'))) {
-            return redirect()->back()->with('error', 'Invalid credentials');
+            return redirect()->back()->withErrors('Invalid credentials');
         }
 
         // Check if the user's email is verified
@@ -47,7 +56,12 @@ trait LoginTrait
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('landing'));
+        // redirect based on user role
+        if (auth()->user()->hasRole('admin')) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        return redirect()->route('tenant.landing');
     }
 
     /**

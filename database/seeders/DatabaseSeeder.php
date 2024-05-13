@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Career;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,6 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        \App\Models\Tenant::all()->runForEach(function () {
+            // \App\Models\User::factory(10)->create();
+            Artisan::call('db:seed', ['--class' => 'RoleSeeder']);
+        });
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
