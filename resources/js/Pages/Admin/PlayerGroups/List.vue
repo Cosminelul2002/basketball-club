@@ -1,12 +1,16 @@
 <template>
     <AdminLayout>
         <div class="px-4 sm:px-6 lg:px-8">
+
+            <!-- Player Groups Section Description -->
             <div class="sm:flex sm:items-center mb-8">
                 <div class="sm:flex-auto">
-                    <h1 class="text-base font-semibold leading-6 text-gray-900">Grupe</h1>
+                    <h1 class="text-base font-semibold leading-6 text-gray-900">Grupe de vârstă</h1>
                     <p class="mt-2 text-md text-gray-700">Liste grupe și antrenori.</p>
                 </div>
-                <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+
+                <!-- Add Player Group Button -->
+                <div v-if="filteredPlayerGroups.length != 0" class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                     <inertia-link :href="route('admin.dashboard.groups.create')"
                         class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Adaugă
                         grupă nouă</inertia-link>
@@ -14,7 +18,7 @@
             </div>
 
             <!-- Filter section -->
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div v-if="filteredPlayerGroups.length != 0" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 <!-- Filter by name -->
                 <div>
                     <Filter :filter="nameFilter" :value="filters.name" :onUpdateValue="updateNameFilter" />
@@ -25,11 +29,28 @@
                 </div>
             </div>
 
+            <!-- Main Player Groups Section -->
             <div class="mt-8 flow-root">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                            <table class="min-w-full divide-y divide-gray-300">
+
+                            <!-- Player Groups table  -->
+                            <template v-if="filteredPlayerGroups.length === 0">
+                                <div class="flex flex-col items-center justify-center gap-2 p-6 text-center">
+                                    <p class="text-md text-gray-500">
+                                        Nu ai adăugat încă nicio grupă de vârstă. Fă clic pe butonul de mai jos pentru a
+                                        adăuga prima ta grupă de vârstă și începe să structurezi echipa în funcție de
+                                        categoriile de vârstă!
+                                    </p>
+                                    <inertia-link :href="route('admin.dashboard.groups.create')"
+                                        class="px-4 py-2 bg-blue-500 text-white rounded-md bg-indigo-600 text-center text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                        Adaugă grupă de vârstă
+                                    </inertia-link>
+                                </div>
+                            </template>
+
+                            <table v-else class="min-w-full divide-y divide-gray-300">
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th scope="col"

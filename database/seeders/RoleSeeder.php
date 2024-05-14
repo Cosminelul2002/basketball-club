@@ -14,6 +14,11 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
+        $super_admin = Role::query()->firstOrCreate([
+            'key' => 'super_admin',
+            'name' => 'Super Administrator'
+        ]);
+
         $admin = Role::query()->firstOrCreate([
             'key' => 'admin',
             'name' => 'Administrator'

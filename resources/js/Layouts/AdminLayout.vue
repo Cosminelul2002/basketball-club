@@ -188,7 +188,7 @@
             </div>
 
             <main class="py-10">
-                <div class="px-4 sm:px-6 lg:px-8">
+                <div class="px-4 sm:px-6 lg:px-8 h-full">
                     <!-- Your content -->
                     <slot></slot>
                 </div>
@@ -242,10 +242,16 @@ export default {
 
     mounted() {
         this.$inertia.on('success', () => {
-            this.show = true;
-            setTimeout(() => {
-                this.show = false;
-            }, 3500);
+            if (this.$page.props.message) {
+                this.show = true;
+                setTimeout(() => {
+                    this.show = false;
+                }, 3500);
+            }
+            // this.show = true;
+            // setTimeout(() => {
+            //     this.show = false;
+            // }, 3500);
         });
     },
 
@@ -258,9 +264,10 @@ export default {
                 { name: 'Jucători', href: route('admin.dashboard.players.index'), icon: UsersIcon, current: false },
                 { name: 'Antrenori', href: route('admin.dashboard.coaches.index'), icon: DocumentDuplicateIcon, current: false },
                 { name: 'Grupe de vârstă', href: route('admin.dashboard.groups.index'), icon: CalendarIcon, current: false },
-                { name: 'Înscrieri', href: route('admin.dashboard.joins.index'), icon: FolderIcon, current: false },
+                { name: 'Calendar', href: route('admin.dashboard.calendar.index'), icon: CalendarIcon, current: false },
+                // { name: 'Înscrieri', href: route('admin.dashboard.joins.index'), icon: FolderIcon, current: false },
                 { name: 'Locații', href: route('admin.dashboard.locations.index'), icon: ChartPieIcon, current: false },
-                { name: 'Site', href: route('landing'), icon: ChartPieIcon, current: false },
+                // { name: 'Site', href: route('landing'), icon: ChartPieIcon, current: false },
 
             ],
         }

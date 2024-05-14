@@ -222,24 +222,29 @@ const navigation = [
 ]
 const features = [
     {
-        name: 'Descoperă pasiunea pentru baschet!',
-        description: 'În echipa noastră, fiecare dribling și fiecare coș contează. Alătură-te comunității noastre și fă parte dintr-o experiență autentică de baschet.',
+        name: 'Gestionează eficient echipele și jucătorii',
+        description: 'Cu ERP-ul nostru, poți organiza și monitoriza fiecare aspect al echipei tale de baschet, de la gestionarea jucătorilor și staff-ului tehnic la programarea antrenamentelor și a meciurilor.',
         icon: CloudArrowUpIcon,
     },
     {
-        name: 'Vino să trăiești emoția jocului!',
-        description: 'La clubul nostru de baschet, nu este vorba doar despre puncte marcate sau meciuri câștigate. Este despre echipă, despre dedicare și despre bucuria de a juca baschet la cel mai înalt nivel.',
+        name: 'Analizează performanțele și strategiile',
+        description: 'Beneficiază de instrumente avansate de analiză și raportare pentru a evalua performanțele echipei și pentru a dezvolta strategii de joc eficiente. Obține date în timp real și ia decizii informate pentru a-ți duce echipa la victorie.',
         icon: LockClosedIcon,
     },
     {
-        name: 'Explorează potențialul tău!',
-        description: 'Indiferent dacă ești începător sau jucător experimentat, la clubul nostru de baschet vei găsi resursele și suportul de care ai nevoie pentru a-ți îmbunătăți abilitățile și a-ți atinge obiectivele în acest sport minunat.',
+        name: 'Gestionează eficient resursele și echipamentele',
+        description: 'Cu funcționalitățile noastre de gestionare a resurselor și a echipamentelor, poți urmări și gestiona fiecare echipament și resursă utilizată de echipa ta de baschet. Asigură-te că totul este întotdeauna în ordine și că echipa ta are tot ce-i trebuie pentru a se pregăti și a juca la nivel înalt.',
         icon: ArrowPathIcon,
     },
     {
-        name: 'Împreună suntem mai puternici!',
-        description: 'Baschetul nu este doar un sport, este o comunitate. La clubul nostru, vei găsi prieteni, mentori și oportunități de creștere personală și profesională. Hai să construim împreună ceva special!',
-        icon: Cog6ToothIcon,
+        name: 'Comunică și colaborează eficient',
+        description: 'Facilitează comunicarea și colaborarea între toți membrii echipei tale de baschet, de la jucători și antrenori la personalul administrativ. Creează un mediu de lucru colaborativ și motivant pentru a atinge obiectivele comune și a obține succesul pe teren.',
+        icon: ArrowPathIcon,
+    },
+    {
+        name: 'Accesează dashboard-uri personalizate',
+        description: 'ERP-ul nostru oferă dashboard-uri dedicate pentru administratori, jucători și părinți, astfel încât fiecare utilizator să poată accesa și gestiona informațiile și funcționalitățile relevante pentru rolul său în cadrul echipei de baschet.',
+        icon: ArrowPathIcon,
     },
 ]
 const tiers = [

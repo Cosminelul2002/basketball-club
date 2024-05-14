@@ -4,6 +4,7 @@ namespace App\Traits\Admin;
 
 use App\Models\Coach;
 use App\Models\Join;
+use App\Models\Location;
 use App\Models\Player;
 use App\Models\PlayerGroup;
 use Inertia\Inertia;
@@ -24,16 +25,14 @@ trait AdminTrait
         $lastPlayers = Player::latest()->limit(5)->get();
         $coaches = Coach::all()->count();
         $playerGroups = PlayerGroup::all()->count();
-        $joins = Join::all()->count();
-        $lastJoins = Join::latest()->limit(5)->get();
+        $locations = Location::all()->count();
 
         return Inertia::render('Admin/Dashboard', [
             'players' => $players,
             'lastPlayers' => $lastPlayers,
             'coaches' => $coaches,
             'playerGroups' => $playerGroups,
-            'joins' => $joins,
-            'lastJoins' => $lastJoins,
+            'locations' => $locations,
         ]);
     }
 }

@@ -40,7 +40,7 @@ trait LoginTrait
 
         // $tenant = $domain->tenant;
         // tenancy()->initialize($tenant);
-        
+
         $credentials = $request->only('email', 'password');
 
         // Check if user's email is verified
@@ -61,7 +61,9 @@ trait LoginTrait
             return redirect()->route('admin.dashboard');
         }
 
-        return redirect()->route('tenant.landing');
+        if (auth()->user()->hasRole('super_admin')) {
+            return redirect()->route('super_admin.dashboard');
+        }
     }
 
     /**

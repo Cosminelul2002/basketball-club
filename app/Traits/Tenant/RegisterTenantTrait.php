@@ -13,11 +13,22 @@ use Stancl\Tenancy\Database\Models\Domain;
 
 trait RegisterTenantTrait
 {
+    /**
+     * Display the tenant registration page.
+     *
+     * @return \Inertia\Response
+     */
     public function registerTenant()
     {
         return Inertia::render('Tenant/Register');
     }
 
+    /**
+     * Store a newly created tenant in storage.
+     *
+     * @param  \App\Http\Requests\StoreTenantRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function storeTenant(StoreTenantRequest $request)
     {
         $request->validated();
@@ -37,7 +48,7 @@ trait RegisterTenantTrait
         ]);
 
         // Create a domain for the tenant
-        $domain = Domain::create([
+        Domain::create([
             'domain' => $request['domain'],
             'tenant_id' => $tenant->id,
         ]);

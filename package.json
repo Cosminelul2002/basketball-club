@@ -23,6 +23,7 @@
         "@vue-hero-icons/outline": "^1.7.2",
         "jquery": "^3.7.1",
         "moment": "^2.30.1",
+        "qalendar": "^3.8.1",
         "vue": "^3.2.36",
         "vue-loader": "^17.3.0",
         "vue-toastr": "^2.1.2",

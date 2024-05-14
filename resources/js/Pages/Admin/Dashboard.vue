@@ -25,16 +25,16 @@
 
                     <div class="w-3/12 bg-white p-4 rounded-lg">
                         <h1 class="title block ml-0 !text-left">{{ playerGroups }}</h1>
-                        <p class="text-gray-500">Grupe</p>
+                        <p class="text-gray-500">Grupe de vârstă</p>
                         <inertia-link class="text-blue-500 text-xs" :href="route('admin.dashboard.groups.index')">
-                            Vezi grupe</inertia-link>
+                            Vezi grupele de vârstă</inertia-link>
                     </div>
 
                     <div class="w-3/12 bg-white p-4 rounded-lg">
-                        <h1 class="title block ml-0 !text-left">{{ joins }}</h1>
-                        <p class="text-gray-500">Cereri de inscriere</p>
+                        <h1 class="title block ml-0 !text-left">{{ locations }}</h1>
+                        <p class="text-gray-500">Locații</p>
                         <inertia-link class="text-blue-500 text-xs" :href="route('admin.dashboard.joins.index')">
-                            Vezi cereri de inscriere
+                            Vezi locațiile tale
                         </inertia-link>
                     </div>
                 </div>
@@ -109,8 +109,7 @@ export default {
         lastPlayers: Array,
         coaches: Number,
         playerGroups: Number,
-        joins: Number,
-        lastJoins: Array,
+        locations: Number,
     },
 
     methods: {

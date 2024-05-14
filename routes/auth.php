@@ -15,6 +15,7 @@ use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RegisterTenantController;
+use App\Http\Controllers\SuperAdminController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,24 @@ foreach (config('tenancy.central_domains') as $domain) {
             Route::get('/login', [LoginController::class, 'index'])->name('login');
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
             Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+        });
+
+        Route::name("super_admin.")->prefix('/master')->group(function () {
+            Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])->name('dashboard');
+            // Route::name("dashboard.")->prefix('/dashboard')->group(function () {
+            //     Route::resources([
+            //         'players' => AdminPlayerController::class,
+            //         'coaches' => AdminCoachController::class,
+            //         'groups' => AdminPlayerGroupController::class,
+            //         'joins' => AdminJoinController::class,
+            //         'products' => AdminProductController::class,
+            //         'locations' => AdminLocationController::class,
+            //         'categories' => AdminCategoryController::class,
+            //     ]);
+            //     Route::post('joins/{join}/approve', [AdminJoinController::class, 'approve'])->name('joins.approve');
+            //     Route::get('categories/{category}/add-products', [AdminCategoryController::class, 'addProdcuts'])->name('categories.add-products');
+            //     Route::post('categories/{category}/add-products', [AdminCategoryController::class, 'storeProducts'])->name('categories.store-products');
+            // });
         });
 
         // // Password reset routes
@@ -59,7 +78,7 @@ foreach (config('tenancy.central_domains') as $domain) {
         // })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
         // // Google login
-        // Route::get('/google/redirect', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
-        // Route::get('/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
+        Route::get('/google/redirect', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
+        Route::get('/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
     });
 }
