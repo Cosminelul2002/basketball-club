@@ -10,7 +10,8 @@ use App\Http\Controllers\Admin\AdminLocationController;
 use App\Http\Controllers\Admin\AdminPlayerController;
 use App\Http\Controllers\Admin\AdminPlayerGroupController;
 use App\Http\Controllers\Admin\AdminProductController;
-use App\Http\Controllers\AdminCalendarController;
+use App\Http\Controllers\Admin\AdminCalendarController;
+use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
@@ -89,6 +90,7 @@ Route::middleware([
                 'coaches' => AdminCoachController::class,
                 'groups' => AdminPlayerGroupController::class,
                 'calendar' => AdminCalendarController::class,
+                'events' => AdminEventController::class,
                 // 'joins' => AdminJoinController::class,
                 'products' => AdminProductController::class,
                 'locations' => AdminLocationController::class,

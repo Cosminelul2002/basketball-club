@@ -76,6 +76,7 @@ trait AdminResourceTrait
             $modelName::create($validatedData);
             return redirect()->route($redirectRoute)->with('message', $successMessage);
         } catch (Exception $e) {
+            dd($e);
             throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralStoreResourceError(), null, 500, $e);
         }
     }

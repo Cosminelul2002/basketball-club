@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Event extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'title',
@@ -27,12 +27,12 @@ class Event extends Model
     ];
 
     protected $casts = [
-        'attendees' => 'array',
-        'recurring_rule' => 'array',
-        'start_time' => 'datetime',
-        'end_time' => 'datetime',
-        'is_all_day' => 'boolean',
-        'is_recurring' => 'boolean',
+        // 'attendees' => 'array',
+        // 'recurring_rule' => 'array',
+        // 'start_time' => 'datetime',
+        // 'end_time' => 'datetime',
+        // 'is_all_day' => 'boolean',
+        // 'is_recurring' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
