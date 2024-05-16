@@ -8,7 +8,14 @@
                 </div>
 
                 <!-- Add Events Button -->
-                <div v-if="events.length != 0" class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                <div v-if="events.length != 0" class="mt-4 sm:ml-10 sm:mt-0 sm:flex-none">
+                    <inertia-link :href="route('admin.dashboard.events.index')"
+                        class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Vezi
+                        evenimentele tale</inertia-link>
+                </div>
+
+
+                <div v-if="events.length != 0" class="mt-4 sm:ml-10 sm:mt-0 sm:flex-none">
                     <inertia-link :href="route('admin.dashboard.events.create')"
                         class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Adaugă
                         eveniment nou</inertia-link>
@@ -87,7 +94,9 @@ export default {
         },
 
         handleEditEvent(event) {
-            console.log(event);
+            let targetEvent = this.events.find(e => e.id === event);
+
+            this.$inertia.visit(route('admin.dashboard.events.show', targetEvent));
         },
     },
 }

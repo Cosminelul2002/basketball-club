@@ -9,6 +9,13 @@
                     <p class="mt-2 text-md text-gray-700">Liste grupe și antrenori.</p>
                 </div>
 
+                <!-- Add Player Groups Button Default Values -->
+                <div v-if="filteredPlayerGroups.length === 0" class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                    <button @click=addDefaultGroups
+                        class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Adaugă
+                        grupele inițiale</button>
+                </div>
+
                 <!-- Add Player Group Button -->
                 <div v-if="filteredPlayerGroups.length != 0" class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                     <inertia-link :href="route('admin.dashboard.groups.create')"
@@ -185,6 +192,10 @@ export default {
 
         updateCoachFilter(value) {
             this.filters.coach = value;
+        },
+
+        addDefaultGroups() {
+            this.$inertia.post(route('admin.dashboard.groups.create-default-groups'));
         },
 
     }

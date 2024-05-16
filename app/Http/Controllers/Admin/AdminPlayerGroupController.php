@@ -78,6 +78,11 @@ class AdminPlayerGroupController extends Controller
         return $this->update_player_group($request, $id);
     }
 
+    public function createDefaultGroups()
+    {
+        return $this->create_default_groups();
+    }
+
     /**
      * Delete the specified resource from storage.
      * 

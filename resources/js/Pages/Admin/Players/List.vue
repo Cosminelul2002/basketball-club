@@ -79,7 +79,7 @@
                                         <th scope="col" class="px-6 py-3 text-left text-md font-semibold text-gray-900">
                                             Număr
                                             telefon părinte</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-md font-semibold text-gray-900">
+                                        <th scope="col" class="text-center px-6 py-3 text-left text-md font-semibold text-gray-900">
                                             Acțiuni</th>
                                     </tr>
                                 </thead>

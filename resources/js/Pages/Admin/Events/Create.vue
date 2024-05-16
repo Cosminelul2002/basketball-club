@@ -33,13 +33,26 @@
                         <option value="purple">Mov</option>
                     </select>
                 </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 font-semibold mb-2">Eveniment pe toată ziua</label>
-                    <div class="flex items-center">
-                        <input type="radio" id="all_day_yes" value="true" v-model="form.is_all_day" class="mr-2">
-                        <label for="all_day_yes" class="mr-4">Da</label>
-                        <input type="radio" id="all_day_no" value="false" v-model="form.is_all_day" class="mr-2">
-                        <label for="all_day_no">Nu</label>
+                <div class="flex flex-row mb-4 w-12/12">
+                    <div class="w-6/12">
+                        <label class="block text-gray-700 font-semibold mb-2">Eveniment pe toată ziua</label>
+                        <div class="flex items-center">
+                            <input type="radio" id="all_day_yes" :value=true v-model="form.is_all_day" class="mr-2">
+                            <label for="all_day_yes" class="mr-4">Da</label>
+                            <input type="radio" id="all_day_no" :value=false v-model="form.is_all_day" class="mr-2">
+                            <label for="all_day_no">Nu</label>
+                        </div>
+                    </div>
+                    <div class="w-6/12">
+                        <label class="block text-gray-700 font-semibold mb-2">Adaugă în calendar</label>
+                        <div class="flex items-center">
+                            <input type="radio" id="in_calendar_yes" :value=true v-model="form.in_calendar"
+                                class="mr-2">
+                            <label for="in_calendar_yes" class="mr-4">Da</label>
+                            <input type="radio" id="in_calendar_no" :value=false v-model="form.in_calendar"
+                                class="mr-2">
+                            <label for="in_calendar_no">Nu</label>
+                        </div>
                     </div>
                 </div>
                 <div class="mb-4">
@@ -80,7 +93,8 @@ export default {
                 start_time: '',
                 end_time: '',
                 color: '#000000',
-                is_all_day: true,
+                is_all_day: '',
+                in_calendar: '',
                 location: '',
                 status: 'scheduled'
             }

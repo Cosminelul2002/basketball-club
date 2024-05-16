@@ -6,6 +6,7 @@ use App\Enums\ExceptionMessage;
 use App\Exceptions\AdminResourcesNotFoundException;
 use App\Models\Coach;
 use App\Models\PlayerGroup;
+use Database\Seeders\PlayerGroupSeeder;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\RelationNotFoundException;
@@ -90,6 +91,17 @@ trait AdminPlayerGroupTrait
         } catch (Exception $e) {
             throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralUpdateResourceError(), null, 500, $e);
         }
+    }
+
+    /**
+     * Create the default player groups.
+     *
+     * @return void
+     */
+    public function create_default_groups()
+    {
+        $seeder = new PlayerGroupSeeder();
+        $seeder->run();
     }
 
     /**

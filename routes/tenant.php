@@ -96,6 +96,8 @@ Route::middleware([
                 'locations' => AdminLocationController::class,
                 'categories' => AdminCategoryController::class,
             ]);
+            Route::post('groups', [AdminPlayerGroupController::class, 'createDefaultGroups'])->name('groups.create-default-groups');
+            Route::post('events/{event}/add-to-calendar', [AdminEventController::class, 'addToCalendar'])->name('events.add-to-calendar');
             Route::post('joins/{join}/approve', [AdminJoinController::class, 'approve'])->name('joins.approve');
             Route::get('categories/{category}/add-products', [AdminCategoryController::class, 'addProdcuts'])->name('categories.add-products');
             Route::post('categories/{category}/add-products', [AdminCategoryController::class, 'storeProducts'])->name('categories.store-products');

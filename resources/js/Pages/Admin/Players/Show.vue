@@ -57,7 +57,9 @@
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Grupă de vârstă</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ player.player_group.name }}</span>
+                        <span v-if="!editing" class="flex-grow">{{ player.player_group ? player.player_group.name :
+                        'Fără grupă'
+                            }}</span>
                         <select v-else v-model="form.editedPlayerGroup" class="flex-grow">
                             <option v-for="group in groups" :key="group.id" :value="group.name">{{ group.name }}
                             </option>
@@ -189,7 +191,7 @@ export default {
                 editedFirstName: this.player.first_name,
                 editedLastName: this.player.last_name,
                 editedDateOfBirth: this.player.date_of_birth,
-                editedPlayerGroup: this.player.player_group.name,
+                editedPlayerGroup: this.player.player_group ? this.player.player_group.name : '',
                 editedSkillLevel: this.player.skill_level,
                 editedHeight: this.player.height,
                 editedWeight: this.player.weight,
@@ -215,11 +217,13 @@ export default {
             this.editing = !this.editing;
             if (!this.editing) {
                 // Check if any changes were made
+                let playerGroupName = this.player.player_group ? this.player.player_group.name : '';
+
                 const changesDetected =
                     this.form.editedFirstName !== this.player.first_name ||
                     this.form.editedLastName !== this.player.last_name ||
                     this.form.editedDateOfBirth !== this.player.date_of_birth ||
-                    this.form.editedPlayerGroup !== this.player.player_group.name ||
+                    this.form.editedPlayerGroup !== playerGroupName ||
                     this.form.editedSkillLevel !== this.player.skill_level ||
                     this.form.editedHeight !== this.player.height ||
                     this.form.editedWeight !== this.player.weight ||
