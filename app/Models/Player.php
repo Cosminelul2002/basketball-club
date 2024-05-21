@@ -36,6 +36,6 @@ class Player extends Model
 
     public function player_group()
     {
-        return $this->belongsTo(PlayerGroup::class);
+        return $this->belongsTo(Group::class);
     }
 }

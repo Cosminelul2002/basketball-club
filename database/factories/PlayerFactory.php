@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\PlayerGroup;
+use App\Models\Group;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -30,7 +30,7 @@ class PlayerFactory extends Factory
             'parent_name' => $this->faker->name,
             'parent_email' => $this->faker->unique()->safeEmail,
             'parent_phone' => $this->faker->phoneNumber,
-            'player_group_id' => PlayerGroup::inRandomOrder()->get('id')->first()->id,
+            'player_group_id' => Group::inRandomOrder()->get('id')->first()->id,
         ];
     }
 }

@@ -7,7 +7,7 @@ use App\Enums\Positions;
 use App\Exceptions\AdminResourcesNotFoundException;
 use App\Http\Requests\StorePlayerRequest;
 use App\Models\Player;
-use App\Models\PlayerGroup;
+use App\Models\Group;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\RelationNotFoundException;
@@ -28,7 +28,7 @@ trait AdminPlayerTrait
 
             return Inertia::render('Admin/Players/List', [
                 'players' => $players->load('player_group'),
-                'groups' => PlayerGroup::all(),
+                'groups' => Group::all(),
             ]);
         } catch (RelationNotFoundException $e) {
             throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Groups'), null, 500, $e);
@@ -50,7 +50,7 @@ trait AdminPlayerTrait
         try {
             return Inertia::render('Admin/Players/Show', [
                 'player' => $player->load('player_group'),
-                'groups' => PlayerGroup::all(),
+                'groups' => Group::all(),
             ]);
         } catch (RelationNotFoundException $e) {
             throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Groups'), null, 500, $e);
@@ -71,7 +71,7 @@ trait AdminPlayerTrait
         try {
             return Inertia::render('Admin/Players/Create', [
                 'positions' => Positions::values(),
-                'groups' => PlayerGroup::all(),
+                'groups' => Group::all(),
             ]);
         } catch (Exception $e) {
             throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
@@ -89,7 +89,7 @@ trait AdminPlayerTrait
         try {
             $requestData = $request->validated();
 
-            $playerGroup = PlayerGroup::where('id', $requestData['player_group_id'])->first();
+            $playerGroup = Group::where('id', $requestData['player_group_id'])->first();
             if ($playerGroup) {
                 Player::create($requestData);
             } else {
@@ -121,7 +121,7 @@ trait AdminPlayerTrait
             }, ARRAY_FILTER_USE_BOTH);
 
             if (array_key_exists('player_group', $updateData)) {
-                $playerGroup = PlayerGroup::where('name', $updateData['player_group'])->first();
+                $playerGroup = Group::where('name', $updateData['player_group'])->first();
                 $updateData['player_group_id'] = $playerGroup->id;
                 unset($updateData['player_group']);
             }

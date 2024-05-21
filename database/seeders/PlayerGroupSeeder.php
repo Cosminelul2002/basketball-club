@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\PlayerGroup;
+use App\Models\Group;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -28,7 +28,7 @@ class PlayerGroupSeeder extends Seeder
         ];
 
         foreach ($groups as $group) {
-            PlayerGroup::create($group);
+            Group::create($group);
         }
     }
 }

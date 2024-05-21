@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\AdminPlayerGroupController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminCalendarController;
 use App\Http\Controllers\Admin\AdminEventController;
+use App\Http\Controllers\Admin\AdminSalaryController;
+use App\Http\Controllers\Admin\AdminStaffController;
+use App\Http\Controllers\Admin\AdminStaffRoleController;
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
@@ -95,6 +98,9 @@ Route::middleware([
                 'products' => AdminProductController::class,
                 'locations' => AdminLocationController::class,
                 'categories' => AdminCategoryController::class,
+                'salaries' => AdminSalaryController::class,
+                'staff-roles' => AdminStaffRoleController::class,
+                'staff' => AdminStaffController::class,
             ]);
             Route::post('groups', [AdminPlayerGroupController::class, 'createDefaultGroups'])->name('groups.create-default-groups');
             Route::post('events/{event}/add-to-calendar', [AdminEventController::class, 'addToCalendar'])->name('events.add-to-calendar');

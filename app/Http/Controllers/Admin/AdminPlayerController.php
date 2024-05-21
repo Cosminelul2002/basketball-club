@@ -11,7 +11,7 @@ use App\Http\Requests\StorePlayerRequest;
 use App\Http\Requests\UpdatePlayerRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Player;
-use App\Models\PlayerGroup;
+use App\Models\Group;
 use App\Models\User;
 use Codestage\Authorization\Attributes\Authorize;
 use Codestage\Authorization\Models\Role;

@@ -34,9 +34,7 @@ trait LoginTrait
      */
     public function login_tenant($request)
     {
-
         // get the tenant
-        // $domain = Domain::where('domain', $request->getHost())->first();
 
         // $tenant = $domain->tenant;
         // tenancy()->initialize($tenant);
@@ -55,6 +53,12 @@ trait LoginTrait
         // }
 
         $request->session()->regenerate();
+
+        // initialize the tenant
+        // dd($request->getHost());
+        // $domain = Domain::where('domain', $request->getHost())->first();
+        // $tenant = $domain->tenant;
+        // tenancy()->initialize($tenant);
 
         // redirect based on user role
         if (auth()->user()->hasRole('admin')) {

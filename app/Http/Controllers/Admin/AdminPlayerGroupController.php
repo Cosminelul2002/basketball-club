@@ -8,7 +8,7 @@ use App\Traits\Admin\AdminResourceTrait;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdatePlayerGroupRequest;
 use App\Models\Coach;
-use App\Models\PlayerGroup;
+use App\Models\Group;
 use Codestage\Authorization\Attributes\Authorize;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -32,7 +32,7 @@ class AdminPlayerGroupController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PlayerGroup  $playerGroup
+     * @param  \App\Models\Group  $playerGroup
      * @return \Inertia\Response
      */
     #[Authorize(roles: 'admin')]
@@ -44,7 +44,7 @@ class AdminPlayerGroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PlayerGroup  $playerGroup
+     * @param  \App\Models\Group  $playerGroup
      * @return \Inertia\Response
      */
     #[Authorize(roles: 'admin')]
@@ -62,13 +62,13 @@ class AdminPlayerGroupController extends Controller
     #[Authorize(roles: 'admin')]
     public function store(StoreGroupRequest $request)
     {
-        return $this->storeResource($request, PlayerGroup::class, 'admin.dashboard.groups.index', 'Grup creat cu succes!');
+        return $this->storeResource($request, Group::class, 'admin.dashboard.groups.index', 'Grup creat cu succes!');
     }
 
     /**
      * Update the specified resource in storage.
      * 
-     * @param  \App\Models\PlayerGroup  $playerGroup
+     * @param  \App\Models\Group  $playerGroup
      * @param  \App\Http\Requests\StoreGroupRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -86,7 +86,7 @@ class AdminPlayerGroupController extends Controller
     /**
      * Delete the specified resource from storage.
      * 
-     * @param  \App\Models\PlayerGroup  $playerGroup
+     * @param  \App\Models\Group  $playerGroup
      * @return \Illuminate\Http\RedirectResponse
      */
     #[Authorize(roles: 'admin')]

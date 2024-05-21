@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Coach;
 use App\Models\CoachGroup;
-use App\Models\PlayerGroup;
+use App\Models\Group;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,7 +17,7 @@ class CoachGroupSeeder extends Seeder
     {
         // Get all coaches and player groups
         $coaches = Coach::all();
-        $playerGroups = PlayerGroup::all();
+        $playerGroups = Group::all();
 
         // Attach each coach to a random player group
         foreach ($coaches as $coach) {

@@ -6,7 +6,7 @@ use App\Models\Coach;
 use App\Models\Join;
 use App\Models\Location;
 use App\Models\Player;
-use App\Models\PlayerGroup;
+use App\Models\Group;
 use Inertia\Inertia;
 
 /**
@@ -24,7 +24,7 @@ trait AdminTrait
         $players = Player::all()->count();
         $lastPlayers = Player::latest()->limit(5)->get();
         $coaches = Coach::all()->count();
-        $playerGroups = PlayerGroup::all()->count();
+        $playerGroups = Group::all()->count();
         $locations = Location::all()->count();
 
         return Inertia::render('Admin/Dashboard', [

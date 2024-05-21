@@ -261,13 +261,13 @@ export default {
             show: false,
             navigation: [
                 { name: 'Pagină pricipală', href: route('admin.dashboard'), icon: HomeIcon, current: true },
-                { name: 'Jucători', href: route('admin.dashboard.players.index'), icon: UsersIcon, current: false },
+                { name: 'Jucători', href: route('admin.dashboard.players.index'), icon: ChartPieIcon, current: false },
                 { name: 'Antrenori', href: route('admin.dashboard.coaches.index'), icon: DocumentDuplicateIcon, current: false },
                 { name: 'Grupe de vârstă', href: route('admin.dashboard.groups.index'), icon: CalendarIcon, current: false },
-                { name: 'Calendar', href: route('admin.dashboard.calendar.index'), icon: CalendarIcon, current: false },
-                // { name: 'Înscrieri', href: route('admin.dashboard.joins.index'), icon: FolderIcon, current: false },
+                { name: 'Staff', href: route('admin.dashboard.staff.index'), icon: CalendarIcon, current: false },
+                { name: 'Roluri Staff', href: route('admin.dashboard.staff.index'), icon: ChartPieIcon, current: false },
+                { name: 'Remunerații', href: route('admin.dashboard.salaries.index'), icon: FolderIcon, current: false },
                 { name: 'Locații', href: route('admin.dashboard.locations.index'), icon: ChartPieIcon, current: false },
-                // { name: 'Site', href: route('landing'), icon: ChartPieIcon, current: false },
 
             ],
         }
@@ -277,6 +277,7 @@ export default {
 </script>
 
 <script setup>
+import { UserGroupIcon } from "@vue-hero-icons/outline"
 import { CheckCircleIcon } from '@heroicons/vue/24/outline'
 import { ref } from 'vue'
 import {
@@ -298,7 +299,7 @@ import {
     DocumentDuplicateIcon,
     FolderIcon,
     HomeIcon,
-    UsersIcon,
+    UserIcon,
     XMarkIcon,
 } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'

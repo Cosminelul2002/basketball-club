@@ -5,7 +5,7 @@ namespace App\Traits\Admin;
 use App\Enums\ExceptionMessage;
 use App\Exceptions\AdminResourcesNotFoundException;
 use App\Models\Coach;
-use App\Models\PlayerGroup;
+use App\Models\Group;
 use Database\Seeders\PlayerGroupSeeder;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -23,7 +23,7 @@ trait AdminPlayerGroupTrait
     public function index_player_groups()
     {
         try {
-            $playerGroups = PlayerGroup::with(['coaches', 'players'])->get();
+            $playerGroups = Group::with(['coaches', 'players'])->get();
 
             return Inertia::render('Admin/PlayerGroups/List', [
                 'playerGroups' => $playerGroups,
@@ -32,6 +32,7 @@ trait AdminPlayerGroupTrait
         } catch (RelationNotFoundException $e) {
             throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Coaches or Players'), null, 500, $e);
         } catch (QueryException $e) {
+            dd($e);
             throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Groups'), null, 500, $e);
         } catch (Exception $e) {
             throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
@@ -47,7 +48,7 @@ trait AdminPlayerGroupTrait
     public function show_player_group($id)
     {
         try {
-            $playerGroup = PlayerGroup::with('coaches')->findOrFail($id);
+            $playerGroup = Group::with('coaches')->findOrFail($id);
 
             return Inertia::render('Admin/PlayerGroups/Show', [
                 'playerGroup' => $playerGroup,
@@ -70,7 +71,7 @@ trait AdminPlayerGroupTrait
     public function update_player_group($request, $id)
     {
         try {
-            $playerGroup = PlayerGroup::with('coaches')->findOrFail($id);
+            $playerGroup = Group::with('coaches')->findOrFail($id);
             $data = $request->validated();
             $updateData = array_filter($data, function ($value, $key) use ($playerGroup) {
                 return $playerGroup->{$key} !== $value;
@@ -113,7 +114,7 @@ trait AdminPlayerGroupTrait
     public function destroy_player_group($id)
     {
         try {
-            $playerGroup = PlayerGroup::findOrFail($id);
+            $playerGroup = Group::findOrFail($id);
             $playerGroup->delete();
 
             return redirect()->route('admin.dashboard.groups.index')->with('message', 'Grup șters cu succes!');
