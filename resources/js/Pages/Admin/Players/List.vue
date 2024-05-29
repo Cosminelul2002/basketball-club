@@ -79,31 +79,33 @@
                                         <th scope="col" class="px-6 py-3 text-left text-md font-semibold text-gray-900">
                                             Număr
                                             telefon părinte</th>
-                                        <th scope="col" class="text-center px-6 py-3 text-left text-md font-semibold text-gray-900">
+                                        <th scope="col"
+                                            class="text-center px-6 py-3 text-left text-md font-semibold text-gray-900">
                                             Acțiuni</th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     <tr v-for="player in filteredPlayers" :key="player.id">
                                         <td class="px-6 py-4 whitespace-nowrap text-md font-medium text-gray-900">{{
-                        player.first_name }}</td>
+                    player.first_name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">{{
-                        player.last_name }}</td>
+                    player.last_name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">{{
-                        player.date_of_birth }}
+                    player.date_of_birth }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">{{
-                        player.skill_level }}</td>
+                    player.skill_level }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">
-                                            <span v-if="player.player_group && player.player_group.name">{{
-                        player.player_group.name
-                    }}</span>
-                                            <span v-else>Fără grupă</span>
+                                            <template v-if="player.groups.length != 0">
+                                                <span class="flex flex-col" v-for="group in player.groups">{{ group.name
+                                                    }}</span>
+                                            </template>
+                                            <span v-else>Fără grupe</span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">{{
-                            player.parent_name }}</td>
+                    player.parent_name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">{{
-                                            player.parent_phone }}</td>
+                    player.parent_phone }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                                             <inertia-link :href="route('admin.dashboard.players.show', player)"
                                                 class="text-indigo-600 hover:text-indigo-900">Editează</inertia-link>

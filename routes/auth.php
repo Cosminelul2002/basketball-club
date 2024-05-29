@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LoginTenantController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RegisterTenantController;
 use App\Http\Controllers\SuperAdminController;
@@ -32,7 +33,7 @@ foreach (config('tenancy.central_domains') as $domain) {
         Route::name('auth.')->prefix('/auth')->group(function () {
             Route::get('/login', [LoginController::class, 'index'])->name('login');
             Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-            Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+            Route::post('/login', [LoginTenantController::class, 'login'])->name('login.post');
         });
 
         Route::name("super_admin.")->prefix('/master')->group(function () {

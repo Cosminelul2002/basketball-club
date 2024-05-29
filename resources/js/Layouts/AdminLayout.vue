@@ -262,7 +262,8 @@ export default {
             navigation: [
                 { name: 'Pagină pricipală', href: route('admin.dashboard'), icon: HomeIcon, current: true },
                 { name: 'Jucători', href: route('admin.dashboard.players.index'), icon: ChartPieIcon, current: false },
-                { name: 'Antrenori', href: route('admin.dashboard.coaches.index'), icon: DocumentDuplicateIcon, current: false },
+                // { name: 'Antrenori', href: route('admin.dashboard.coaches.index'), icon: DocumentDuplicateIcon, current: false },
+                { name: 'Calendar', href: route('admin.dashboard.calendar.index'), icon: CalendarIcon, current: false },
                 { name: 'Grupe de vârstă', href: route('admin.dashboard.groups.index'), icon: CalendarIcon, current: false },
                 { name: 'Staff', href: route('admin.dashboard.staff.index'), icon: CalendarIcon, current: false },
                 { name: 'Roluri Staff', href: route('admin.dashboard.staff.index'), icon: ChartPieIcon, current: false },

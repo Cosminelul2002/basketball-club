@@ -8,6 +8,7 @@ use App\Exceptions\AdminResourcesNotFoundException;
 use App\Http\Requests\StorePlayerRequest;
 use App\Models\Player;
 use App\Models\Group;
+use App\Models\PlayerGroup;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\RelationNotFoundException;
@@ -24,15 +25,17 @@ trait AdminPlayerTrait
     public function index_players()
     {
         try {
-            $players = Player::all();
+            $players = Player::with('groups')->get();
 
             return Inertia::render('Admin/Players/List', [
-                'players' => $players->load('player_group'),
+                'players' => $players,
                 'groups' => Group::all(),
             ]);
         } catch (RelationNotFoundException $e) {
+            dd($e);
             throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Groups'), null, 500, $e);
         } catch (QueryException $e) {
+            dd($e);
             throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Players'), null, 500, $e);
         } catch (Exception $e) {
             throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
@@ -88,19 +91,24 @@ trait AdminPlayerTrait
     {
         try {
             $requestData = $request->validated();
-
-            $playerGroup = Group::where('id', $requestData['player_group_id'])->first();
-            if ($playerGroup) {
-                Player::create($requestData);
+            $group = Group::where('id', $requestData['group_id'])->first();
+            if ($group) {
+                $player = Player::create($requestData);
+                PlayerGroup::create([
+                    'player_id' => $player->id,
+                    'group_id' => $group->id,
+                ]);
             } else {
-                $requestData['player_group_id'] = null;
+                $requestData['group_id'] = null;
                 Player::create($requestData);
             }
 
             return redirect()->route('admin.dashboard.players.index')->with('message', 'Jucător adăugat cu succes!.');
         } catch (QueryException $e) {
+            dd($e);
             throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Players'), null, 500, $e);
         } catch (Exception $e) {
+            dd($e);
             throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralStoreResourceError(), null, 500, $e);
         }
     }
@@ -115,7 +123,7 @@ trait AdminPlayerTrait
     {
         try {
             $requestData = $request->validated();
-            
+
             $updateData = array_filter($requestData, function ($value, $key) use ($player) {
                 return $player->{$key} !== $value;
             }, ARRAY_FILTER_USE_BOTH);
@@ -125,7 +133,7 @@ trait AdminPlayerTrait
                 $updateData['player_group_id'] = $playerGroup->id;
                 unset($updateData['player_group']);
             }
-            
+
             $player->update($updateData);
 
             return redirect()->route('admin.dashboard.players.index')->with('message', 'Jucător actualizat cu succes!.');

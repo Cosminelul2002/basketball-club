@@ -12,7 +12,6 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
-use Stancl\Tenancy\Database\Models\Domain;
 
 trait LoginTrait
 {
@@ -32,42 +31,72 @@ trait LoginTrait
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function login_tenant($request)
+    public function login_user($request)
     {
         // get the tenant
 
         // $tenant = $domain->tenant;
         // tenancy()->initialize($tenant);
 
-        $credentials = $request->only('email', 'password');
+        // dd($request->all());
 
-        // Check if user's email is verified
-        if (!Auth::attempt($credentials, $request->filled('remember'))) {
-            return redirect()->back()->withErrors('Invalid credentials');
-        }
-
-        // Check if the user's email is verified
-        // if (!Auth::user()->hasVerifiedEmail()) {
-        //     Auth::logout();
-        //     return redirect()->back()->withErrors(['email' => 'Your email is not verified. Please verify your email to login.']);
-        // }
-
-        $request->session()->regenerate();
-
-        // initialize the tenant
         // dd($request->getHost());
         // $domain = Domain::where('domain', $request->getHost())->first();
-        // $tenant = $domain->tenant;
+        // // $tenant = ;
+
+        // if ($domain) {
+        //     $tenant = $domain->tenant;
+        //     tenancy()->initialize($tenant);
+        // } else {
+        //     $user = User::where('email', $request->email)->first();
+        //     if (!$user) {
+        //         return redirect()->back()->withErrors('Invalid credentials');
+        //     }
+        //     $tenant = Tenant::where('owner_id', $user->id)->first();
+        //     $domain = Domain::where('tenant_id', $tenant->id)->first();
+        //     tenancy()->initialize($tenant);
+        //     return Inertia::location('http://' . $domain->domain . ':8000');
+        // }
+
         // tenancy()->initialize($tenant);
 
-        // redirect based on user role
-        if (auth()->user()->hasRole('admin')) {
-            return redirect()->route('admin.dashboard');
+        // dd($tenant);
+
+        if (tenant()) {
+            $credentials = $request->only('email', 'password');
+
+            if (Auth::attempt($credentials, $request->filled('remember'))) {
+                $request->session()->regenerate();
+
+                if (auth()->user()->hasRole('admin')) {
+                    return redirect()->route('admin.dashboard');
+                }
+
+                return redirect()->route('tenant.dashboard');
+            }
+
+            return redirect()->back()->withErrors('Invalid credentials');
+        } else {
+            return redirect()->back()->withErrors('Tenant not found');
         }
 
-        if (auth()->user()->hasRole('super_admin')) {
-            return redirect()->route('super_admin.dashboard');
-        }
+
+        // Check if user's email is verified
+        // if (!Auth::attempt($credentials, $request->filled('remember'))) {
+        //     return redirect()->back()->withErrors('Invalid credentials');
+        // }
+
+        // // Check if the user's email is verified
+        // // if (!Auth::user()->hasVerifiedEmail()) {
+        // //     Auth::logout();
+        // //     return redirect()->back()->withErrors(['email' => 'Your email is not verified. Please verify your email to login.']);
+        // // }
+
+        // $request->session()->regenerate();
+
+        // initialize the tenant
+
+
     }
 
     /**
@@ -84,7 +113,7 @@ trait LoginTrait
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('landing');
+        return redirect()->route('tenant.landing');
     }
 
     /**

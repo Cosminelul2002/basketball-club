@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Tenant::all()->runForEach(function () {
             // \App\Models\User::factory(10)->create();
-            Artisan::call('db:seed', ['--class' => 'RoleSeeder']);
+            Artisan::call('db:seed', ['--class' => 'StaffRoleSeeder']);
         });
 
         // \App\Models\User::factory()->create([
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // CategorySeeder::class,
             // ProductSeeder::class,
-            RoleSeeder::class,
+            // RoleSeeder::class,
             // PlayerGroupSeeder::class,
             // PlayerSeeder::class,
             // CoachSeeder::class,

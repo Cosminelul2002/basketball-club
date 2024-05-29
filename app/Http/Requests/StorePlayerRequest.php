@@ -30,7 +30,27 @@ class StorePlayerRequest extends FormRequest
             'skill_level' => 'required|string|max:255',
             'parent_name' => 'required|string|max:255',
             'parent_phone' => 'required|string|max:255',
-            'player_group_id' => 'nullable|exists:player_groups,id',
+            'group_id' => 'nullable|exists:groups,id',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'first_name.required' => 'Prenumele este obligatoriu.',
+            'last_name.required' => 'Numele este obligatoriu.',
+            'date_of_birth.required' => 'Data nașterii este obligatorie.',
+            'height.numeric' => 'Înălțimea trebuie să fie un număr.',
+            'weight.numeric' => 'Greutatea trebuie să fie un număr.',
+            'skill_level.required' => 'Nivelul de abilitate este obligatoriu.',
+            'parent_name.required' => 'Numele părintelui este obligatoriu.',
+            'parent_phone.required' => 'Numărul de telefon al părintelui este obligatoriu.',
+            'group_id.exists' => 'Grupa selectată nu există.',
         ];
     }
 }

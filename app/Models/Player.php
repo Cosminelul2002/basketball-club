@@ -34,8 +34,8 @@ class Player extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function player_group()
+    public function groups()
     {
-        return $this->belongsTo(Group::class);
+        return $this->belongsToMany(Group::class, 'player_group')->withPivot('group_id');
     }
 }

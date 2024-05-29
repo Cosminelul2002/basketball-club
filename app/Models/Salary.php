@@ -13,9 +13,11 @@ class Salary extends Model
         'amount',
         'currency',
         'type',
-        'start_date',
-        'end_date',
-        'description'
+        // 'start_date',
+        // 'end_date',
+        'description',
+        'duration',
+        'duration_type',
     ];
 
     protected $casts = [

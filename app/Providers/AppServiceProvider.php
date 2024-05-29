@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
             'message' => function () {
                 return session()->get('message')
                     ? session()->get('message')
-                    : (object) [];
+                    : null;
             },
         ]);
     }

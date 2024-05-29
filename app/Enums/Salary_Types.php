@@ -4,21 +4,21 @@ namespace App\Enums;
 
 enum Salary_Types: string
 {
-    case fixed = 'fixed';
+    case fixed = 'Fix';
 
-    case hourly = 'hourly';
+    case hourly = 'Pe oră';
 
-    case daily = 'daily';
+    case daily = 'Zilnic';
 
-    case weekly = 'weekly';
+    case weekly = 'Săptămânal';
 
-    case monthly = 'monthly';
+    case monthly = 'Lunar';
 
-    case commission = 'commission';
+    case commission = 'Comision';
 
-    case bonus = 'bonus';
+    case bonus = 'Bonus';
 
-    case other = 'other';
+    case other = 'Altele';
 
     public static function values()
     {

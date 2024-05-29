@@ -32,6 +32,10 @@
                             class="whitespace-nowrap ml-8 text-base font-medium text-gray-500 hover:text-gray-900">
                             Intră în cont
                         </inertia-link>
+                        <inertia-link :href="route('auth.logout')"
+                            class="whitespace-nowrap ml-8 text-base font-medium text-gray-500 hover:text-gray-900">
+                            Decontează-te de la servicii
+                        </inertia-link>
                     </template>
                     <template v-else>
                         <inertia-link :href="route(this.$page.props.user.role[0].key + '.dashboard')"

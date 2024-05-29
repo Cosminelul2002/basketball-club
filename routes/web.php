@@ -22,6 +22,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 use Stripe\Stripe;
@@ -49,6 +50,7 @@ foreach (config('tenancy.central_domains') as $domain) {
         Route::post('/join', [JoinController::class, 'store'])->name('join.store');
         Route::get('/contact', [ContactController::class, 'index'])->name('contact');
         Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+        Route::get('/subscribe', [SubscribeController::class, 'index'])->name('subscriptions');
         Route::apiResource('categories', CategoryController::class);
         Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
         Route::get('/coaches', [CoachController::class, 'index'])->name('coaches');

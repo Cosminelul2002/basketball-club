@@ -20,14 +20,14 @@ class Group extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function players()
-    {
-        return $this->hasMany(Player::class);
-    }
-
     public function coaches()
     {
         return $this->belongsToMany(Coach::class, 'coach_group', 'player_group_id', 'coach_id')
             ->using(CoachGroup::class);
+    }
+
+    public function players()
+    {
+        return $this->belongsToMany(Player::class, 'player_group')->withPivot('player_id');
     }
 }
