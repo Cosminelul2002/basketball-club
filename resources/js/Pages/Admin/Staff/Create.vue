@@ -1,7 +1,7 @@
 <template>
     <AdminLayout>
         <div class="max-w-3xl mx-auto bg-white p-6 shadow-lg rounded-lg">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-6">Creează Un Salariu</h2>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6">Creează Un Membru</h2>
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-6">
                 <FormInput v-for="field in formFields" :key="field.name" :field="field" v-model="form[field.model]"
                     :error="errors[field.model]" />
@@ -45,36 +45,28 @@ export default {
         return {
             form: useForm({
                 first_name: '',
-                role: '',
+                staff_role_id: '',
                 last_name: '',
                 email: '',
                 phone: '',
-                salary: '',
+                salary_id: '',
                 date_of_birth: ''
             }),
             errors: {},
             formFields: [
                 { name: 'first_name', label: 'Nume', model: 'first_name', type: 'input', inputType: 'text', autocomplete: 'first_name', colSpan: 'sm:col-span-3' },
                 { name: 'last_name', label: 'Prenume', model: 'last_name', type: 'input', inputType: 'text', autocomplete: 'last_name', colSpan: 'sm:col-span-3' },
-                { name: 'email ', label: 'Email', model: 'email ', type: 'input', inputType: 'email', autocomplete: 'email', colSpan: 'sm:col-span-6' },
+                { name: 'email ', label: 'Email', model: 'email', type: 'input', inputType: 'text', autocomplete: 'email', colSpan: 'sm:col-span-6' },
                 { name: 'phone', label: 'Telefon', model: 'phone', type: 'input', inputType: 'text', autocomplete: 'phone', colSpan: 'sm:col-span-6' },
                 { name: 'date_of_birth', label: 'Data nașterii', model: 'date_of_birth', type: 'input', inputType: 'date', autocomplete: 'date_of_birth', colSpan: 'sm:col-span-6' },
-                { name: 'salary', label: 'Salariu', model: 'salary', type: 'select', colSpan: 'sm:col-span-6', options: this.salaries.map(salary => ({ value: salary.id, label: salary.name })) },
-                {
-                    name: 'role', label: 'Rol', model: 'role', type: 'select', colSpan: 'sm:col-span-6', options: this.roles.map(role => ({ value: role.id, label: role.name }))
-                },
-                // {
-                //     name: 'salary_type', label: 'Tip Salariu', model: 'salary_type', type: 'select', options: this.salary_types.map(type => ({ value: type, label: type })), colSpan: 'sm:col-span-3'
-                // },
-                // {
-                //     name: 'currency', label: 'Monedă', model: 'currency', type: 'select', options: this.currencies.map(currency => ({ value: currency, label: currency })), colSpan: 'sm:col-span-3'
-                // },
+                { name: 'salary', label: 'Salariu', model: 'salary_id', type: 'select', colSpan: 'sm:col-span-6', options: this.salaries.map(salary => ({ value: salary.id, label: salary.name })) },
+                { name: 'role', label: 'Rol', model: 'staff_role_id', type: 'select', colSpan: 'sm:col-span-6', options: this.roles.map(role => ({ value: role.id, label: role.name })) },
             ],
         };
     },
     methods: {
         submit() {
-            this.form.post(route('admin.dashboard.salaries.store'), {
+            this.form.post(route('admin.dashboard.staff.store'), {
                 onError: (errors) => {
                     this.errors = errors;
                 },

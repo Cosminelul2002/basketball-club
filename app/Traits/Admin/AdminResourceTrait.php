@@ -20,10 +20,17 @@ trait AdminResourceTrait
      *
      * @param string $resource The resource name (e.g., "Users").
      * @param string $modelName The fully qualified model class name.
+     * @param array $with The relationships to eager load.
      * @return \Inertia\Response
      */
-    public function indexResources($resource, $modelName)
+    public function indexResources($resource, $modelName, $with = [])
     {
+        if (count($with) > 0) {
+            return Inertia::render("Admin/{$resource}/List", [
+                strtolower($resource) => $modelName::with($with)->get(),
+            ]);
+        }
+
         return Inertia::render("Admin/{$resource}/List", [
             strtolower($resource) => $modelName::all(),
         ]);
@@ -73,6 +80,7 @@ trait AdminResourceTrait
     {
         try {
             $validatedData = $request->validated();
+            dd($validatedData);
             $modelName::create($validatedData);
             return redirect()->route($redirectRoute)->with('message', $successMessage);
         } catch (Exception $e) {

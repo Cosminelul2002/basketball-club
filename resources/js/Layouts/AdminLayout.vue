@@ -266,7 +266,7 @@ export default {
                 { name: 'Calendar', href: route('admin.dashboard.calendar.index'), icon: CalendarIcon, current: false },
                 { name: 'Grupe de vârstă', href: route('admin.dashboard.groups.index'), icon: CalendarIcon, current: false },
                 { name: 'Staff', href: route('admin.dashboard.staff.index'), icon: CalendarIcon, current: false },
-                { name: 'Roluri Staff', href: route('admin.dashboard.staff.index'), icon: ChartPieIcon, current: false },
+                { name: 'Roluri Staff', href: route('admin.dashboard.staff-roles.index'), icon: ChartPieIcon, current: false },
                 { name: 'Remunerații', href: route('admin.dashboard.salaries.index'), icon: FolderIcon, current: false },
                 { name: 'Locații', href: route('admin.dashboard.locations.index'), icon: ChartPieIcon, current: false },
 

@@ -10,7 +10,7 @@
                 </div>
 
                 <!-- Add Salary Button -->
-                <div v-if="staff.length === 0" class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                <div v-if="staff.length != 0" class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                     <inertia-link :href="route('admin.dashboard.staff.create')"
                         class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Adaugă
                         un nou membru</inertia-link>
@@ -97,6 +97,10 @@
                                         <td class="py-4 px-3 text-md text-gray-500">{{ person.phone }}</td>
                                         <td class="py-4 px-3 text-md text-gray-500">{{
                     person.date_of_birth }}</td>
+                                        <td class="py-4 px-3 text-md text-gray-500">{{
+                    person.salary ? person.salary.name : 'Fără salariu' }}</td>
+                                        <td class="py-4 px-3 text-md text-gray-500">{{
+                    person.role ? person.role.name : 'Fără rol' }}</td>
                                         <td
                                             class="relative whitespace-nowrap py-4 pl-3 pr-4 text-md font-medium sm:pr-6">
                                             <inertia-link :href="route('admin.dashboard.staff.show', person)"
