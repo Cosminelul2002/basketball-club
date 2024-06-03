@@ -26,7 +26,7 @@ class AdminPlayerGroupController extends Controller
     #[Authorize(roles: 'admin')]
     public function index()
     {
-        return $this->index_player_groups();
+        return $this->indexResources('Groups', Group::class, ['coaches', 'players']);
     }
 
     /**

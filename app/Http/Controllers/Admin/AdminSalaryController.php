@@ -34,7 +34,7 @@ class AdminSalaryController extends Controller
      */
     public function show(Salary $salary)
     {
-        return $this->showResource('Salary', $salary);
+        return $this->showResource('Salaries', $salary);
     }
 
     /**

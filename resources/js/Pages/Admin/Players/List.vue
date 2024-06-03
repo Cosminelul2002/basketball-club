@@ -97,15 +97,15 @@
                     player.skill_level }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">
                                             <template v-if="player.groups.length != 0">
-                                                <span class="flex flex-col" v-for="group in player.groups">{{ group.name
-                                                    }}</span>
+                                                <span v-for="group in player.groups">{{ group.name
+                                                    + ' '}}</span>
                                             </template>
                                             <span v-else>Fără grupe</span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">{{
                     player.parent_name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-md text-gray-500">{{
-                    player.parent_phone }}</td>
+                                            player.parent_phone }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                                             <inertia-link :href="route('admin.dashboard.players.show', player)"
                                                 class="text-indigo-600 hover:text-indigo-900">Editează</inertia-link>

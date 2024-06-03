@@ -30,8 +30,7 @@ class UpdatePlayerRequest extends FormRequest
             'skill_level' => ['in:Începător,Intermediar,Avansat'],
             'parent_name' => 'regex:/^[A-Za-z\s]+$/|max:255',
             'parent_phone' => 'numeric|digits_between:10,15',
-            // 'player_group_id' => 'exists:player_groups,id',
-            'player_group' => 'exists:player_groups,name',
+            'groups' => 'array',
         ];
     }
 }

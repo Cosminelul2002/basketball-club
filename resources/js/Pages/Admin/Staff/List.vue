@@ -89,16 +89,23 @@
                                 <tbody class="divide-y divide-gray-200 bg-white">
                                     <tr v-for="person in staff" :key="person.id">
                                         <td class="py-4 px-3 text-md text-gray-500">{{ person.first_name }}</td>
-                                        <td
-                                            class="whitespace-nowrap py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-6">
+                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-md text-gray-900 sm:pl-6">
                                             {{ person.last_name }}</td>
                                         <td class="py-4 px-3 text-md text-gray-500">{{ person.email
                                             }}</td>
                                         <td class="py-4 px-3 text-md text-gray-500">{{ person.phone }}</td>
                                         <td class="py-4 px-3 text-md text-gray-500">{{
                     person.date_of_birth }}</td>
-                                        <td class="py-4 px-3 text-md text-gray-500">{{
-                    person.salary ? person.salary.name : 'Fără salariu' }}</td>
+                                        <template v-if="person.salary">
+                                            <inertia-link :href="route('admin.dashboard.salaries.show', person.salary)">
+                                                <td class="py-4 px-3 text-md text-gray-500 hover:text-gray-300">{{
+                    person.salary.name }}
+                                                </td>
+                                            </inertia-link>
+                                        </template>
+                                        <template v-else>
+                                            <td class="py-4 px-3 text-md text-gray-500">Fără salariu</td>
+                                        </template>
                                         <td class="py-4 px-3 text-md text-gray-500">{{
                     person.role ? person.role.name : 'Fără rol' }}</td>
                                         <td

@@ -33,6 +33,12 @@ class AdminStaffController extends Controller
         return $this->create_staff();
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreStaffRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(StoreStaffRequest $request)
     {
         return $this->storeResource($request, Staff::class, 'admin.dashboard.staff.index', 'Membrul a fost adaugat cu succes.');

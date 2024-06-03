@@ -52,7 +52,7 @@ trait AdminPlayerTrait
     {
         try {
             return Inertia::render('Admin/Players/Show', [
-                'player' => $player->load('player_group'),
+                'player' => $player->load('groups'),
                 'groups' => Group::all(),
             ]);
         } catch (RelationNotFoundException $e) {
@@ -123,16 +123,42 @@ trait AdminPlayerTrait
     {
         try {
             $requestData = $request->validated();
-
             $updateData = array_filter($requestData, function ($value, $key) use ($player) {
+
+                if ($key === 'groups') {
+                    // get all groups that have been selected
+                    $playerGroups = PlayerGroup::where('player_id', $player->id)->get();
+                    $ids = $playerGroups->pluck('group_id')->toArray();
+
+                    $groupsToAdd = array_diff($value, $ids);
+                    $groupsToRemove = array_diff($ids, $value);
+
+                    if (count($groupsToAdd) > 0) {
+                        foreach ($groupsToAdd as $group) {
+                            PlayerGroup::create([
+                                'player_id' => $player->id,
+                                'group_id' => $group,
+                            ]);
+                        }
+                    }
+
+                    if (count($groupsToRemove) > 0) {
+                        foreach ($groupsToRemove as $group) {
+                            PlayerGroup::where('player_id', $player->id)->where('group_id', $group)->delete();
+                        }
+                    }
+
+                    return false;
+                }
+
                 return $player->{$key} !== $value;
             }, ARRAY_FILTER_USE_BOTH);
-
-            if (array_key_exists('player_group', $updateData)) {
-                $playerGroup = Group::where('name', $updateData['player_group'])->first();
-                $updateData['player_group_id'] = $playerGroup->id;
-                unset($updateData['player_group']);
-            }
+            // if (array_key_exists('groups', $updateData)) {
+            //     dd($updateData['groups']);
+            //     $playerGroup = Group::where('name', $updateData['player_group'])->first();
+            //     $updateData['player_group_id'] = $playerGroup->id;
+            //     unset($updateData['player_group']);
+            // }
 
             $player->update($updateData);
 
