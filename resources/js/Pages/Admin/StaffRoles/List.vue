@@ -1,124 +1,48 @@
 <template>
-
-    <AdminLayout>
-        <div class="px-4 sm:px-6 lg:px-8">
-
-            <!-- Salaries Section Description -->
-            <div class="sm:flex sm:items-center mb-8">
-                <div class="sm:flex-auto">
-                    <h1 class="text-base font-semibold leading-6 text-gray-900">Staff</h1>
-                    <p class="mt-2 text-md text-gray-700">Listă staff-ului.</p>
-                </div>
-
-                <!-- Add Salary Button -->
-                <div v-if="staffroles.length != 0" class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <inertia-link :href="route('admin.dashboard.staff-roles.create')"
-                        class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Adaugă
-                        un nou rol</inertia-link>
-                </div>
-            </div>
-
-            <!-- Filter section -->
-            <div v-if="!staffroles" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                <!-- Filter by amount -->
-                <div>
-                    <Filter :filter="amountFilter" :value="filters.amount" :onUpdateValue="updateAmountFilter" />
-                </div>
-                <!-- Filter by type -->
-                <div>
-                    <Filter :filter="typeFilter" :value="filters.type" :onUpdateValue="updateTypeFilter" />
-                </div>
-                <!-- Filter by start date -->
-                <div>
-                    <Filter :filter="startDateFilter" :value="filters.start_date"
-                        :onUpdateValue="updateStartDateFilter" />
-                </div>
-                <!-- Filter by end date -->
-                <div>
-                    <Filter :filter="endDateFilter" :value="filters.end_date" :onUpdateValue="updateEndDateFilter" />
-                </div>
-            </div>
-
-            <!-- Main Locations Section -->
-            <div class="mt-8 flow-root">
-                <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-
-                            <!-- Locations table  -->
-                            <template v-if="staffroles.length === 0">
-                                <div class="flex flex-col items-center justify-center gap-2 p-6 text-center">
-                                    <p class="text-md text-gray-500">
-                                        Nu există membrii din staff.
-                                    </p>
-                                    <inertia-link :href="route('admin.dashboard.staff.create')"
-                                        class="px-4 py-2 bg-blue-500 text-white rounded-md bg-indigo-600 text-center text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                        Adaugă membru
-                                    </inertia-link>
-                                </div>
-                            </template>
-
-                            <table v-else class="min-w-full divide-y divide-gray-300">
-                                <thead class="bg-gray-50">
-                                    <tr class="text-left">
-                                        <th scope="col" class="px-3 py-3.5  text-md font-semibold text-gray-900">
-                                            Nume</th>
-                                        <th scope="col"
-                                            class="py-3.5 pl-4 pr-3  text-md font-semibold text-gray-900 sm:pl-6">
-                                            Descriere</th>
-                                        <th scope="col" class="px-3 py-3.5  text-md font-semibold text-gray-900">
-                                            <span class="sr-only">Actions</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-200 bg-white">
-                                    <tr v-for="role in staffroles" :key="role.id">
-                                        <td class="py-4 px-3 text-md text-gray-500">{{ role.name }}</td>
-                                        <td
-                                            class="whitespace-nowrap py-4 pl-4 pr-3 text-md font-medium text-gray-900 sm:pl-6">
-                                            {{ role.description }}</td>
-                                        <td
-                                            class="relative whitespace-nowrap py-4 pl-3 pr-4 text-md font-medium sm:pr-6">
-                                            <inertia-link :href="route('admin.dashboard.staff.show', role)"
-                                                class="text-indigo-600 hover:text-indigo-900">Editează / <span
-                                                    class="sr-only"></span></inertia-link><button
-                                                @click="deleteRole(role)"
-                                                class="text-red-600 hover:text-red-400">Șterge<span
-                                                    class="sr-only"></span></button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </AdminLayout>
-
+    <GenericList 
+    :items="staffRoles" 
+    :columns="columns" 
+    :filters="filters" 
+    :prevFilters="prevFilters" 
+    title="Roluri Staff"
+    description="Lista Rolurilor Staff-ului." 
+    getRoute="admin.dashboard.staff-roles.index"
+    createRoute="admin.dashboard.staff-roles.create"
+    editRouteName="admin.dashboard.staff-roles.show"
+    deleteRouteName="admin.dashboard.staff-roles.destroy"
+    entityName="rol" />
 </template>
 
 <script>
-import AdminLayout from '../../../Layouts/AdminLayout.vue';
-
+import GenericList from '../../../Components/GenericList.vue';
 
 export default {
-    name: 'Admin/staffroles/List',
+    name: 'Admin/StaffRoles/List',
 
     components: {
-        AdminLayout,
+        GenericList,
     },
 
     props: {
-        staffroles: Array,
+        staffRoles: Object,
+        prevFilters: Object,
     },
 
-    methods: {
-        deleteRole(role) {
-            if (confirm('Sunteți sigur că doriți să ștergeți acest rol?')) {
-                this.$inertia.delete(route('admin.dashboard.staff-roles.destroy', role));
-            }
-        }
+    computed: {
+        columns() {
+            return [
+                { name: 'name', label: 'Nume' },
+                { name: 'description', label: 'Descriere' },
+                { name: 'created_at', label: 'Data creării' },
+                { name: 'updated_at', label: 'Data actualizării' },
+            ];
+        },
+        filters() {
+            return [
+                { model: 'searchName', label: 'Filtru după nume', type: 'text' },
+                { model: 'searchDescription', label: 'Filtru după descriere', type: 'text' },
+            ];
+        },
     }
 }
 

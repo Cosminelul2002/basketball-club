@@ -62,7 +62,7 @@ trait AdminPlayerTrait
                         'groups' => $player->groups->pluck('name')->toArray(),
                     ];
                 });
-
+                // dd($players);
             return Inertia::render('Admin/Players/List', [
                 'players' => $players,
                 'groups' => Group::all(),

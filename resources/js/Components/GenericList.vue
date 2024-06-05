@@ -66,7 +66,7 @@
                                             <span v-if="column.isTemplate">{{ column.template(item) }}</span>
                                             <span v-else>{{ item[column.name] }}</span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
+                                        <td class="px-6 py-4 whitespace-nowrap text-center text-md font-medium">
                                             <inertia-link :href="getEditRoute(item)"
                                                 class="text-indigo-600 hover:text-indigo-900">Editează</inertia-link>
                                             <button @click="deleteItem(item)"
