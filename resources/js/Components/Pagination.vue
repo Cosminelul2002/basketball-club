@@ -1,34 +1,21 @@
 <template>
-    <div v-if="links.length > 3">
-        <div class="flex flex-wrap -mb-1 justify-center">
-            <template v-for="(link, p) in links">
-                <div v-if="link.url === null" class="mr-1 mb-1 px-4 py-3 text-sm leading-4 text-gray-400 border rounded"
-                    v-html="link.label">
-                </div>
-                <a v-else
-                    class="mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded hover:bg-white focus:border-indigo-500 focus:text-indigo-500"
-                    :class="{ 'bg-blue-700 ': link.active }"
-                    :href="link.url + (link.url.includes('?') ? '&' : '?') + 'sort=' + sort" v-html="link.label"
-                    @click.prevent="navigate(link.url)" />
-            </template>
-        </div>
+
+    <div>
+        <component :is="link.url ? 'inertia-link' : 'span'" v-for="link in links" :href="link.url" v-html="link.label"
+            class="p-2"
+            :class="{ 'text-gray-500': !link.url, 'font-bold': link.active }" />
     </div>
+
 </template>
 
 <script>
+
 export default {
+    name: 'Pagination',
+
     props: {
         links: Array,
-        sort: String,
-    },
-
-    methods: {
-        navigate(url) {
-            // Use Inertia.js to update the page content without a full page reload
-            this.$inertia.visit(url, {
-                preserveScroll: true,
-            });
-        }
     }
 }
+
 </script>

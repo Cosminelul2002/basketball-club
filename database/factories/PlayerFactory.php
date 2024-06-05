@@ -30,7 +30,6 @@ class PlayerFactory extends Factory
             'parent_name' => $this->faker->name,
             'parent_email' => $this->faker->unique()->safeEmail,
             'parent_phone' => $this->faker->phoneNumber,
-            'player_group_id' => Group::inRandomOrder()->get('id')->first()->id,
         ];
     }
 }

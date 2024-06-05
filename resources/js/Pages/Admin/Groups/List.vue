@@ -32,7 +32,7 @@
                 </div>
                 <!-- Filter by coach -->
                 <div>
-                    <Filter :filter="coachFilter" :value="filters.coaches" :onUpdateValue="updateCoachFilter" />
+                    <!-- <Filter :filter="coachFilter" :value="filters.coaches" :onUpdateValue="updateCoachFilter" /> -->
                 </div>
             </div>
 
@@ -136,10 +136,10 @@ export default {
     computed: {
         filteredPlayerGroups() {
             const { name, coach } = this.filters;
-            return this.playerGroups.filter(playerGroup => {
+            return this.groups.filter(group => {
                 return (
-                    playerGroup.name.toLowerCase().includes(name.toLowerCase()) &&
-                    (!coach || playerGroup.coaches.some(c => c.id === parseInt(coach)))
+                    group.name.toLowerCase().includes(name.toLowerCase()) &&
+                    (!coach || group.coaches.some(c => c.id === parseInt(coach)))
                 );
             });
         },
@@ -152,22 +152,22 @@ export default {
             };
         },
 
-        coachFilter() {
-            return {
-                id: 'filter-coach',
-                label: 'Filtru după antrenor',
-                type: 'select',
-                placeholder: 'Selectează un antrenor',
-                options: this.coaches.map(coach => ({
-                    value: coach.id,
-                    label: `${coach.first_name} ${coach.last_name}`,
-                })),
-            };
-        },
+        // coachFilter() {
+        //     return {
+        //         id: 'filter-coach',
+        //         label: 'Filtru după antrenor',
+        //         type: 'select',
+        //         placeholder: 'Selectează un antrenor',
+        //         options: this.coaches.map(coach => ({
+        //             value: coach.id,
+        //             label: `${coach.first_name} ${coach.last_name}`,
+        //         })),
+        //     };
+        // },
     },
 
     props: {
-        playerGroups: Array,
+        groups: Array,
         coaches: Array,
     },
 

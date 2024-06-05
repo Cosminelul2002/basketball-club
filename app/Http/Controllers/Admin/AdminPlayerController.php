@@ -37,7 +37,7 @@ class AdminPlayerController extends Controller
         //     ->orderBy('created_at', 'DESC')
         //     ->paginate(10);
 
-        return $this->index_players();
+        return $this->index_players($request);
     }
 
     /**

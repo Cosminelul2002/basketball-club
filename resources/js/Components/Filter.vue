@@ -70,10 +70,10 @@ export default {
             type: [String, Number, Array],
             default: ''
         },
-        onUpdateValue: {
-            type: Function,
-            required: true
-        }
+        // onUpdateValue: {
+        //     type: Function,
+        //     required: true
+        // }
     },
 
     data() {
@@ -97,10 +97,10 @@ export default {
             ]
         }
     },
-
+    emits: ['update:value'],
     methods: {
         updateValue(newValue) {
-            this.onUpdateValue(newValue);
+            this.$emit('update:value', newValue);
         }
     }
 };

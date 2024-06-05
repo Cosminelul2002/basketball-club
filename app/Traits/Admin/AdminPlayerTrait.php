@@ -13,6 +13,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
 trait AdminPlayerTrait
@@ -22,14 +23,50 @@ trait AdminPlayerTrait
      *
      * @return \Inertia\Response
      */
-    public function index_players()
+    public function index_players($request)
     {
         try {
-            $players = Player::with('groups')->get();
+            $players = Player::query()
+                ->orderBy('created_at', 'desc')
+                ->when(Request::input('filters'), function ($query, $filters) {
+                    if (isset($filters['searchName'])) {
+                        $query->where('first_name', 'like', '%' . $filters['searchName'] . '%');
+                        // ->orWhere('last_name', 'like', '%' . $filters['searchName'] . '%');
+                    }
+
+                    if (isset($filters['searchGroup'])) {
+                        $query->whereHas('groups', function ($groupQuery) use ($filters) {
+                            $groupQuery->where('name', 'like', '%' . $filters['searchGroup'] . '%');
+                        });
+                    }
+
+                    if (isset($filters['searchSkill_level'])) {
+                        $query->where('skill_level', $filters['searchSkill_level']);
+                    }
+
+                    if (isset($filters['searchYear'])) {
+                        $query->whereYear('date_of_birth', $filters['searchYear']);
+                    }
+                })
+                ->paginate(9)
+                ->withQueryString()
+                ->through(function ($player) {
+                    return [
+                        'id' => $player->id,
+                        'first_name' => $player->first_name,
+                        'last_name' => $player->last_name,
+                        'date_of_birth' => $player->date_of_birth,
+                        'skill_level' => $player->skill_level,
+                        'parent_name' => $player->parent_name,
+                        'parent_phone' => $player->parent_phone,
+                        'groups' => $player->groups->pluck('name')->toArray(),
+                    ];
+                });
 
             return Inertia::render('Admin/Players/List', [
                 'players' => $players,
                 'groups' => Group::all(),
+                'prevFilters' => Request::input('filters') ?? [],
             ]);
         } catch (RelationNotFoundException $e) {
             dd($e);

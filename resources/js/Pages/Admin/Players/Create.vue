@@ -26,8 +26,8 @@
 import { ref } from 'vue'
 import { useForm } from '@inertiajs/vue3';
 import AdminLayout from '../../../Layouts/AdminLayout.vue'
-import Dropdown from '../../../components/Dropdown.vue'
-import FormInput from '../../../components/FormInput.vue'
+import Dropdown from '../../../Components/Dropdown.vue'
+import FormInput from '../../../Components/FormInput.vue'
 
 export default {
     name: 'Players/Create',
