@@ -29,4 +29,9 @@ class Staff extends Model
     {
         return $this->belongsTo(StaffRole::class, 'staff_role_id');
     }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'staff_group')->withPivot('group_id');
+    }
 }

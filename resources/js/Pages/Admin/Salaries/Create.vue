@@ -43,6 +43,7 @@ export default {
     data() {
         return {
             form: useForm({
+                name: '',
                 amount: '',
                 // start_date: '',
                 // end_date: '',
@@ -54,6 +55,7 @@ export default {
             }),
             errors: {},
             formFields: [
+                { name: 'name', label: 'Nume', model: 'name', type: 'input', inputType: 'text', autocomplete: 'name', colSpan: 'sm:col-span-6' },
                 { name: 'amount', label: 'Valoare', model: 'amount', type: 'input', inputType: 'number', autocomplete: 'amount', colSpan: 'sm:col-span-6' },
                 // { name: 'start_date', label: 'Data de început', model: 'start_date', type: 'input', inputType: 'date', autocomplete: 'start-date', colSpan: 'sm:col-span-3' },
                 // { name: 'end_date', label: 'Data de sfârșit', model: 'end_date', type: 'input', inputType: 'date', autocomplete: 'end-date', colSpan: 'sm:col-span-3' },

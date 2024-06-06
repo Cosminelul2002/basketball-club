@@ -22,6 +22,7 @@ class StoreSalaryRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => 'required|string',
             'amount' => 'required',
             'currency' => 'required|string',
             'salary_type' => 'required|string',

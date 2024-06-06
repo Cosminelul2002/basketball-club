@@ -1,31 +1,16 @@
 <?php
 
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\Admin\AdminCategoryController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminJoinController;
-use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\Admin\AdminCoachController;
-use App\Http\Controllers\Admin\AdminLocationController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JoinController;
 use App\Http\Controllers\LandingController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MediaController;
-use App\Http\Controllers\ParentController;
-use App\Http\Controllers\Admin\AdminPlayerController;
-use App\Http\Controllers\Admin\AdminPlayerGroupController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ShopController;
-use App\Http\Controllers\StripeController;
 use App\Http\Controllers\SubscribeController;
-use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
-use Stripe\Stripe;
 
 /*
 |--------------------------------------------------------------------------

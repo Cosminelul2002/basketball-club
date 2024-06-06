@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Location;
+use App\Models\StaffGroup;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class LocationSeeder extends Seeder
+class StaffGroupSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Location::factory(30)->create();
+        StaffGroup::factory(30)->create();
     }
 }

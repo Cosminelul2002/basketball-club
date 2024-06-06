@@ -30,4 +30,9 @@ class Group extends Model
     {
         return $this->belongsToMany(Player::class, 'player_group')->withPivot('player_id');
     }
+
+    public function staff()
+    {
+        return $this->belongsToMany(Staff::class, 'staff_group')->withPivot('staff_id');
+    }
 }

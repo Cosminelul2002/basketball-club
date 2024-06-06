@@ -80,7 +80,6 @@ trait AdminResourceTrait
     {
         try {
             $validatedData = $request->validated();
-            dd($validatedData);
             $modelName::create($validatedData);
             return redirect()->route($redirectRoute)->with('message', $successMessage);
         } catch (Exception $e) {

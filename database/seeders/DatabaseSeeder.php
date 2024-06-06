@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Tenant::all()->runForEach(function () {
             // \App\Models\User::factory(10)->create();
-            Artisan::call('db:seed', ['--class' => 'PlayerGroupSeeder']);
+            Artisan::call('db:seed', ['--class' => 'LocationSeeder']);
         });
 
         // \App\Models\User::factory()->create([

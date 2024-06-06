@@ -5,13 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Traits\Admin\AdminLocationTrait;
 use App\Traits\Admin\AdminResourceTrait;
 use App\Contracts\LocationRepositoryInterface;
+use App\Enums\ExceptionMessage;
 use App\Exceptions\AdminResourcesNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLocationRequest;
 use App\Http\Requests\UpdateLocationRequest;
 use App\Models\Location;
 use Codestage\Authorization\Attributes\Authorize;
-use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
 #[Authorize(roles: 'admin')]
@@ -44,7 +48,38 @@ class AdminLocationController extends Controller
      */
     public function index()
     {
-        return $this->indexResources('Locations', Location::class);
+        try {
+            $locations = Location::query()
+                ->orderBy('created_at', 'desc')
+                ->when(Request::input('filters'), function ($query, $filters) {
+                    if (isset($filters['searchAddress'])) {
+                        $query->where('address', 'like', '%' . $filters['searchAddress'] . '%');
+                    }
+
+                    if (isset($filters['searchCity'])) {
+                        $query->where('city', 'like', '%' . $filters['searchCity'] . '%');
+                    }
+
+                    if (isset($filters['searchArea'])) {
+                        $query->where('area', 'like', '%' . $filters['searchArea'] . '%');
+                    }
+                })
+                ->paginate(9)
+                ->withQueryString();
+            // dd($players);
+            return Inertia::render('Admin/Locations/List', [
+                'locations' => $locations,
+                'prevFilters' => Request::input('filters') ?? [],
+            ]);
+        } catch (RelationNotFoundException $e) {
+            dd($e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceAssociatedNotFound('Groups'), null, 500, $e);
+        } catch (QueryException $e) {
+            dd($e);
+            throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Players'), null, 500, $e);
+        } catch (Exception $e) {
+            throw new AdminResourcesNotFoundException(ExceptionMessage::GeneralError(), null, 500, $e);
+        }
     }
 
     /**

@@ -51,19 +51,25 @@
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th v-for="column in columns" :key="column.name" scope="col"
-                                            class="px-6 py-3 text-left text-md font-semibold text-gray-900">
+                                            class="px-6 py-3 text-left text-md text-gray-400"
+                                            :class="column.columnAlign">
                                             {{ column.label }}</th>
                                         <th scope="col"
-                                            class="text-center px-6 py-3 text-left text-md font-semibold text-gray-900">
+                                            class="text-center px-6 py-3 text-left text-md font-semibold text-gray-500">
                                             Acțiuni
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
+                                <tbody class="bg-white divide-y divide-gray-200 font-semibold">
                                     <tr v-for="item in items.data" :key="item.id">
                                         <td v-for="column in columns" :key="column.name"
-                                            class="px-6 py-4 whitespace-nowrap text-md text-gray-500">
+                                            class="px-6 py-4 whitespace-nowrap text-md text-gray-900"
+                                            :class="column.valueAlign">
                                             <span v-if="column.isTemplate">{{ column.template(item) }}</span>
+                                            <!-- <span v-if="column.isHref">
+                                                <inertia-link :href="column.href(item)">{{ item[column.name]
+                                                    }}</inertia-link>
+                                            </span> -->
                                             <span v-else>{{ item[column.name] }}</span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-center text-md font-medium">
