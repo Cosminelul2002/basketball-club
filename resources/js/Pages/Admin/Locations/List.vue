@@ -21,6 +21,13 @@ export default {
                 { name: 'address', label: 'Adresă' },
                 { name: 'city', label: 'Sector' },
                 { name: 'area', label: 'Zonă' },
+                {
+                    name: 'groups', label: 'Grupe', isTemplate: true, template: (item) => {
+                        return item.groups.length
+                            ? item.groups.join(', ')
+                            : 'Fără grupe';
+                    }
+                },
             ];
         },
         filters() {
@@ -28,6 +35,7 @@ export default {
                 { model: 'searchAddress', label: 'Filtru după adresă', type: 'text' },
                 { model: 'searchCity', label: 'Filtru după sector', type: 'text' },
                 { model: 'searchArea', label: 'Filtru după zonă', type: 'text' },
+                { model: 'searchGroup', label: 'Filtru după grupă', type: 'select', placeholder: 'Alegeți o grupă', options: this.groups.map(group => ({ value: group.name, label: group.name })) },
             ];
         },
     },
@@ -35,6 +43,7 @@ export default {
     props: {
         locations: Object,
         prevFilters: Object,
+        groups: Array,
     },
 }
 

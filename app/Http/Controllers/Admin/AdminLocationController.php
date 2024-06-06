@@ -10,6 +10,7 @@ use App\Exceptions\AdminResourcesNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLocationRequest;
 use App\Http\Requests\UpdateLocationRequest;
+use App\Models\Group;
 use App\Models\Location;
 use Codestage\Authorization\Attributes\Authorize;
 use Exception;
@@ -56,6 +57,12 @@ class AdminLocationController extends Controller
                         $query->where('address', 'like', '%' . $filters['searchAddress'] . '%');
                     }
 
+                    if (isset($filters['searchGroup'])) {
+                        $query->whereHas('groups', function ($groupQuery) use ($filters) {
+                            $groupQuery->where('name', 'like', '%' . $filters['searchGroup'] . '%');
+                        });
+                    }
+
                     if (isset($filters['searchCity'])) {
                         $query->where('city', 'like', '%' . $filters['searchCity'] . '%');
                     }
@@ -65,10 +72,20 @@ class AdminLocationController extends Controller
                     }
                 })
                 ->paginate(9)
-                ->withQueryString();
-            // dd($players);
+                ->withQueryString()
+                ->through(function ($location) {
+                    return [
+                        'id' => $location->id,
+                        'address' => $location->address,
+                        'city' => $location->city,
+                        'area' => $location->area,
+                        'groups' => $location->groups->pluck('name')->toArray(),
+                    ];
+                });
+            // dd($locations);
             return Inertia::render('Admin/Locations/List', [
                 'locations' => $locations,
+                'groups' => Group::all(),
                 'prevFilters' => Request::input('filters') ?? [],
             ]);
         } catch (RelationNotFoundException $e) {

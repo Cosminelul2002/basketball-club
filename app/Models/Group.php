@@ -35,4 +35,9 @@ class Group extends Model
     {
         return $this->belongsToMany(Staff::class, 'staff_group')->withPivot('staff_id');
     }
+
+    public function locations()
+    {
+        return $this->belongsToMany(Location::class, 'location_group')->withPivot('location_id');
+    }
 }

@@ -14,4 +14,14 @@ class Location extends Model
         'city',
         'area',
     ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'location_group')->withPivot('group_id');
+    }
 }
