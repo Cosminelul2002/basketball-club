@@ -153,7 +153,6 @@ export default {
 
     methods: {
         deleteCoach(coach) {
-            console.log(coach);
             if (confirm('Sunteți sigur că doriți să ștergeți acest antrenor?')) {
                 this.$inertia.delete(route('admin.dashboard.coaches.destroy', coach));
             }

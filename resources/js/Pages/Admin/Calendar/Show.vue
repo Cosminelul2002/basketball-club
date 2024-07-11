@@ -90,7 +90,6 @@ export default {
     methods: {
         handleUpdate(payload) {
             const { year, month, date } = payload;
-            console.log(`The date is ${year}-${month}-${date}`);
         },
 
         handleEditEvent(event) {

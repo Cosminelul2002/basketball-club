@@ -37,22 +37,7 @@ class AdminPlayerGroupController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->when(Request::input('filters'), function ($query, $filters) {
                     if (isset($filters['searchName'])) {
-                        $query->where('first_name', 'like', '%' . $filters['searchName'] . '%');
-                        // ->orWhere('last_name', 'like', '%' . $filters['searchName'] . '%');
-                    }
-
-                    if (isset($filters['searchGroup'])) {
-                        $query->whereHas('groups', function ($groupQuery) use ($filters) {
-                            $groupQuery->where('name', 'like', '%' . $filters['searchGroup'] . '%');
-                        });
-                    }
-
-                    if (isset($filters['searchSkill_level'])) {
-                        $query->where('skill_level', $filters['searchSkill_level']);
-                    }
-
-                    if (isset($filters['searchYear'])) {
-                        $query->whereYear('date_of_birth', $filters['searchYear']);
+                        $query->where('name', 'like', '%' . $filters['searchName'] . '%');
                     }
                 })
                 ->paginate(9)
@@ -106,7 +91,7 @@ class AdminPlayerGroupController extends Controller
     #[Authorize(roles: 'admin')]
     public function create()
     {
-        return $this->createResourceView('PlayerGroups');
+        return $this->createResourceView('Groups');
     }
 
     /**

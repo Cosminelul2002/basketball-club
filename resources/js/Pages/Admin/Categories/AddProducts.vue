@@ -128,7 +128,6 @@ export default {
 
     methods: {
         addProducts() {
-            console.log(this.selectedProducts);
             this.$inertia.post(route('admin.dashboard.categories.store-products', this.category), {
                 products: this.selectedProducts
             });

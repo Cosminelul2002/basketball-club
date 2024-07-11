@@ -104,7 +104,6 @@ export default {
     watch: {
         filterValues: {
             handler: debounce(300, function () {
-                console.log('debounced');
                 this.$inertia.get(route(this.getRoute), {
                     filters: this.filterValues,
                 }, {

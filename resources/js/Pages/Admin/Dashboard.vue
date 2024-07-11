@@ -30,18 +30,18 @@
                             Vezi grupele de vârstă</inertia-link>
                     </div>
 
-                    <div class="w-3/12 bg-white p-4 rounded-lg">
+                    <!-- <div class="w-3/12 bg-white p-4 rounded-lg">
                         <h1 class="title block ml-0 !text-left">{{ locations }}</h1>
                         <p class="text-gray-500">Locații</p>
                         <inertia-link class="text-blue-500 text-xs" :href="route('admin.dashboard.joins.index')">
                             Vezi locațiile tale
                         </inertia-link>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
             <div class="flex flex-col md:flex-row gap-5">
-                <div class="w-full bg-white px-3 rounded-lg">
+                <!-- <div class="w-full bg-white px-3 rounded-lg">
                     <table class="min-w-max w-full table-auto">
                         <thead>
                             <tr class=" text-gray-600 uppercase text-sm leading-normal">
@@ -66,7 +66,7 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div> -->
 
                 <div class="w-full bg-white px-3 rounded-lg">
                     <table class="min-w-max w-full table-auto">

@@ -10,6 +10,7 @@ use App\Models\Player;
 use App\Models\Group;
 use App\Models\PlayerGroup;
 use Exception;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Database\QueryException;
@@ -62,7 +63,7 @@ trait AdminPlayerTrait
                         'groups' => $player->groups->pluck('name')->toArray(),
                     ];
                 });
-                // dd($players);
+            // dd($players);
             return Inertia::render('Admin/Players/List', [
                 'players' => $players,
                 'groups' => Group::all(),

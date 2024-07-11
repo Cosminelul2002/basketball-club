@@ -1,44 +1,16 @@
 <template>
     <AdminLayout>
-        <div class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
-            <div class="px-4 py-6 sm:p-8">
-                <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div class="sm:col-span-4">
-                        <label for="address" class="block text-sm font-medium leading-6 text-gray-900">Adresa</label>
-                        <div class="mt-2">
-                            <input type="text" name="address" id="address" autocomplete="given-name"
-                                v-model="form.address"
-                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                            <span v-if="errors.address" class="text-red-500 text-sm">{{ errors.address
-                                }}</span>
-                        </div>
-                    </div>
-                    <div class="sm:col-span-4">
-                        <label for="city" class="block text-sm font-medium leading-6 text-gray-900">Oraș</label>
-                        <div class="mt-2">
-                            <input id="city" name="city" autocomplete="city" v-model="form.city"
-                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                            <span v-if="errors.city" class="text-red-500 text-sm">{{ errors.city
-                                }}</span>
-                        </div>
-                    </div>
-
-                    <div class="sm:col-span-4">
-                        <label for="area" class="block text-sm font-medium leading-6 text-gray-900">Sectorul</label>
-                        <div class="mt-2">
-                            <input id="area" name="area" autocomplete="area" v-model="form.area"
-                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                            <span v-if="errors.area" class="text-red-500 text-sm">{{ errors.area
-                                }}</span>
-                        </div>
-                    </div>
-                </div>
+        <div class="max-w-3xl mx-auto bg-white p-3.5 shadow-lg rounded-lg">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6">Creează O Locație</h2>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-6">
+                <FormInput v-for="field in formFields" :key="field.name" :field="field" v-model="form[field.model]"
+                    :error="errors[field.model]" />
             </div>
-            <div class="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
-                <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Anulează
-                </button>
-                <button @click="save"
-                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <div class="flex items-center justify-end mt-6 gap-x-4">
+                <inertia-link :href="route('admin.dashboard.groups.index')"
+                    class="text-sm font-semibold text-gray-700 hover:text-gray-900">Anulează</inertia-link>
+                <button @click="submit" :disabled="form.processing"
+                    class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:ring focus:ring-indigo-200 active:bg-indigo-600 disabled:opacity-25 transition">
                     Salvează
                 </button>
             </div>
@@ -47,49 +19,44 @@
 </template>
 
 <script>
-import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import { useForm } from '@inertiajs/vue3';
+import AdminLayout from '../../../Layouts/AdminLayout.vue'
+import Dropdown from '../../../Components/Dropdown.vue'
+import FormInput from '../../../Components/FormInput.vue'
 
 export default {
-    name: 'Locations/Create',
-
+    name: 'Players/Create',
     components: {
         AdminLayout,
+        FormInput,
+        Dropdown,
     },
-
     data() {
         return {
-            form: {
-                address: '',
-                city: '',
-                area: '',
-            },
+            form: useForm({
+                'address': '',
+                'city': '',
+                'area': '',
+            }),
             errors: {},
-        }
+            formFields: [
+                { name: 'address', label: 'Adresa', model: 'address', type: 'input', inputType: 'text', autocomplete: 'given-name', colSpan: 'sm:col-span-4' },
+                { name: 'city', label: 'Oraș', model: 'city', type: 'input', inputType: 'text', autocomplete: 'city', colSpan: 'sm:col-span-4' },
+                { name: 'area', label: 'Sectorul', model: 'area', type: 'input', inputType: 'text', autocomplete: 'area', colSpan: 'sm:col-span-4' },
+            ],
+        };
     },
-
     methods: {
-        save() {
-            this.errors = {};
-            if (!this.form.address) {
-                this.errors.address = 'Adresa este obligatorie';
-            }
-            if (!this.form.city) {
-                this.errors.city = 'Orașul este obligatoriu';
-            }
-            if (!this.form.area) {
-                this.errors.area = 'Sectorul este obligatoriu';
-            }
-
-            if (Object.keys(this.errors).length === 0) {
-                this.$inertia.post(route('admin.dashboard.locations.store'), this.form);
-                this.form = {
-                    address: null,
-                    city: null,
-                    area: null,
+        submit() {
+            this.form.post(route('admin.dashboard.locations.store'), {
+                onError: (errors) => {
+                    this.errors = errors;
+                },
+                onSuccess: () => {
+                    this.form.reset();
                 }
-            }
-        }
-    }
-}
-
+            });
+        },
+    },
+};
 </script>

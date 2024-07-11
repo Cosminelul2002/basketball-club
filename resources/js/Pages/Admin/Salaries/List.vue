@@ -15,7 +15,6 @@ export default {
     components: { GenericList },
 
     beforeMount() {
-        console.log(this.salaries);
         for (let i = 0; i < this.salaries.data.length; i++) {
             this.salaries.data[i].duration_type = this.translateDurationType(this.salaries.data[i].duration_type);
             this.salaries.data[i].type = this.translateSalaryType(this.salaries.data[i].type);

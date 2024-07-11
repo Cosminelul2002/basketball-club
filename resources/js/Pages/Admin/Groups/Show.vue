@@ -23,7 +23,7 @@
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Nume</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ playerGroup.name }}</span>
+                        <span v-if="!editing" class="flex-grow">{{ group.name }}</span>
                         <input v-else v-model="form.editedName" class="flex-grow">
                     </dd>
                 </div>
@@ -31,7 +31,7 @@
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Descriere</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ playerGroup.description }}</span>
+                        <span v-if="!editing" class="flex-grow">{{ group.description }}</span>
                         <input v-else v-model="form.editedDescription" class="flex-grow">
                     </dd>
                 </div>
@@ -39,30 +39,31 @@
                 <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                     <dt class="text-md font-medium leading-6 text-gray-900">Taxă</dt>
                     <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">{{ playerGroup.tax }}</span>
+                        <span v-if="!editing" class="flex-grow">{{ group.tax }}</span>
                         <input v-else v-model="form.editedTax" class="flex-grow">
                     </dd>
                 </div>
-                <!-- Coaches -->
-                <div class="px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-md font-medium leading-6 text-gray-900">Antrenori</dt>
-                    <dd class="mt-1 flex text-md leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                        <span v-if="!editing" class="flex-grow">
-                            <ul>
-                                <li v-for="coach in playerGroup.coaches" :key="coach.id">{{ coach.first_name }} {{
-                        coach.last_name }}</li>
-                            </ul>
-                        </span>
-                        <span v-else class="flex-grow">
-                            <template v-for="coach in coaches">
-                                <label :for="`coach_${coach.id}`" class="inline-flex items-center mr-4">
-                                    <input type="checkbox" :id="`coach_${coach.id}`" :value="coach.id"
-                                        v-model="form.selectedCoaches" :checked="isCoachSelected(coach)">
-                                    <span class="ml-2">{{ coach.first_name }} {{ coach.last_name }}</span>
-                                </label>
-                            </template>
-                        </span>
-                    </dd>
+                <!-- Staff -->
+                <div class="px-4 py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-0">
+                    <dt class="text-md font-medium leading-6 text-gray-900">Taxă</dt>
+                    <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        <li v-for="staff in group.staff" :key="staff.id"
+                            class="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow">
+                            <div class="flex w-full items-center justify-between space-x-6 p-6">
+                                <div class="flex-1 truncate">
+                                    <div class="flex flex-col gap-2 items-center space-x-3">
+                                        <h3 class="truncate text-sm font-medium text-gray-900">{{ staff.first_name }} {{
+                        staff.last_name }}
+                                        </h3>
+                                        <span
+                                            class="inline-flex flex-shrink-0 items-center rounded-full bg-green-50 px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">{{
+                        staff.role.name }}</span>
+                                    </div>
+                                    <!-- <p class="mt-1 truncate text-sm text-gray-500">{{ staff.title }}</p> -->
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </dl>
         </div>
@@ -72,7 +73,6 @@
                     enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
                     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                 </TransitionChild>
-
                 <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
                     <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <TransitionChild as="template" enter="ease-out duration-300"
@@ -121,8 +121,7 @@ export default {
     components: { AdminLayout },
 
     props: {
-        playerGroup: Object,
-        coaches: Array,
+        group: Object,
     },
 
     data() {
@@ -130,10 +129,10 @@ export default {
             editing: false,
             open: false,
             form: {
-                editedName: this.playerGroup.name,
-                editedDescription: this.playerGroup.description,
-                editedTax: this.playerGroup.tax,
-                selectedCoaches: this.playerGroup.coaches.map(coach => coach.id),
+                editedName: this.group.name,
+                editedDescription: this.group.description,
+                editedTax: this.group.tax,
+                // selectedCoaches: this.playerGroup.coaches.map(coach => coach.id),
             },
 
             updatedPlayerGroupData: {
@@ -168,7 +167,6 @@ export default {
         },
 
         updateLocation() {
-            console.log(this.updatedPlayerGroupData);
             this.$inertia.put(route('admin.dashboard.groups.update', this.playerGroup), this.updatedPlayerGroupData);
             if (this.$attrs.errors) {
                 this.editing = true;

@@ -91,7 +91,6 @@ export default {
 
     computed: {
         isLoggedIn() {
-            console.log(this.$page.props.user);
             return this.$page.props.user ? true : false;
         }
     }

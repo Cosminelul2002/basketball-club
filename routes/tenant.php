@@ -85,6 +85,8 @@ Route::middleware([
     // Google login
     Route::get('/google/redirect', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
     Route::get('/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
+
+    // Admin routes
     Route::name("admin.")->prefix('/admin')->group(function () use ($allMethods) {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::name("dashboard.")->prefix('/dashboard')->group(function () use ($allMethods) {
@@ -94,7 +96,6 @@ Route::middleware([
                 'groups' => AdminPlayerGroupController::class,
                 'calendar' => AdminCalendarController::class,
                 'events' => AdminEventController::class,
-                // 'joins' => AdminJoinController::class,
                 'products' => AdminProductController::class,
                 'locations' => AdminLocationController::class,
                 'categories' => AdminCategoryController::class,
@@ -102,7 +103,7 @@ Route::middleware([
                 'staff-roles' => AdminStaffRoleController::class,
                 'staff' => AdminStaffController::class,
             ]);
-            Route::post('groups', [AdminPlayerGroupController::class, 'createDefaultGroups'])->name('groups.create-default-groups');
+            Route::post('groups/default-groups', [AdminPlayerGroupController::class, 'createDefaultGroups'])->name('groups.create-default-groups');
             Route::post('events/{event}/add-to-calendar', [AdminEventController::class, 'addToCalendar'])->name('events.add-to-calendar');
             Route::post('joins/{join}/approve', [AdminJoinController::class, 'approve'])->name('joins.approve');
             Route::get('categories/{category}/add-products', [AdminCategoryController::class, 'addProdcuts'])->name('categories.add-products');

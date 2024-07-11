@@ -48,11 +48,10 @@ trait AdminPlayerGroupTrait
     public function show_player_group($id)
     {
         try {
-            $playerGroup = Group::with('coaches')->findOrFail($id);
+            $group = Group::with(['staff', 'staff.role'])->findOrFail($id);
 
-            return Inertia::render('Admin/PlayerGroups/Show', [
-                'playerGroup' => $playerGroup,
-                'coaches' => Coach::all(),
+            return Inertia::render('Admin/Groups/Show', [
+                'group' => $group,
             ]);
         } catch (ModelNotFoundException $e) {
             throw new AdminResourcesNotFoundException(ExceptionMessage::ResourceNotFound('Group'), null, 500, $e);
