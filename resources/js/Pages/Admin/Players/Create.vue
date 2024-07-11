@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+    <DashboardLayout>
         <div class="max-w-3xl mx-auto bg-white p-3.5 shadow-lg rounded-lg">
             <h2 class="text-2xl font-semibold text-gray-900 mb-6">Creează Un Jucător</h2>
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-6">
@@ -19,20 +19,20 @@
                 </button>
             </div>
         </div>
-    </AdminLayout>
+    </DashboardLayout>
 </template>
 
 <script>
 import { ref } from 'vue'
 import { useForm } from '@inertiajs/vue3';
-import AdminLayout from '../../../Layouts/AdminLayout.vue'
+import DashboardLayout from '../../../Layouts/DashboardLayout.vue'
 import Dropdown from '../../../Components/Dropdown.vue'
 import FormInput from '../../../Components/FormInput.vue'
 
 export default {
     name: 'Players/Create',
     components: {
-        AdminLayout,
+        DashboardLayout,
         FormInput,
         Dropdown,
     },

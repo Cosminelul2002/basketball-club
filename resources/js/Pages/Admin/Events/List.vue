@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+    <DashboardLayout>
 
         <!-- Events Section Description -->
         <div class="sm:flex sm:items-center mb-8">
@@ -104,17 +104,17 @@
                 </div>
             </div>
         </div>
-    </AdminLayout>
+    </DashboardLayout>
 
 </template>
 
 <script>
-import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import DashboardLayout from '../../../Layouts/DashboardLayout.vue';
 
 export default {
     name: "Admin/Events/List",
 
-    components: { AdminLayout },
+    components: { DashboardLayout },
 
     computed: {
         editedEvents() {

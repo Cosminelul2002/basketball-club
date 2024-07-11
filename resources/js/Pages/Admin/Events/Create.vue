@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+    <DashboardLayout>
         <div class="max-w-2xl mx-auto p-4 bg-white shadow-md rounded-lg">
             <h1 class="text-2xl font-semibold mb-6">Creează Eveniment</h1>
             <form @submit.prevent="submitForm">
@@ -74,16 +74,16 @@
                     Eveniment</button>
             </form>
         </div>
-    </AdminLayout>
+    </DashboardLayout>
 </template>
 
 <script>
-import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import DashboardLayout from '../../../Layouts/DashboardLayout.vue';
 
 export default {
     name: "Admin/Events/Create",
 
-    components: { AdminLayout },
+    components: { DashboardLayout },
 
     data() {
         return {

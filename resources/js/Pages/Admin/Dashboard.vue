@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+    <DashboardLayout>
         <div
             class="max-w-7xl mx-auto mb-10 w-full bg-gradient-to-br from-blue-400 to-blue-600 p-10 rounded-lg text-white text-left">
             <span class="text-xl block text-left ml-0">Salut, {{ $page.props.user.name }} 👋</span>
@@ -93,16 +93,16 @@
                 </div>
             </div>
         </div>
-    </AdminLayout>
+    </DashboardLayout>
 </template>
 
 <script>
-import AdminLayout from '../../Layouts/AdminLayout.vue';
+import DashboardLayout from '../../Layouts/DashboardLayout.vue';
 
 export default {
     name: 'Admin/Dashboard',
 
-    components: { AdminLayout },
+    components: { DashboardLayout },
 
     props: {
         players: Number,

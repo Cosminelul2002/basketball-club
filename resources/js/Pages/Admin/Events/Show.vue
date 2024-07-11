@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+    <DashboardLayout>
         <div class="px-4 sm:px-0">
             <h3 class="text-lg font-semibold leading-7 text-gray-900">Informații eveniment</h3>
             <p class="mt-1 max-w-2xl text-md leading-6 text-gray-500">Detalii generale</p>
@@ -99,15 +99,15 @@
                 </div>
             </Dialog>
         </TransitionRoot>
-    </AdminLayout>
+    </DashboardLayout>
 </template>
 
 <script>
-import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import DashboardLayout from '../../../Layouts/DashboardLayout.vue';
 
 export default {
     name: "Admin/Events/Show",
-    components: { AdminLayout },
+    components: { DashboardLayout },
     props: {
         event: Object,
     },

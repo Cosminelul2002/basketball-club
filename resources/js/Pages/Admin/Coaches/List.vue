@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+    <DashboardLayout>
         <div class="px-4 sm:px-6 lg:px-8">
 
             <!-- Coach Section Description -->
@@ -109,18 +109,18 @@
                 </div>
             </div>
         </div>
-    </AdminLayout>
+    </DashboardLayout>
 </template>
 
 <script>
-import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import DashboardLayout from '../../../Layouts/DashboardLayout.vue';
 import Filter from '../../../Components/Filter.vue';
 
 
 export default {
     name: 'Coaches/List',
 
-    components: { AdminLayout, Filter },
+    components: { DashboardLayout, Filter },
 
     computed: {
         filteredCoaches() {

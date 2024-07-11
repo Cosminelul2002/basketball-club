@@ -72,6 +72,10 @@ trait LoginTrait
                     return redirect()->route('admin.dashboard');
                 }
 
+                if (auth()->user()->hasRole('player') ) {
+                    return redirect()->route('player.dashboard');
+                }
+
                 return redirect()->route('tenant.dashboard');
             }
 

@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+    <DashboardLayout>
         <div class="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
             <div class="px-4 sm:px-0">
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Adaugă o categorie nouă</h2>
@@ -99,17 +99,17 @@
                 </div>
             </div>
         </div>
-    </AdminLayout>
+    </DashboardLayout>
 </template>
 
 <script>
-import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import DashboardLayout from '../../../Layouts/DashboardLayout.vue';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/vue/24/solid'
 
 export default {
     name: 'Admin/Categories/Create',
 
-    components: { AdminLayout },
+    components: { DashboardLayout },
 
     computed: {
         indeterminate() {

@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\AdminStaffRoleController;
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Client\Request;
@@ -109,5 +110,9 @@ Route::middleware([
             Route::get('categories/{category}/add-products', [AdminCategoryController::class, 'addProdcuts'])->name('categories.add-products');
             Route::post('categories/{category}/add-products', [AdminCategoryController::class, 'storeProducts'])->name('categories.store-products');
         });
+    });
+
+    Route::name('player.')->prefix('/player')->group(function () {
+        Route::get('/dashboard', [PlayerController::class, 'dashboard'])->name('dashboard');
     });
 });

@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+    <DashboardLayout>
         <div class="px-4 sm:px-0">
             <h3 class="text-base font-semibold leading-7 text-gray-900">Informații produs</h3>
             <p class="mt-1 max-w-2xl text-md leading-6 text-gray-500">Detalii</p>
@@ -103,7 +103,7 @@
                 </div>
             </Dialog>
         </TransitionRoot>
-    </AdminLayout>
+    </DashboardLayout>
 </template>
 
 <script>
@@ -111,7 +111,7 @@
 export default {
     name: 'Admin/Products/Show',
 
-    components: { AdminLayout },
+    components: { DashboardLayout },
 
     props: {
         product: Object,
@@ -196,7 +196,7 @@ export default {
 
 <script setup>
 import { PaperClipIcon } from '@heroicons/vue/20/solid'
-import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import DashboardLayout from '../../../Layouts/DashboardLayout.vue';
 import { Inertia } from '@inertiajs/inertia';
 import { ref } from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'

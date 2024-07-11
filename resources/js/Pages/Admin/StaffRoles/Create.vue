@@ -1,6 +1,6 @@
 <template>
 
-    <AdminLayout>
+    <DashboardLayout>
         <div class="max-w-3xl mx-auto bg-white p-6 shadow-lg rounded-lg">
             <h2 class="text-2xl font-semibold text-gray-900 mb-6">Creează Un Rol</h2>
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-6">
@@ -16,13 +16,13 @@
                 </button>
             </div>
         </div>
-    </AdminLayout>
+    </DashboardLayout>
 
 </template>
 
 <script>
 import { useForm } from '@inertiajs/vue3';
-import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import DashboardLayout from '../../../Layouts/DashboardLayout.vue';
 import FormInput from '../../../components/FormInput.vue';
 
 
@@ -30,7 +30,7 @@ export default {
     name: 'Admin/staffroles/Create',
 
     components: {
-        AdminLayout,
+        DashboardLayout,
         FormInput,
     },
 

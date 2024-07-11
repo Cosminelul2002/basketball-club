@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+    <DashboardLayout>
         <div class="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
             <div class="px-4 sm:px-0">
                 <h2 class="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
@@ -72,17 +72,17 @@
                 </div>
             </div>
         </div>
-    </AdminLayout>
+    </DashboardLayout>
 </template>
 
 <script>
-import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import DashboardLayout from '../../../Layouts/DashboardLayout.vue';
 
 
 export default {
     name: 'Admin/Products/Create',
 
-    components: { AdminLayout },
+    components: { DashboardLayout },
 
     props: {
         categories: Array,

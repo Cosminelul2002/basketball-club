@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+    <DashboardLayout>
         <template>
             <div v-if="$page.props.errors">
                 <p>{{ $page.props.errors.message }}</p>
@@ -80,17 +80,17 @@
                 </div>
             </div>
         </div>
-    </AdminLayout>
+    </DashboardLayout>
 </template>
 
 <script>
-import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import DashboardLayout from '../../../Layouts/DashboardLayout.vue';
 import Filter from '../../../Components/Filter.vue';
 
 export default {
     name: 'Admin/Categories/List',
 
-    components: { AdminLayout, Filter },
+    components: { DashboardLayout, Filter },
 
     computed: {
         filteredCategories() {

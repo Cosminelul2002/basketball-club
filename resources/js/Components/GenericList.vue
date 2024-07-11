@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>
+    <DashboardLayout>
         <div class="px-4 sm:px-6 lg:px-8">
 
             <!-- Section Description -->
@@ -87,11 +87,11 @@
             </div>
             <Pagination class="flex justify-center" :links="items.links" />
         </div>
-    </AdminLayout>
+    </DashboardLayout>
 </template>
 
 <script>
-import AdminLayout from '../Layouts/AdminLayout.vue';
+import DashboardLayout from '../Layouts/DashboardLayout.vue';
 import Filter from '../Components/Filter.vue';
 import Pagination from './Pagination.vue';
 import debounce from "lodash/fp/debounce";
@@ -99,7 +99,7 @@ import debounce from "lodash/fp/debounce";
 export default {
     name: 'GenericList',
 
-    components: { AdminLayout, Filter, Pagination },
+    components: { DashboardLayout, Filter, Pagination },
 
     watch: {
         filterValues: {

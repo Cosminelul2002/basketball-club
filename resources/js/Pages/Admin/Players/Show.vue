@@ -1,17 +1,17 @@
 <template>
-    <AdminLayout>
+    <DashboardLayout>
         <AttributeList :attributes="attributes" title="Informații jucător" subtitle="Detalii personale"
             :initialData="initialData" routeName="admin.dashboard.players.update" :errors="$attrs.errors" />
-    </AdminLayout>
+    </DashboardLayout>
 </template>
 
 <script>
-import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import DashboardLayout from '../../../Layouts/DashboardLayout.vue';
 import AttributeList from '../../../Components/AttributeList.vue';
 
 export default {
     name: 'PlayerShow',
-    components: { AdminLayout, AttributeList },
+    components: { DashboardLayout, AttributeList },
     props: {
         player: Object,
         groups: Array,

@@ -1,18 +1,18 @@
 <template>
-    <AdminLayout>
+    <DashboardLayout>
 
 
-    </AdminLayout>
+    </DashboardLayout>
 </template>
 
 <script>
-import AdminLayout from '../../Layouts/AdminLayout.vue'
+import DashboardLayout from '../../Layouts/DashboardLayout.vue'
 
 export default {
     name: "SuperAdmin/Dashboard",
 
     components: {
-        AdminLayout
+        DashboardLayout
     },
 }
 
