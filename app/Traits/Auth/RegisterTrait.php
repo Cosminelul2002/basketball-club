@@ -55,7 +55,7 @@ trait RegisterTrait
 
         $user->user_roles()->insert([
             'user_id' => $user->id,
-            'role_id' => Role::query()->where('key', 'player')->first()->id,
+            'role_id' => Role::query()->where('key', $data['role'])->first()->id,
             'user_type' => 'App\Models\User',
         ]);
 

@@ -27,6 +27,7 @@
                 </MenuItems>
             </transition>
         </Menu>
+        <span v-if="error" class="text-red-500 text-sm mt-1">{{ error }}</span>
     </div>
 </template>
 

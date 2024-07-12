@@ -19,6 +19,7 @@ import Dropdown from './Dropdown.vue'
 
 export default {
     name: 'FormInput',
+    
     components: {
         Dropdown
     },

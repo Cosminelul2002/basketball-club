@@ -27,9 +27,12 @@ createInertiaApp({
                         return currentRoute == route;
                     },
 
-                    // isLoggedIn() {
-                    //     return this.$page.user;
-                    // },
+                    isLoggedIn() {
+                        if (this.$page.props.user != null) {
+                            return true;
+                        }
+                        return false;
+                    },
 
                     isPlayerLoggedIn() {
                         if (this.$page.props.user.role[0].key == 'player') {

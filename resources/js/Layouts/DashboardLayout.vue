@@ -24,7 +24,6 @@
                                     </button>
                                 </div>
                             </TransitionChild>
-                            <!-- Sidebar component, swap this element with another sidebar if you like -->
                             <div
                                 class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
                                 <div class="flex h-16 shrink-0 items-center">
@@ -33,41 +32,27 @@
                                         alt="Your Company" />
                                 </div>
                                 <nav class="flex flex-1 flex-col">
-                                    <ul role="list" class="flex flex-1 flex-col gap-y-7">
-                                        <li>
-                                            <ul role="list" class="-mx-2 space-y-1">
-                                                <li v-for="item in navigation" :key="item.name">
-                                                    <a :href="item.href"
-                                                        :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
-                                                        <component :is="item.icon" class="h-6 w-6 shrink-0"
-                                                            aria-hidden="true" />
-                                                        {{ item.name }}
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <div class="text-xs font-semibold leading-6 text-gray-400">Magazin</div>
-                                            <ul role="list" class="-mx-2 mt-2 space-y-1">
-                                                <li v-for="team in teams" :key="team.name">
-                                                    <a :href="team.href"
-                                                        :class="[team.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
-                                                        <span
-                                                            class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">{{
-            team.initial }}</span>
-                                                        <span class="truncate">{{ team.name }}</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="mt-auto">
-                                            <a href="#"
-                                                class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white">
-                                                <Cog6ToothIcon class="h-6 w-6 shrink-0" aria-hidden="true" />
-                                                Settings
-                                            </a>
-                                        </li>
-                                    </ul>
+
+                                    <!-- Super Admin routes -->
+                                    <template v-if="$page.props.user.role[0].key === 'super-admin'">
+                                        <RouteList :routes="superAdminRoutes" />
+                                    </template>
+
+                                    <!-- Admin routes -->
+                                    <template v-if="$page.props.user.role[0].key === 'admin'">
+                                        <RouteList :routes="adminRoutes" />
+                                    </template>
+
+                                    <!-- Parent routes -->
+                                    <template v-if="$page.props.user.role[0].key === 'parent'">
+                                        <RouteList :routes="parentRoutes" />
+                                    </template>
+
+                                    <!-- Player routes -->
+                                    <template v-if="$page.props.user.role[0].key === 'player'">
+                                        <RouteList :routes="playerRoutes" />
+                                    </template>
+
                                 </nav>
                             </div>
                         </DialogPanel>
@@ -85,85 +70,17 @@
                         alt="Your Company" />
                 </div>
                 <nav class="flex flex-1 flex-col">
+
+                    <!-- Admin routes -->
                     <template v-if="$page.props.user.role[0].key === 'admin'">
-                        <ul role="list" class="flex flex-1 flex-col gap-y-7">
-                            <li>
-                                <ul role="list" class="-mx-2 space-y-1">
-                                    <li v-for="item in adminRoutes" :key="item.name">
-                                        <div @click="item.current === true">
-                                            <a :href="item.href"
-                                                :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
-                                                <component :is="item.icon" class="h-6 w-6 shrink-0"
-                                                    aria-hidden="true" />
-                                                {{ item.name }}
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <div class="text-xs font-semibold leading-6 text-gray-400">Magazin</div>
-                                <ul role="list" class="-mx-2 mt-2 space-y-1">
-                                    <li v-for="team in teams" :key="team.name">
-                                        <a :href="team.href"
-                                            :class="[team.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
-                                            <span
-                                                class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">{{
-            team.initial }}</span>
-                                            <span class="truncate">{{ team.name }}</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="mt-auto">
-                                <a href="#"
-                                    class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white">
-                                    <Cog6ToothIcon class="h-6 w-6 shrink-0" aria-hidden="true" />
-                                    Settings
-                                </a>
-                            </li>
-                        </ul>
+                        <RouteList :routes="adminRoutes" />
                     </template>
 
+                    <!-- Player routes -->
                     <template v-if="$page.props.user.role[0].key === 'player'">
-                        <ul role="list" class="flex flex-1 flex-col gap-y-7">
-                            <li>
-                                <ul role="list" class="-mx-2 space-y-1">
-                                    <li v-for="item in playerRoutes" :key="item.name">
-                                        <div @click="item.current === true">
-                                            <a :href="item.href"
-                                                :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
-                                                <component :is="item.icon" class="h-6 w-6 shrink-0"
-                                                    aria-hidden="true" />
-                                                {{ item.name }}
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <div class="text-xs font-semibold leading-6 text-gray-400">Magazin</div>
-                                <ul role="list" class="-mx-2 mt-2 space-y-1">
-                                    <li v-for="team in teams" :key="team.name">
-                                        <a :href="team.href"
-                                            :class="[team.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
-                                            <span
-                                                class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">{{
-            team.initial }}</span>
-                                            <span class="truncate">{{ team.name }}</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="mt-auto">
-                                <a href="#"
-                                    class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white">
-                                    <Cog6ToothIcon class="h-6 w-6 shrink-0" aria-hidden="true" />
-                                    Settings
-                                </a>
-                            </li>
-                        </ul>
+                        <RouteList :routes="playerRoutes" />
                     </template>
+
                 </nav>
             </div>
         </div>
@@ -279,9 +196,14 @@
 </template>
 
 <script>
+import RouteList from '../Components/RouteList.vue'
 
 export default {
     name: 'Admin/Dashboard',
+
+    components: {
+        RouteList
+    },
 
     mounted() {
         this.$inertia.on('success', () => {
@@ -302,6 +224,13 @@ export default {
         return {
             user: this.$page.props.user,
             show: false,
+            superAdminRoutes: [
+                // { name: 'Pagină pricipală', href: route('admin.dashboard'), icon: HomeIcon, current: true },
+                // { name: 'Utilizatori', href: route('admin.dashboard.users.index'), icon: UserIcon, current: false },
+                // { name: 'Roluri', href: route('admin.dashboard.roles.index'), icon: ChartPieIcon, current: false },
+                // { name: 'Permisiuni', href: route('admin.dashboard.permissions.index'), icon: ChartPieIcon, current: false },
+                // { name: 'Setări', href: route('admin.dashboard.settings.index'), icon: Cog6ToothIcon, current: false },
+            ],
             adminRoutes: [
                 { name: 'Pagină pricipală', href: route('admin.dashboard'), icon: HomeIcon, current: true },
                 { name: 'Jucători', href: route('admin.dashboard.players.index'), icon: ChartPieIcon, current: false },
@@ -311,11 +240,14 @@ export default {
                 { name: 'Roluri Staff', href: route('admin.dashboard.staff-roles.index'), icon: ChartPieIcon, current: false },
                 { name: 'Remunerații', href: route('admin.dashboard.salaries.index'), icon: FolderIcon, current: false },
                 { name: 'Locații', href: route('admin.dashboard.locations.index'), icon: ChartPieIcon, current: false },
+                { name: 'Înapoi', href: route('tenant.landing'), icon: HomeIcon, current: false }
+            ],
+            parentRoutes: [
+                { name: 'Pagină pricipală', href: route('parent.dashboard'), icon: HomeIcon, current: true }
             ],
             playerRoutes: [
                 { name: 'Pagină pricipală', href: route('player.dashboard'), icon: HomeIcon, current: true }
             ]
-            // navigation: [adminRoutes],
 
         }
     },

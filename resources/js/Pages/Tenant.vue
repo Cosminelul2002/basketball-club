@@ -23,7 +23,7 @@
                     </a>
                 </nav>
                 <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                    <template v-if="!isLoggedIn">
+                    <template v-if="!loggedIn">
                         <inertia-link :href="route('auth.register')"
                             class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
                             Fă-ți un cont
@@ -98,9 +98,14 @@ export default {
         DialogPanel,
     },
 
+    beforeMount() {
+        this.loggedIn = this.isLoggedIn()
+    },
+
     data() {
         return {
             mobileMenuOpen: false,
+            loggedIn: false,
         };
     },
 };

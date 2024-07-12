@@ -11,7 +11,7 @@
                     întreaga funcționalitate a platformei noastre.</p>
             </div>
             <div class="flex flex-col mt-5">
-                <inertia-link :href="route('landing')"
+                <inertia-link :href="route('tenant.landing')"
                     class="button bg-gradient-to-br from-blue-400 to-blue-600 !max-w-full font-bold hover:from-blue-500 hover:to-blue-700">
                     Înapoi la pagina principală
                 </inertia-link>

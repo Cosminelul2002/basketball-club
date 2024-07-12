@@ -25,6 +25,28 @@ trait LoginTrait
         return Inertia::render('Auth/Login');
     }
 
+    private function redirectToSpecificDashboard($user)
+    {
+
+        if ($user->hasRole('super-admin')) {
+            return redirect()->route('super-admin.dashboard');
+        }
+
+        if ($user->hasRole('admin')) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        if ($user->hasRole('parent')) {
+            return redirect()->route('parent.dashboard');
+        }
+
+        if ($user->hasRole('player')) {
+            return redirect()->route('player.dashboard');
+        }
+
+        return redirect()->route('tenant.dashboard');
+    }
+
     /**
      * Login a user into the application.
      *
@@ -68,15 +90,7 @@ trait LoginTrait
             if (Auth::attempt($credentials, $request->filled('remember'))) {
                 $request->session()->regenerate();
 
-                if (auth()->user()->hasRole('admin')) {
-                    return redirect()->route('admin.dashboard');
-                }
-
-                if (auth()->user()->hasRole('player') ) {
-                    return redirect()->route('player.dashboard');
-                }
-
-                return redirect()->route('tenant.dashboard');
+                return $this->redirectToSpecificDashboard(auth()->user());
             }
 
             return redirect()->back()->withErrors('Invalid credentials');
