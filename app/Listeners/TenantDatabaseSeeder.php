@@ -25,22 +25,12 @@ class TenantDatabaseSeeder
     {
         $tenant = $event->tenant;
 
-        // add logic to seed tenant database
-        $connection = $tenant->getConnectionName();
+        // Initialize tenant's database connection
+        tenancy()->initialize($tenant);
 
-        config(['database.default' => $connection]);
-
-        $this->seedRoleSeeder($tenant);
-    }
-
-    /**
-     * Seed the role seeder.
-     */
-    protected function seedRoleSeeder($tenant)
-    {
+        // Run the seeder in the tenant context
         Artisan::call('db:seed', [
             '--class' => RoleSeeder::class,
-            '--database' => $tenant->tenancy_db_name,
         ]);
     }
 }

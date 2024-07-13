@@ -17,10 +17,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        // \App\Models\Tenant::all()->runForEach(function () {
-        //     // \App\Models\User::factory(10)->create();
-        //     // Artisan::call('db:seed', ['--class' => 'LocationGroupSeeder']);
-        // });
+        \App\Models\Tenant::all()->runForEach(function () {
+            RoleSeeder::class;
+            // \App\Models\User::factory(10)->create();
+            // Artisan::call('db:seed', ['--class' => 'LocationGroupSeeder']);
+        });
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
