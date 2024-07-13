@@ -54,15 +54,19 @@ trait RegisterTenantTrait
         ]);
 
         // Initialize the tenant
-        tenancy()->initialize($tenant);
+        $createdTenant = Tenant::find($tenant->id);
+        tenancy()->initialize($createdTenant);
+
 
         // Create the user also in the tenant
-        $tenant->run(function () use ($request) {
+        $createdTenant->run(function () use ($request, $createdTenant) {
             $userTenant = User::create([
                 'name' => $request['name'],
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
             ]);
+
+            event(new NewTenantCreated($createdTenant));
             $userTenant->user_roles()->insert([
                 'user_id' => $userTenant->id,
                 'role_id' => Role::query()->where('key', 'admin')->first()->id,
@@ -71,9 +75,6 @@ trait RegisterTenantTrait
         });
 
         // Redirect to the tenant dashboard
-        // return response()->json(['subdomain_url' => 'http://' . $data['domain'] . ':8000']);
         return Inertia::location('http://' . $request['domain'] . ':8000');
-        // return redirect()->route('tenant.landing')->domain($d);
-        // return redirect(tenant_route($domain->domain . ':8000', 'tenant.landing'));
     }
 }

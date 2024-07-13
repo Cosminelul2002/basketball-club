@@ -30,16 +30,17 @@ class TenantDatabaseSeeder
 
         config(['database.default' => $connection]);
 
-        $this->seedRoleSeeder();
+        $this->seedRoleSeeder($tenant);
     }
 
     /**
      * Seed the role seeder.
      */
-    protected function seedRoleSeeder()
+    protected function seedRoleSeeder($tenant)
     {
         Artisan::call('db:seed', [
             '--class' => RoleSeeder::class,
+            '--database' => $tenant->tenancy_db_name,
         ]);
     }
 }

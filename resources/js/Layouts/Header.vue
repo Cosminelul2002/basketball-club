@@ -23,7 +23,7 @@
                         item.name }}</a>
             </div>
 
-            <template v-if="!isLoggedIn">
+            <template v-if="!loggedIn">
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-10">
                     <inertia-link :href="route('auth.register')"
                         class="text-sm font-semibold leading-6 text-white">Fă-ți
@@ -83,17 +83,21 @@
 export default {
     name: 'Header',
 
+    beforeMount() {
+        this.loggedIn = this.isLoggedIn()
+    },
+
     data() {
         return {
-            role: null
+            loggedIn: false,
         }
     },
 
-    computed: {
-        isLoggedIn() {
-            return this.$page.props.user ? true : false;
-        }
-    }
+    // computed: {
+    //     isLoggedIn() {
+    //         return this.$page.props.user ? true : false;
+    //     }
+    // }
 }
 
 </script>
