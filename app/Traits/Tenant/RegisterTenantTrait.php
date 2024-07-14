@@ -32,7 +32,6 @@ trait RegisterTenantTrait
     public function storeTenant(StoreTenantRequest $request)
     {
         $request->validated();
-
         // Create a new user
         $user = User::create([
             'name' => $request['name'],
@@ -49,7 +48,7 @@ trait RegisterTenantTrait
 
         // Create a domain for the tenant
         Domain::create([
-            'domain' => $request['domain'],
+            'domain' => $request['domain'] . '.localhost',
             'tenant_id' => $tenant->id,
         ]);
 
@@ -75,6 +74,6 @@ trait RegisterTenantTrait
         });
 
         // Redirect to the tenant dashboard
-        return Inertia::location('http://' . $request['domain'] . ':8000');
+        return Inertia::location('http://' . $request['domain'] . '.localhost' . ':8000');
     }
 }
