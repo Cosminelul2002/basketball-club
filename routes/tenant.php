@@ -47,7 +47,7 @@ Route::middleware([
 ])->group(function () {
     $allMethods = ['index', 'show', 'store', 'update', 'destroy', 'create', 'edit'];
     Route::get('/', [LandingController::class, 'tenant'])->name('tenant.landing');
-
+    
     Route::name('auth.')->prefix('/auth')->group(function () {
         Route::get('/register', [RegisterController::class, 'show'])->name('register');
         Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
@@ -88,31 +88,6 @@ Route::middleware([
     // Google login
     Route::get('/google/redirect', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
     Route::get('/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
-
-    // Super Admin routes
-    Route::name("super-admin.")->prefix('/super-admin')->group(function () use ($allMethods) {
-        Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])->name('dashboard');
-        // Route::name("dashboard.")->prefix('/dashboard')->group(function () use ($allMethods) {
-        //     Route::resources([
-        //         'players' => AdminPlayerController::class,
-        //         'coaches' => AdminCoachController::class,
-        //         'groups' => AdminPlayerGroupController::class,
-        //         'calendar' => AdminCalendarController::class,
-        //         'events' => AdminEventController::class,
-        //         'products' => AdminProductController::class,
-        //         'locations' => AdminLocationController::class,
-        //         'categories' => AdminCategoryController::class,
-        //         'salaries' => AdminSalaryController::class,
-        //         'staff-roles' => AdminStaffRoleController::class,
-        //         'staff' => AdminStaffController::class,
-        //     ]);
-        //     Route::post('groups/default-groups', [AdminPlayerGroupController::class, 'createDefaultGroups'])->name('groups.create-default-groups');
-        //     Route::post('events/{event}/add-to-calendar', [AdminEventController::class, 'addToCalendar'])->name('events.add-to-calendar');
-        //     Route::post('joins/{join}/approve', [AdminJoinController::class, 'approve'])->name('joins.approve');
-        //     Route::get('categories/{category}/add-products', [AdminCategoryController::class, 'addProdcuts'])->name('categories.add-products');
-        //     Route::post('categories/{category}/add-products', [AdminCategoryController::class, 'storeProducts'])->name('categories.store-products');
-        // });
-    });
 
     // Admin routes
     Route::name("admin.")->prefix('/admin')->group(function () use ($allMethods) {

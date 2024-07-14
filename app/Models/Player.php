@@ -36,6 +36,6 @@ class Player extends Model
 
     public function groups()
     {
-        return $this->belongsToMany(Group::class, 'player_group')->withPivot('group_id');
+        return $this->belongsToMany(Group::class, 'player_groups')->withPivot('group_id');
     }
 }

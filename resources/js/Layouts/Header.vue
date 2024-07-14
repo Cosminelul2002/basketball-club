@@ -117,7 +117,7 @@ import {
 } from '@heroicons/vue/20/solid'
 
 const navigation = [
-    { name: 'Acasă', href: route('landing') },
+    { name: 'Acasă', href: route('tenant.landing') },
     { name: 'Despre noi', href: route('about') },
     { name: 'Înscriere', href: route('join.create') },
     // { name: 'Antrenori', href: route('coaches') },

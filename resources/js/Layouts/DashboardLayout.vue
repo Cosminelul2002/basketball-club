@@ -34,7 +34,7 @@
                                 <nav class="flex flex-1 flex-col">
 
                                     <!-- Super Admin routes -->
-                                    <template v-if="$page.props.user.role[0].key === 'super-admin'">
+                                    <template v-if="$page.props.user.role[0].key === 'super_admin'">
                                         <RouteList :routes="superAdminRoutes" />
                                     </template>
 
@@ -79,6 +79,16 @@
                     <!-- Player routes -->
                     <template v-if="$page.props.user.role[0].key === 'player'">
                         <RouteList :routes="playerRoutes" />
+                    </template>
+
+                    <!-- Parent routes -->
+                    <template v-if="$page.props.user.role[0].key === 'parent'">
+                        <RouteList :routes="parentRoutes" />
+                    </template>
+
+                    <!-- Super Admin routes -->
+                    <template v-if="$page.props.user.role[0].key === 'super_admin'">
+                        <RouteList :routes="superAdminRoutes" />
                     </template>
 
                 </nav>
@@ -225,7 +235,7 @@ export default {
             user: this.$page.props.user,
             show: false,
             superAdminRoutes: [
-                // { name: 'Pagină pricipală', href: route('admin.dashboard'), icon: HomeIcon, current: true },
+                { name: 'Pagină pricipală', href: route('tenant.landing'), icon: HomeIcon, current: true },
                 // { name: 'Utilizatori', href: route('admin.dashboard.users.index'), icon: UserIcon, current: false },
                 // { name: 'Roluri', href: route('admin.dashboard.roles.index'), icon: ChartPieIcon, current: false },
                 // { name: 'Permisiuni', href: route('admin.dashboard.permissions.index'), icon: ChartPieIcon, current: false },

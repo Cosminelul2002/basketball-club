@@ -60,7 +60,7 @@ trait AdminPlayerTrait
                         'skill_level' => $player->skill_level,
                         'parent_name' => $player->parent_name,
                         'parent_phone' => $player->parent_phone,
-                        'groups' => $player->groups->pluck('name')->toArray(),
+                        'groups' => $player->groups->pluck('name')->toArray() ?? 'N/A',
                     ];
                 });
             // dd($players);
