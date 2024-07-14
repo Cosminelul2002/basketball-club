@@ -56,7 +56,7 @@ export default {
             ],
             roles: [
                 { value: 'parent', label: 'Părinte' },
-                { value: 'palyer', label: 'Jucător' },
+                { value: 'player', label: 'Jucător' },
             ],
             errors: {},
             form: useForm({
