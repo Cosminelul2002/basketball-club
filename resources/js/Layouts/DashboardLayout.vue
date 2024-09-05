@@ -235,28 +235,28 @@ export default {
             user: this.$page.props.user,
             show: false,
             superAdminRoutes: [
-                { name: 'Pagină pricipală', href: route('tenant.landing'), icon: HomeIcon, current: true },
-                // { name: 'Utilizatori', href: route('admin.dashboard.users.index'), icon: UserIcon, current: false },
+                { name: 'Pagină pricipală', href: route('landing'), icon: HomeIcon, current: true },
+                { name: 'Vendori', href: route('super_admin.dashboard.tenants.index'), icon: UserIcon, current: false },
                 // { name: 'Roluri', href: route('admin.dashboard.roles.index'), icon: ChartPieIcon, current: false },
                 // { name: 'Permisiuni', href: route('admin.dashboard.permissions.index'), icon: ChartPieIcon, current: false },
                 // { name: 'Setări', href: route('admin.dashboard.settings.index'), icon: Cog6ToothIcon, current: false },
             ],
             adminRoutes: [
-                { name: 'Pagină pricipală', href: route('admin.dashboard'), icon: HomeIcon, current: true },
-                { name: 'Jucători', href: route('admin.dashboard.players.index'), icon: ChartPieIcon, current: false },
-                { name: 'Calendar', href: route('admin.dashboard.calendar.index'), icon: CalendarIcon, current: false },
-                { name: 'Grupe de vârstă', href: route('admin.dashboard.groups.index'), icon: CalendarIcon, current: false },
-                { name: 'Staff', href: route('admin.dashboard.staff.index'), icon: CalendarIcon, current: false },
-                { name: 'Roluri Staff', href: route('admin.dashboard.staff-roles.index'), icon: ChartPieIcon, current: false },
-                { name: 'Remunerații', href: route('admin.dashboard.salaries.index'), icon: FolderIcon, current: false },
-                { name: 'Locații', href: route('admin.dashboard.locations.index'), icon: ChartPieIcon, current: false },
+                { name: 'Pagină pricipală', href: route('tenant.admin.dashboard'), icon: HomeIcon, current: true },
+                { name: 'Jucători', href: route('tenant.admin.dashboard.players.index'), icon: ChartPieIcon, current: false },
+                { name: 'Calendar', href: route('tenant.admin.dashboard.calendar.index'), icon: CalendarIcon, current: false },
+                { name: 'Grupe de vârstă', href: route('tenant.admin.dashboard.groups.index'), icon: CalendarIcon, current: false },
+                { name: 'Staff', href: route('tenant.admin.dashboard.staff.index'), icon: CalendarIcon, current: false },
+                { name: 'Roluri Staff', href: route('tenant.admin.dashboard.staff-roles.index'), icon: ChartPieIcon, current: false },
+                { name: 'Remunerații', href: route('tenant.admin.dashboard.salaries.index'), icon: FolderIcon, current: false },
+                { name: 'Locații', href: route('tenant.admin.dashboard.locations.index'), icon: ChartPieIcon, current: false },
                 { name: 'Înapoi', href: route('tenant.landing'), icon: HomeIcon, current: false }
             ],
             parentRoutes: [
-                { name: 'Pagină pricipală', href: route('parent.dashboard'), icon: HomeIcon, current: true }
+                { name: 'Pagină pricipală', href: route('tenant.parent.dashboard'), icon: HomeIcon, current: true }
             ],
             playerRoutes: [
-                { name: 'Pagină pricipală', href: route('player.dashboard'), icon: HomeIcon, current: true }
+                { name: 'Pagină pricipală', href: route('tenant.player.dashboard'), icon: HomeIcon, current: true }
             ]
 
         }
@@ -293,11 +293,7 @@ import {
 } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
-const teams = [
-    { id: 1, name: 'Produse', href: route('admin.dashboard.products.index'), initial: 'H', current: false },
-    { id: 2, name: 'Categorii', href: route('admin.dashboard.categories.index'), initial: 'T', current: false },
-    { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
-]
+// tenant.
 const userNavigation = [
     { name: 'Your profile', href: '#' },
     { name: 'Sign out', href: route('auth.logout') },

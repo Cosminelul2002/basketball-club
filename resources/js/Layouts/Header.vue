@@ -34,9 +34,9 @@
             </template>
             <template v-else>
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-10">
-                    <inertia-link :href="route(this.$page.props.user.role[0].key + '.dashboard')"
+                    <!-- <inertia-link :href="route(this.$page.props.user.role[0].key + '.dashboard')"
                         class="text-sm font-semibold leading-6 text-white">Dashboard<span
-                            aria-hidden="true">&rarr;</span></inertia-link>
+                            aria-hidden="true">&rarr;</span></inertia-link> -->
                     <inertia-link :href="route('auth.logout')"
                         class="text-sm font-semibold leading-6 text-white">Deconectare<span
                             aria-hidden="true">&rarr;</span></inertia-link>
@@ -117,7 +117,7 @@ import {
 } from '@heroicons/vue/20/solid'
 
 const navigation = [
-    { name: 'Acasă', href: route('tenant.landing') },
+    { name: 'Acasă', href: route('landing') },
     { name: 'Despre noi', href: route('about') },
     { name: 'Înscriere', href: route('join.create') },
     // { name: 'Antrenori', href: route('coaches') },

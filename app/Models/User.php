@@ -55,4 +55,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(UserRole::class);
     }
+
+    /**
+     * Get the tenants that belong to the user.
+     */
+    public function tenants()
+    {
+        return $this->hasMany(Tenant::class);
+    }
 }

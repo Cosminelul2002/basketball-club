@@ -24,11 +24,11 @@
                 </nav>
                 <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
                     <template v-if="!loggedIn">
-                        <inertia-link :href="route('auth.register')"
+                        <inertia-link :href="route('tenant.auth.register')"
                             class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
                             Fă-ți un cont
                         </inertia-link>
-                        <inertia-link :href="route('auth.login')"
+                        <inertia-link :href="route('tenant.auth.login')"
                             class="whitespace-nowrap ml-8 text-base font-medium text-gray-500 hover:text-gray-900">
                             Intră în cont
                         </inertia-link>
@@ -38,11 +38,11 @@
                         </inertia-link>
                     </template>
                     <template v-else>
-                        <inertia-link :href="route(this.$page.props.user.role[0].key + '.dashboard')"
+                        <inertia-link :href="route('tenant.' + this.$page.props.user.role[0].key + '.dashboard')"
                             class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
                             Dashboard
                         </inertia-link>
-                        <inertia-link :href="route('auth.logout')"
+                        <inertia-link :href="route('tenant.auth.logout')"
                             class="whitespace-nowrap ml-8 text-base font-medium text-gray-500 hover:text-gray-900">
                             Deconectare
                         </inertia-link>
@@ -75,11 +75,11 @@
             <div class="pt-4 pb-3 border-t border-gray-200">
                 <div class="flex items
                 -center justify-between px-5">
-                    <inertia-link :href="route('auth.register')"
+                    <inertia-link :href="route('tenant.auth.register')"
                         class="text-base font-medium text-indigo-600 hover:text-indigo-900">
                         Fă-ți un cont
                     </inertia-link>
-                    <inertia-link :href="route('auth.login')"
+                    <inertia-link :href="route('tenant.auth.login')"
                         class="text-base font-medium text-indigo-600 hover:text-indigo-900">
                         Intră în cont
                     </inertia-link>

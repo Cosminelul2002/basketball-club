@@ -11,7 +11,7 @@
                     :error="errors.group_id" />
             </div>
             <div class="flex items-center justify-end mt-6 gap-x-4">
-                <inertia-link :href="route('admin.dashboard.players.index')"
+                <inertia-link :href="route('tenant.admin.dashboard.players.index')"
                     class="text-sm font-semibold text-gray-700 hover:text-gray-900">Anulează</inertia-link>
                 <button @click="submit"
                     class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:ring focus:ring-indigo-200 active:bg-indigo-600 disabled:opacity-25 transition">
@@ -75,7 +75,7 @@ export default {
     },
     methods: {
         submit() {
-            this.form.post(route('admin.dashboard.players.store'), {
+            this.form.post(route('tenant.admin.dashboard.players.store'), {
                 onError: (errors) => {
                     this.errors = errors;
                 },

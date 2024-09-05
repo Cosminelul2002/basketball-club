@@ -29,7 +29,7 @@ trait RegisterTenantTrait
      * @param  \App\Http\Requests\StoreTenantRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function storeTenant(StoreTenantRequest $request)
+    public function storeTenant(StoreTenantRequest $request, $superAdmin = false)
     {
         $request->validated();
         // Create a new user
@@ -37,6 +37,13 @@ trait RegisterTenantTrait
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
+        ]);
+
+        // Assign the user the role of admin
+        $user->user_roles()->insert([
+            'user_id' => $user->id,
+            'role_id' => Role::query()->where('key', 'admin')->first()->id,
+            'user_type' => 'App\Models\User',
         ]);
 
         // Create a new tenant
@@ -54,7 +61,10 @@ trait RegisterTenantTrait
 
         // Initialize the tenant
         $createdTenant = Tenant::find($tenant->id);
-        tenancy()->initialize($createdTenant);
+
+        if ($superAdmin === false) {
+            tenancy()->initialize($createdTenant);
+        }
 
 
         // Create the user also in the tenant
@@ -74,6 +84,9 @@ trait RegisterTenantTrait
         });
 
         // Redirect to the tenant dashboard
-        return Inertia::location('http://' . $request['domain'] . '.localhost' . ':8000');
+        if ($superAdmin) {
+            return redirect()->route('super_admin.dashboard.tenants.index');
+        }
+        return redirect()->route('auth.login');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Traits\Tenant;
 
 use App\Http\Requests\LoginTenantRequest;
 use App\Models\Tenant;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -34,12 +35,24 @@ trait LoginTenantTrait
             if ($tenant) {
                 $domain = $tenant->domains->first();
                 tenancy()->initialize($tenant);
-                return Inertia::location('http://' . $domain->domain . ':8000');
+                return Inertia::location('http://' . $domain->domain . ':8000/vendor');
             } else {
                 return redirect()->back()->withErrors('Invalid credentials');
             }
         }
 
         return redirect()->back()->withErrors('Invalid credentials');
+    }
+
+    // Logout a user from the application.
+    public function logout_tenant(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('landing');
     }
 }

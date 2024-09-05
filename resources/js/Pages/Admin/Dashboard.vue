@@ -10,23 +10,23 @@
                     <div class="w-3/12 bg-white p-4 rounded-lg">
                         <h1 class="title block ml-0 !text-left">{{ players }}</h1>
                         <p class="text-gray-500">Jucători</p>
-                        <inertia-link class="text-blue-500 text-xs" :href="route('admin.dashboard.players.index')">
+                        <inertia-link class="text-blue-500 text-xs" :href="route('tenant.admin.dashboard.players.index')">
                             Vezi jucători
                         </inertia-link>
                     </div>
 
-                    <div class="w-3/12 bg-white p-4 rounded-lg">
+                    <!-- <div class="w-3/12 bg-white p-4 rounded-lg">
                         <h1 class="title block ml-0 !text-left">{{ coaches }}</h1>
                         <p class="text-gray-500">Antrenori</p>
                         <inertia-link class="text-blue-500 text-xs" :href="route('admin.dashboard.coaches.index')">
                             Vezi antrenori
                         </inertia-link>
-                    </div>
+                    </div> -->
 
                     <div class="w-3/12 bg-white p-4 rounded-lg">
                         <h1 class="title block ml-0 !text-left">{{ playerGroups }}</h1>
                         <p class="text-gray-500">Grupe de vârstă</p>
-                        <inertia-link class="text-blue-500 text-xs" :href="route('admin.dashboard.groups.index')">
+                        <inertia-link class="text-blue-500 text-xs" :href="route('tenant.admin.dashboard.groups.index')">
                             Vezi grupele de vârstă</inertia-link>
                     </div>
 

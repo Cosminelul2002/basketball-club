@@ -21,4 +21,15 @@ class LoginTenantController extends Controller
     {
         return $this->login_tenant($request);
     }
+
+    /**
+     * Logout tenant.
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout(Request $request)
+    {
+        return $this->logout_tenant($request);
+    }
 }

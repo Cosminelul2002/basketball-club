@@ -1,7 +1,7 @@
 <template>
     <DashboardLayout>
         <AttributeList :attributes="attributes" title="Informații jucător" subtitle="Detalii personale"
-            :initialData="initialData" routeName="admin.dashboard.players.update" :errors="$attrs.errors" />
+            :initialData="initialData" routeName="tenant.admin.dashboard.players.update" :errors="$attrs.errors" />
     </DashboardLayout>
 </template>
 

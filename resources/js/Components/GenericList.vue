@@ -130,12 +130,10 @@ export default {
     },
     data() {
         return {
-            filterValues: {
-                ...this.filters.reduce((acc, filter) => {
-                    acc[filter.model] = '';
-                    return acc;
-                }, {}), ...this.prevFilters
-            }
+            filterValues: this.filters ? this.filters.reduce((acc, filter) => {
+                acc[filter.model] = this.prevFilters[filter.model] || '';
+                return acc;
+            }, {}) : {},
         };
     },
     computed: {

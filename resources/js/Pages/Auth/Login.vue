@@ -69,7 +69,7 @@
                 :style="{ backgroundImage: 'url(' + register_image + ')' }">
             </div>
         </div>
-        <inertia-link :href="route('tenant.landing')">
+        <inertia-link :href="route('landing')">
             <div class="flex flex-row items-center z-20 absolute left-5 top-5 w-30 h-10 gap-2">
                 <div class="text-gray-500 h-10 w-10 flex items-center justify-center cursor-pointer">
                     <svg width="35" height="35" fill="none" viewBox="0 0 24 24" color="currentColor">
@@ -89,7 +89,7 @@
 <script>
 
 export default {
-    name: 'Register',
+    name: 'Login Tenant',
 
     data() {
         return {

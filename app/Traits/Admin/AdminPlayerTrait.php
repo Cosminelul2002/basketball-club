@@ -6,6 +6,7 @@ use App\Enums\ExceptionMessage;
 use App\Enums\Positions;
 use App\Exceptions\AdminResourcesNotFoundException;
 use App\Http\Requests\StorePlayerRequest;
+use App\Models\ActivityTenantLog;
 use App\Models\Player;
 use App\Models\Group;
 use App\Models\PlayerGroup;
@@ -63,7 +64,6 @@ trait AdminPlayerTrait
                         'groups' => $player->groups->pluck('name')->toArray() ?? 'N/A',
                     ];
                 });
-            // dd($players);
             return Inertia::render('Admin/Players/List', [
                 'players' => $players,
                 'groups' => Group::all(),
@@ -136,12 +136,21 @@ trait AdminPlayerTrait
                     'player_id' => $player->id,
                     'group_id' => $group->id,
                 ]);
+
+                // Log the action
+                ActivityTenantLog::log(tenant(), auth()->user(), 'Added a new player and assigned to group ' . $group->name);
             } else {
                 $requestData['group_id'] = null;
                 Player::create($requestData);
+
+                $tenant = tenant();
+                // Log the action
+                tenancy()->central(function () use ($tenant) {
+                    ActivityTenantLog::log($tenant, auth()->user(), 'Added a new player without a group');
+                });
             }
 
-            return redirect()->route('admin.dashboard.players.index')->with('message', 'Jucător adăugat cu succes!.');
+            return redirect()->route('tenant.admin.dashboard.players.index')->with('message', 'Jucător adăugat cu succes!.');
         } catch (QueryException $e) {
             dd($e);
             throw new AdminResourcesNotFoundException(ExceptionMessage::QueryFailed('Players'), null, 500, $e);

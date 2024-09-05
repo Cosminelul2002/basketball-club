@@ -33,15 +33,15 @@ trait LoginTrait
         }
 
         if ($user->hasRole('admin')) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('tenant.admin.dashboard');
         }
 
         if ($user->hasRole('parent')) {
-            return redirect()->route('parent.dashboard');
+            return redirect()->route('tenant.parent.dashboard');
         }
 
         if ($user->hasRole('player')) {
-            return redirect()->route('player.dashboard');
+            return redirect()->route('tenant.player.dashboard');
         }
 
         return redirect()->route('tenant.dashboard');
@@ -131,7 +131,7 @@ trait LoginTrait
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('tenant.landing');
+        return redirect()->route('landing');
     }
 
     /**

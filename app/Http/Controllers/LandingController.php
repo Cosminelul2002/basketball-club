@@ -16,9 +16,4 @@ class LandingController extends Controller
     {
         return Inertia::render('Home');
     }
-
-    public function tenant()
-    {
-        return Inertia::render('Tenant');
-    }
 }

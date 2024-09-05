@@ -7,6 +7,8 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -29,49 +31,24 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $this->routes(function () {
-            Route::middleware('api')
-                ->prefix('api')
-                ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
-                ->group(base_path('routes/web.php'));
-
-            Route::middleware('web')
-                ->group(base_path('routes/super-admin.php'));
-
-            Route::middleware('web')
-                ->group(base_path('routes/admin.php'));
-
-            Route::middleware('web')
-                ->group(base_path('routes/auth.php'));
-
-            Route::middleware('web')
-                ->group(base_path('routes/parent.php'));
-
-            Route::middleware('web')
-                ->group(base_path('routes/player.php'));
+            $this->mapCentralRoutes();
+            $this->mapTenantRoutes();
         });
     }
 
-    protected function mapWebRoutes()
+    protected function mapCentralRoutes()
     {
         foreach ($this->centralDomains() as $domain) {
             Route::middleware('web')
                 ->domain($domain)
-                ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
         }
     }
 
-    protected function mapApiRoutes()
+    protected function mapTenantRoutes()
     {
-        foreach ($this->centralDomains() as $domain) {
-            Route::prefix('api')
-                ->domain($domain)
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
-        }
+        Route::middleware(['web', InitializeTenancyByDomain::class, PreventAccessFromCentralDomains::class])
+            ->group(base_path('routes/tenant.php'));
     }
 
     protected function centralDomains(): array

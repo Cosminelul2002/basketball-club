@@ -1,8 +1,8 @@
 <template>
     <GenericList :items="players" :columns="columns" :filters="filters" :prevFilters="prevFilters" title="Jucători"
         description="Listă Jucători." getRoute="admin.dashboard.players.index"
-        createRoute="admin.dashboard.players.create" entityName="jucător" editRouteName="admin.dashboard.players.show"
-        deleteRouteName="admin.dashboard.players.destroy" />
+        createRoute="tenant.admin.dashboard.players.create" entityName="jucător" editRouteName="tenant.admin.dashboard.players.show"
+        deleteRouteName="tenant.admin.dashboard.players.destroy" />
 </template>
 
 <script>
