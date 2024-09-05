@@ -23,7 +23,7 @@
 <script>
 import { useForm } from '@inertiajs/vue3';
 import DashboardLayout from '../../../Layouts/DashboardLayout.vue';
-import FormInput from '../../../components/FormInput.vue';
+import FormInput from '../../../Components/FormInput.vue';
 
 
 export default {
